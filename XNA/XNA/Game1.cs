@@ -24,7 +24,7 @@ namespace XNA
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            GraphicsAdapter.UseReferenceDevice = true;
+            Capability.changeGraphicAdapter();
         }
 
         /// <summary>
