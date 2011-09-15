@@ -11,39 +11,57 @@ using Microsoft.Xna.Framework.Media;
 
 namespace XNA
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Block[,] blockMap;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
+
             Capability.changeGraphicAdapter();
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+        private Texture2D getDefaultTexture(Color color)
+        {
+            Texture2D texture = new Texture2D(GraphicsDevice, 30, 70);
+            Color[] colorMap = new Color[30 * 70];
+            for (int i = 0; i < colorMap.Length; i++) colorMap[i] = color;
+            texture.SetData(colorMap);
+
+            return texture;
+        }
+
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            int blockWidth = 40;
+            int blockHeight = 40;
+
+            Texture2D[] textures = new Texture2D[3];
+            textures[0] = getDefaultTexture(Color.Yellow);
+            textures[1] = getDefaultTexture(Color.Purple);
+            textures[2] = getDefaultTexture(Color.SeaGreen);
+
+            Random rand = new Random();
+            blockMap = new Block[10, 10];
+            for (int i = 0; i < 10; ++i)
+            {
+                for (int j = 0; j < 10; ++j)
+                {
+                    blockMap[i, j] = new Block(textures[rand.Next() % 3], new Rectangle(blockWidth * i, blockHeight * j, blockWidth, blockHeight));
+                }
+            }
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -52,20 +70,11 @@ namespace XNA
             // TODO: use this.Content to load your game content here
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -77,15 +86,17 @@ namespace XNA
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            for (int i = 0; i < 10; ++i)
+            {
+                for (int j = 0; j < 10; ++j)
+                {
+                    blockMap[i, j].Draw(spriteBatch);
+                }
+            }
 
             base.Draw(gameTime);
         }
