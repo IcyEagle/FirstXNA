@@ -2,5 +2,6 @@
 XNA/XNA/Capability.cs
 *.sln
 *.suo
+*.cache
 bin/
 obj/
