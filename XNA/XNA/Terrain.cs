@@ -29,13 +29,20 @@ namespace XNA
         public void MouseClick(Object target, MouseClickEventArgs args)
         {
             Game.Window.Title = args.position.X + " " + args.position.Y;
+
+            int x = (int) args.position.X / BLOCK_SIZE;
+            int y = (int)args.position.Y / BLOCK_SIZE;
+            map[x, y] = null;
         }
 
         public override void Draw(GameTime gameTime)
         {
             foreach (Block block in map)
             {
-                block.Draw(((Game1)Game).spriteBatch);
+                if (block != null)
+                {
+                    block.Draw(((Game1)Game).spriteBatch);
+                }
             }
         }
     }
