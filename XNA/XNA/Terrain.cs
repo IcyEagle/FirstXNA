@@ -15,6 +15,8 @@ namespace XNA
 {
     class Terrain : DrawableGameComponent
     {
+        public const int BLOCK_SIZE = 40;
+
         Block[,] map;
 
         public Terrain(Block[,] map, Game1 game) : base(game)
@@ -29,18 +31,11 @@ namespace XNA
             Game.Window.Title = "Clicked";
         }
 
-        public override void Initialize()
-        {
-
-        }
-
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch spriteBatch = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-
             foreach (Block block in map)
             {
-                block.Draw(spriteBatch);
+                block.Draw(((Game1)Game).spriteBatch);
             }
         }
     }

@@ -16,65 +16,42 @@ namespace XNA
         public event EventHandler mouseClicked;
 
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
 
-        Block[,] blockMap;
+        public const int SCREEN_WIDTH = 800;
+        public const int SCREEN_HEIGHT = 600;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
-
+            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+            
             IsMouseVisible = true;
 
             Capability.changeGraphicAdapter();
         }
 
-        private Texture2D getDefaultTexture(Color color)
-        {
-            Texture2D texture = new Texture2D(GraphicsDevice, 30, 70);
-            Color[] colorMap = new Color[30 * 70];
-            for (int i = 0; i < colorMap.Length; i++) colorMap[i] = color;
-            texture.SetData(colorMap);
-
-            return texture;
-        }
-
         protected override void Initialize()
         {
-            int blockWidth = 40;
-            int blockHeight = 40;
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Texture2D[] textures = new Texture2D[3];
-            textures[0] = getDefaultTexture(Color.Yellow);
-            textures[1] = getDefaultTexture(Color.Purple);
-            textures[2] = getDefaultTexture(Color.SeaGreen);
-
-            Random rand = new Random();
-            blockMap = new Block[10, 10];
-            for (int i = 0; i < 10; ++i)
-            {
-                for (int j = 0; j < 10; ++j)
-                {
-                    blockMap[i, j] = new Block(textures[rand.Next() % 3], new Rectangle(blockWidth * i, blockHeight * j, blockWidth, blockHeight));
-                }
-            }
-
-            Components.Add(new Terrain(blockMap, this));
+            // initialize services.
+            Services.AddService(typeof(TextureHelper), new TextureHelper(this));
+            Services.AddService(typeof(TerrainGenerator), new TerrainGenerator(this));
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            TerrainGenerator helper = (TerrainGenerator)Services.GetService(typeof(TerrainGenerator));
 
-            Services.AddService(typeof(SpriteBatch), spriteBatch);
-            // TODO: use this.Content to load your game content here
+            // initialize components.
+            Terrain terrain = helper.generateTerrain(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
+            Components.Add(terrain);
         }
 
         protected override void UnloadContent()
