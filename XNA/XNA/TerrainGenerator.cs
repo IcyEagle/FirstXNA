@@ -25,7 +25,7 @@ namespace XNA
             this.game = game;
         }
 
-        public Terrain generateTerrain(int width, int height, int blockWidth, int blockHeight)
+        public Block[,] generateMap(int width, int height, int blockWidth, int blockHeight)
         {
             Block[,] blocks = new Block[width, height];
 
@@ -51,7 +51,7 @@ namespace XNA
                 }
             }
 
-            return new Terrain(blocks, (Game1)game);
+            return blocks;
         }
 
     }

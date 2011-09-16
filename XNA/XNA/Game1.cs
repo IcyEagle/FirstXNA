@@ -50,8 +50,8 @@ namespace XNA
             TerrainGenerator helper = (TerrainGenerator)Services.GetService(typeof(TerrainGenerator));
 
             // initialize components.
-            Terrain terrain = helper.generateTerrain(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
-            Components.Add(terrain);
+            Block[,] map = helper.generateMap(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
+            Components.Add(new Terrain(map, this));
         }
 
         protected override void UnloadContent()
@@ -62,7 +62,7 @@ namespace XNA
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
             // TODO: Add your update logic here
