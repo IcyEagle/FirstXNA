@@ -26,6 +26,8 @@ namespace XNA
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
 
+            IsMouseVisible = true;
+
             Capability.changeGraphicAdapter();
         }
 
@@ -59,6 +61,8 @@ namespace XNA
                 }
             }
 
+            Components.Add(new Terrain(blockMap, this));
+
             base.Initialize();
         }
 
@@ -67,6 +71,7 @@ namespace XNA
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Services.AddService(typeof(SpriteBatch), spriteBatch);
             // TODO: use this.Content to load your game content here
         }
 
@@ -89,16 +94,9 @@ namespace XNA
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            for (int i = 0; i < 10; ++i)
-            {
-                for (int j = 0; j < 10; ++j)
-                {
-                    blockMap[i, j].Draw(spriteBatch);
-                }
-            }
-
+            spriteBatch.Begin();
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }

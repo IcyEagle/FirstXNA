@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace XNA
 {
-    class Block// : DrawableGameComponent
+    class Block
     {
         private Texture2D texture;
         private Rectangle rectangle;
@@ -23,9 +23,7 @@ namespace XNA
         }
 
         public void Draw(SpriteBatch batch) {
-            batch.Begin();
             batch.Draw(this.texture, this.rectangle, Color.White);
-            batch.End();
         }
     }
 }
