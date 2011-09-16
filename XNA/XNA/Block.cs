@@ -15,9 +15,11 @@ namespace XNA
     class Block
     {
         private Texture2D texture;
+        //private Vector2 size;
+        //private Vector2 position;
         private Rectangle rectangle;
 
-        public Block(Texture2D texture, Rectangle rectangle) /*: base(game)*/ {
+        public Block(Texture2D texture, Rectangle rectangle) {
             this.texture = texture;
             this.rectangle = rectangle;
         }

@@ -18,8 +18,6 @@ namespace XNA
     {
         private Game game;
 
-        List<Texture2D> texturesStack;
-
         public TerrainGenerator(Game game)
         {
             this.game = game;
@@ -27,7 +25,11 @@ namespace XNA
 
         public Block[,] generateMap(int width, int height, int blockWidth, int blockHeight)
         {
-            Block[,] blocks = new Block[width, height];
+            int blockRowSize = width / blockWidth + 1;
+            int blockColumnSize = height / blockHeight + 1;
+
+            Block[,] blocks = new Block[blockRowSize, blockColumnSize];
+            game.Window.Title = blocks.Length.ToString();
 
             TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
 
@@ -41,9 +43,9 @@ namespace XNA
 
             Random rand = new Random();
 
-            for (int i = 0; i < width; ++i)
+            for (int i = 0; i < blockRowSize; ++i)
             {
-                for (int j = 0; j < height; ++j)
+                for (int j = 0; j < blockColumnSize; ++j)
                 {
                     // random texture.
                     Texture2D texture = textures[rand.Next() % textures.Count];

@@ -13,7 +13,8 @@ namespace XNA
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        public event EventHandler mouseClicked;
+        public delegate void MouseClickEventHandler (Object sender, MouseClickEventArgs args);
+        public event MouseClickEventHandler mouseClick;
 
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
@@ -68,7 +69,9 @@ namespace XNA
             // TODO: Add your update logic here
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                mouseClicked.Invoke(this, EventArgs.Empty);
+                MouseState state = Mouse.GetState();
+                MouseClickEventArgs args = new MouseClickEventArgs(new Vector2(state.X, state.Y));
+                mouseClick.Invoke(this, args);
             }
 
             base.Update(gameTime);

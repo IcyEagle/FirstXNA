@@ -15,7 +15,7 @@ namespace XNA
 {
     class Terrain : DrawableGameComponent
     {
-        public const int BLOCK_SIZE = 40;
+        public const int BLOCK_SIZE = 100;
 
         Block[,] map;
 
@@ -23,12 +23,12 @@ namespace XNA
         {
             this.map = map;
 
-            game.mouseClicked += new EventHandler(MouseClicked);
+            game.mouseClick += new Game1.MouseClickEventHandler(MouseClick);
         }
 
-        public void MouseClicked(Object target, EventArgs args)
+        public void MouseClick(Object target, MouseClickEventArgs args)
         {
-            Game.Window.Title = "Clicked";
+            Game.Window.Title = args.position.X + " " + args.position.Y;
         }
 
         public override void Draw(GameTime gameTime)
