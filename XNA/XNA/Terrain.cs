@@ -25,10 +25,10 @@ namespace XNA
         {
             this.map = map;
 
-            game.mouseClick += new Game1.MouseClickEventHandler(MouseClick);
+            GameModel.instance.mouseInput.onClick += new MouseInput.onClickHandler(MouseClick);
         }
 
-        public void MouseClick(Object target, MouseClickEventArgs args)
+        public void MouseClick(MouseInput.OnClickArgs args)
         {
             Game.Window.Title = args.position.X + " " + args.position.Y;
 

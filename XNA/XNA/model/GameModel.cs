@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using XNA.model.block;
+using XNA.model;
 
 namespace XNA
 {
     class GameModel
     {
+
         public static GameModel instance;
 
-        public BlockManager blockManager;
+        public Character character;
+
+        public BodyManager bodyManager;
+
+        public MouseInput mouseInput;
+
 
         public static void Init(Game1 game)
         {
@@ -20,7 +26,8 @@ namespace XNA
 
         private GameModel(Game1 game)
         {
-            blockManager = new BlockManager(game);
+            bodyManager = new BodyManager(game.world);
+            mouseInput = new MouseInput();
             //...
         }
 
