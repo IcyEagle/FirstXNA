@@ -32,7 +32,6 @@ namespace XNA
             int blockColumnSize = (int)Math.Ceiling((double)height / blockHeight);
 
             Block[,] blocks = new Block[blockRowSize, blockColumnSize];
-            game.Window.Title = blocks.Length.ToString();
 
             TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
 

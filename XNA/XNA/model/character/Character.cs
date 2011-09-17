@@ -29,7 +29,7 @@ namespace XNA.model
             this.game = game;
             this.name = name;
             this.level = level;
-            width = 100; height = 200;
+            width = 100; height = 100;
             create();
         }
 
@@ -42,7 +42,7 @@ namespace XNA.model
 
         public void Draw()
         {
-            game.spriteBatch.Draw(texture, body.Position, new Rectangle(x, y, 100, 200), Color.Azure, body.Rotation, new Vector2(50, 100), 1f, SpriteEffects.None, 0f);
+            game.spriteBatch.Draw(texture, body.Position, null, Color.Azure, body.Rotation, new Vector2(width/2, height/2), 1f, SpriteEffects.None, 0f);
         }
 
     }

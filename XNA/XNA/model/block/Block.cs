@@ -51,7 +51,11 @@ namespace XNA.model
 
         public void disablePhysics()
         {
-            GameModel.instance.bodyManager.removeBody(body);
+            if (body != null)
+            {
+                GameModel.instance.bodyManager.removeBody(body);
+                body = null;
+            }
         }
 
         public bool damage()
