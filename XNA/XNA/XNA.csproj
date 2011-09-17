@@ -108,8 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capability.cs" />
-    <Compile Include="Block.cs" />
+    <Compile Include="model\block\Block.cs" />
     <Compile Include="model\block\BlockManager.cs" />
+    <Compile Include="model\item\Item.cs" />
+    <Compile Include="model\item\ItemManager.cs" />
     <Compile Include="model\Model.cs" />
     <Compile Include="MouseClickEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

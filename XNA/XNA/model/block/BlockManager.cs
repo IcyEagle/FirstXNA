@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XNA.model.block
+namespace XNA.model
 {
     class BlockManager
     {
