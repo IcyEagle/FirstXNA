@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 using System.Collections;
 using System.Collections.ObjectModel;
 
+using XNA.model;
+
 namespace XNA
 {
     class TerrainGenerator

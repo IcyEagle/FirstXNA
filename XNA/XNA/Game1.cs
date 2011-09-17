@@ -14,6 +14,8 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Collision;
 
+using XNA.model;
+
 namespace XNA
 {
     public class Game1 : Microsoft.Xna.Framework.Game
