@@ -21,6 +21,9 @@ namespace XNA
 
         Block[,] map;
 
+        // TEMP.
+        List<Item> items = new List<Item>();
+
         public Terrain(Block[,] map, Game1 game) : base(game)
         {
             this.map = map;
@@ -60,6 +63,11 @@ namespace XNA
                     block.Draw(((Game1)Game).spriteBatch);
                 }
             }
+
+            foreach (Item item in items)
+            {
+                item.Draw(((Game1)Game).spriteBatch);
+            }
         }
 
         protected void buildPhysicsModel()
@@ -98,9 +106,9 @@ namespace XNA
             //   # - enabled physics,
             //   % - disabled physics,
             //   X - deleted element
-            // %%%%%%#  #%%%    %%%%%%#  #%%%     %%%%%%#  #%%%
-            // %%%%%%#  #%%% -> %%%%%%X  #%%% ->  %%%%%#   #%%%
-            // %%%%%%%##%%%%    %%%%%%%##%%%%     %%%%%%###%%%%
+            // %%%%%%#  #%%%    %%%%%%#  #%%%    %%%%%%#  #%%%
+            // %%%%%%#  #%%% -> %%%%%%X  #%%% -> %%%%%#   #%%%
+            // %%%%%%%##%%%%    %%%%%%%##%%%%    %%%%%%###%%%%
 
             if (hasLeftNeighbor(x, y)) { getLeftNeighbor(x, y).enablePhysics(); Game.Window.Title += "L"; }
             if (hasRightNeighbor(x, y)) { getRightNeighbor(x, y).enablePhysics(); Game.Window.Title += "R"; }
@@ -112,6 +120,11 @@ namespace XNA
         {
             block.disablePhysics();
             Item item = GameModel.instance.itemManager.getItem(ItemManager.ItemType.BLOCK_GENERIC);
+            Random rand = new Random();
+            float offsetX = rand.Next(30, 170) / 100f;
+            float offsetY = rand.Next(30, 170) / 100f;
+            item.setPosition(block.x + block.width * offsetX / 2f, block.y + block.height * offsetY / 2f);
+            items.Add(item);
         }
 
         private bool hasLeftNeighbor(int x, int y) {

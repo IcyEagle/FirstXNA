@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 
 namespace XNA.model
 {
@@ -23,12 +25,13 @@ namespace XNA.model
         public Item getItem(ItemType type) {
             TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
 
-            int width = 15;
-            int height = 15;
+            int width = 16;
+            int height = 16;
 
             Texture2D texture = helper.generateSimpleTexture(width, height, Color.Magenta);
+            Body body = GameModel.instance.bodyManager.createPickableBody(width, height);
 
-            return new Item(texture, width, height);
+            return new Item(texture, width, height, body);
         }
     }
 }

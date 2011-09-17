@@ -38,10 +38,9 @@ namespace XNA.model
             return body;
         }
 
-        public Body createPickableBody(int x, int y, int width, int height)
+        public Body createPickableBody(int width, int height)
         {
             Body body = BodyFactory.CreateRectangle(world, width, height, 1f);
-            body.Position = new Vector2(x, y);
             body.BodyType = BodyType.Dynamic;
             body.Restitution = .5f;
             body.Friction = .5f;

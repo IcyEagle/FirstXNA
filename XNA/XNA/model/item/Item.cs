@@ -10,40 +10,40 @@ namespace XNA.model
 {
     class Item
     {
-        private Texture2D texture;
         public int width;
         public int height;
-        public Vector2 position;
+
+        private Texture2D texture;
         private Body body;
 
-        public Item(Texture2D texture, int width, int height)
+        public int x { get { return (int) body.Position.X; } }
+        public int y { get { return (int) body.Position.Y; } }
+
+        public Item(Texture2D texture, int width, int height, Body body)
         {
             this.texture = texture;
             this.width = width;
             this.height = height;
+            this.body = body;
         }
 
-        public Item(Texture2D texture, int width, int height, Vector2 position)
+        public Item(Texture2D texture, int width, int height, Body body, Vector2 position)
         {
             this.texture = texture;
             this.width = width;
             this.height = height;
+            this.body = body;
+            this.body.Position = position;
         }
 
-        public void setPosition(Vector2 position) {
-            this.position = position;
+        public void setPosition(float x, float y)
+        {
+            body.Position = new Vector2(x + width / 2, y + height / 2);
         }
 
         public void Draw(SpriteBatch batch)
         {
-            if (position != null)
-            {
-                batch.Draw(this.texture, new Rectangle((int)position.X, (int)position.Y, width, height), Color.White);
-            }
-            else
-            {
-                throw new Exception("Item is not placed");
-            }
+            batch.Draw(this.texture, new Rectangle(x, y, width, height), Color.White);
         }
     }
 }
