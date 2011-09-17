@@ -10,14 +10,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace XNA
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using FarseerPhysics.Collision;
+
+namespace XNA.model
 {
     class Block
     {
         private Texture2D texture;
-        //private Vector2 size;
-        //private Vector2 position;
         private Rectangle rectangle;
+        private Body body;
 
         public Block(Texture2D texture, Rectangle rectangle) {
             this.texture = texture;
@@ -25,7 +29,7 @@ namespace XNA
         }
 
         public void Draw(SpriteBatch batch) {
-            batch.Draw(this.texture, this.rectangle, Color.White);
+            batch.Draw(this.texture, new Rectangle(rectangle.X, rectangle.Y, texture.Width, texture.Height), Color.White);
         }
     }
 }

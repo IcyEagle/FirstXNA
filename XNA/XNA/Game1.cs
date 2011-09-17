@@ -9,6 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using FarseerPhysics.Collision;
+
 namespace XNA
 {
     public class Game1 : Microsoft.Xna.Framework.Game
@@ -21,6 +26,8 @@ namespace XNA
 
         public const int SCREEN_WIDTH = 800;
         public const int SCREEN_HEIGHT = 600;
+
+        World world;
 
         public Game1()
         {
@@ -38,6 +45,10 @@ namespace XNA
         protected override void Initialize()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            world = new World(new Vector2(0, 100));
+
+            GameModel.Init(this);
 
             // initialize services.
             Services.AddService(typeof(TextureHelper), new TextureHelper(this));
