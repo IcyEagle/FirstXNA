@@ -29,7 +29,7 @@ namespace XNA.model
         }
 
         public void Draw(SpriteBatch batch) {
-            batch.Draw(this.texture, new Rectangle(rectangle.X, rectangle.Y, texture.Width, texture.Height), Color.White);
+            batch.Draw(this.texture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height), Color.White);
         }
     }
 }

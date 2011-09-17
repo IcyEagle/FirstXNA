@@ -37,11 +37,11 @@ namespace XNA
 
             // couple of available textures.
             Collection<Texture2D> textures = new Collection<Texture2D>();
-            textures.Add(helper.generateSimpleTexture(width, height, Color.Brown));
-            textures.Add(helper.generateSimpleTexture(width, height, Color.SteelBlue));
-            textures.Add(helper.generateSimpleTexture(width, height, Color.Silver));
-            textures.Add(helper.generateSimpleTexture(width, height, Color.Gold));
-            textures.Add(helper.generateSimpleTexture(width, height, Color.LightGray));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.Brown));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.SteelBlue));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.Silver));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.Gold));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.LightGray));
 
             Random rand = new Random();
 
