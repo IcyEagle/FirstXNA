@@ -33,17 +33,23 @@ namespace XNA.model
             this.width = width;
             this.height = height;
             this.body = body;
-            this.body.Position = position;
+            setPosition(position.X, position.Y);
         }
 
         public void setPosition(float x, float y)
         {
-            body.Position = new Vector2(x + width / 2, y + height / 2);
+            body.Position = new Vector2(x, y);
+        }
+
+        public void throwOut()
+        {
+            Random rand = new Random();
+            body.LinearVelocity -= new Vector2(rand.Next(10, 30), rand.Next(30, 50));
         }
 
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(this.texture, new Rectangle(x, y, width, height), Color.White);
+            batch.Draw(this.texture, new Rectangle(x, y, width, height), null, Color.White, body.Rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0f);
         }
     }
 }

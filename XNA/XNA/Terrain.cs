@@ -28,13 +28,13 @@ namespace XNA
         {
             this.map = map;
 
-            GameModel.instance.mouseInput.onClick += new MouseInput.onClickHandler(MouseClick);
+            GameModel.instance.mouseInput.onClick += new MouseInput.onClickHandler(onClickHandler);
 
             buildPhysicsModel();
             init();
         }
 
-        public void MouseClick(MouseInput.OnClickArgs args)
+        public void onClickHandler(MouseInput.OnClickArgs args)
         {
             // calculate block position.
             int x = (int) args.state.X / BLOCK_SIZE;
@@ -124,6 +124,7 @@ namespace XNA
             float offsetX = rand.Next(30, 170) / 100f;
             float offsetY = rand.Next(30, 170) / 100f;
             item.setPosition(block.x + block.width * offsetX / 2f, block.y + block.height * offsetY / 2f);
+            item.throwOut();
             items.Add(item);
         }
 
