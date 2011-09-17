@@ -20,8 +20,6 @@ namespace XNA
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        public delegate void MouseClickEventHandler (Object sender, MouseClickEventArgs args);
-        public event MouseClickEventHandler mouseClick;
 
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
@@ -29,7 +27,7 @@ namespace XNA
         public const int SCREEN_WIDTH = 800;
         public const int SCREEN_HEIGHT = 600;
 
-        World world;
+        public World world;
 
         public Game1()
         {
@@ -47,6 +45,8 @@ namespace XNA
         protected override void Initialize()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            GameModel.Init(this);
 
             world = new World(new Vector2(0, 100));
 
@@ -66,6 +66,8 @@ namespace XNA
             // initialize components.
             Block[,] map = helper.generateMap(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
             Components.Add(new Terrain(map, this));
+            GameModel.instance.character = new Character(this, "Griff", 1);
+
         }
 
         protected override void UnloadContent()
@@ -79,13 +81,9 @@ namespace XNA
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            // TODO: Add your update logic here
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                MouseState state = Mouse.GetState();
-                MouseClickEventArgs args = new MouseClickEventArgs(new Vector2(state.X, state.Y));
-                mouseClick.Invoke(this, args);
-            }
+            GameModel.instance.mouseInput.Update();
+
+            world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
 
             base.Update(gameTime);
         }
@@ -94,6 +92,7 @@ namespace XNA
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
+            GameModel.instance.character.Draw();
             base.Draw(gameTime);
             spriteBatch.End();
         }

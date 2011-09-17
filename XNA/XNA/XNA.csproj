@@ -109,11 +109,12 @@
   <ItemGroup>
     <Compile Include="Capability.cs" />
     <Compile Include="model\block\Block.cs" />
-    <Compile Include="model\block\BlockManager.cs" />
+    <Compile Include="model\BodyManager.cs" />
     <Compile Include="model\item\Item.cs" />
     <Compile Include="model\item\ItemManager.cs" />
-    <Compile Include="model\Model.cs" />
-    <Compile Include="MouseClickEventArgs.cs" />
+    <Compile Include="model\character\Character.cs" />
+    <Compile Include="model\GameModel.cs" />
+    <Compile Include="model\input\MouseInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -129,10 +130,6 @@
     <ProjectReference Include="..\..\Farseer Physics Engine 3.3 XNA\Farseer Physics XNA.csproj">
       <Project>{0A850700-1ABB-4288-A391-6726B90EBEB9}</Project>
       <Name>Farseer Physics XNA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XNAContent\XNAContent.contentproj">
-      <Name>XNAContent</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

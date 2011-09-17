@@ -25,17 +25,17 @@ namespace XNA
         {
             this.map = map;
 
-            game.mouseClick += new Game1.MouseClickEventHandler(MouseClick);
+            GameModel.instance.mouseInput.onClick += new MouseInput.onClickHandler(MouseClick);
 
             buildPhysicsModel();
             init();
         }
 
-        public void MouseClick(Object target, MouseClickEventArgs args)
+        public void MouseClick(MouseInput.OnClickArgs args)
         {
             // calculate block position.
-            int x = (int) args.position.X / BLOCK_SIZE;
-            int y = (int) args.position.Y / BLOCK_SIZE;
+            int x = (int) args.state.X / BLOCK_SIZE;
+            int y = (int) args.state.Y / BLOCK_SIZE;
 
             Game.Window.Title = x + ", " + y;
 
