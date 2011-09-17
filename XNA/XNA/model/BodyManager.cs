@@ -48,5 +48,9 @@ namespace XNA.model
             return body;
         }
 
+        public void removeBody(Body body)
+        {
+            world.RemoveBody(body);
+        }
     }
 }

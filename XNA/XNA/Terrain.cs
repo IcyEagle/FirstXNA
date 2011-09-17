@@ -112,6 +112,7 @@ namespace XNA
 
         protected void onBlockDestroyHandler(Block block)
         {
+            block.disablePhysics();
             Item item = GameModel.instance.itemManager.getItem(ItemManager.ItemType.BLOCK_GENERIC);
         }
 
