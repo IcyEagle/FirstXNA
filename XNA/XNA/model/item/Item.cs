@@ -26,6 +26,7 @@ namespace XNA.model
 
         private Texture2D texture;
         private Body body;
+        private PhysicalActiveObject physicalObject;
 
         public int x { get { return (int) body.Position.X; } }
         public int y { get { return (int) body.Position.Y; } }
@@ -36,6 +37,8 @@ namespace XNA.model
             this.width = width;
             this.height = height;
             this.body = body;
+
+            this.physicalObject = new PhysicalActiveObject();
 
             onCharacterNear += new onCharacterNearDelegate(onCharacterNearHandler);
         }
@@ -68,6 +71,11 @@ namespace XNA.model
         private void onCharacterNearHandler(OnCharacterNearArgs args)
         {
             System.Console.WriteLine("Character is NEAR!");
+        }
+
+        public void Update()
+        {
+            physicalObject.updatePosition(body.Position);
         }
     }
 }

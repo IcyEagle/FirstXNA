@@ -13,8 +13,8 @@ namespace XNA.model
 {
     class Character : DrawableGameComponent
     {
-        public delegate void onMoveHandler(OnMoveArgs args);
-        public event onMoveHandler onMove;
+        public delegate void onMoveDelegate(OnMoveArgs args);
+        public event onMoveDelegate onMove;
         public class OnMoveArgs
         {
             public int x, y;
@@ -30,8 +30,6 @@ namespace XNA.model
         public string name;
         public int level;
 
-        public int x;
-        public int y;
         public int width;
         public int height;
 
@@ -46,8 +44,8 @@ namespace XNA.model
             this.game = game;
             this.name = name;
             this.level = level;
-            this.width = 32;
-            this.height = 48;
+            this.width = 32 - 2;
+            this.height = 48 - 2;
             this.bag = new Bag();
             this.physicalObject = new PhysicalActiveObject();
             create();
@@ -59,7 +57,7 @@ namespace XNA.model
             TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
             texture = helper.generateSimpleTexture(width, height, Color.BlanchedAlmond);
 
-            GameModel.instance.keyboardInput.onPressedKeys += new KeyboardInput.onPressedKeysHandler(onPressedKeysHandler);
+            GameModel.instance.keyboardInput.onPressedKeys += new KeyboardInput.onPressedKeysDelegate(onPressedKeysHandler);
         }
 
         private void onPressedKeysHandler(KeyboardInput.OnPressedKeysArgs args)
@@ -94,9 +92,9 @@ namespace XNA.model
 
         public override void Update(GameTime gameTime)
         {
-            if (body.LinearVelocity != Vector2.Zero && onMove != null)
+            if (body.LinearVelocity != Vector2.Zero)
             {
-                onMove.Invoke(new OnMoveArgs((int)body.Position.X, (int)body.Position.Y));
+                //onMove.Invoke(new OnMoveArgs((int)body.Position.X, (int)body.Position.Y));
                 physicalObject.updatePosition(body.Position);
             }
         }

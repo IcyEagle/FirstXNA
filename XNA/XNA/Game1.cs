@@ -63,14 +63,19 @@ namespace XNA
         {
             TerrainGenerator helper = (TerrainGenerator)Services.GetService(typeof(TerrainGenerator));
 
+
+            //DEBUG
+            TextureHelper textureHelper = (TextureHelper)Services.GetService(typeof(TextureHelper));
+            Block.enabledTexture = textureHelper.generateSimpleTexture(Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE, Color.White);
+
             // initialize components.
             GameModel.instance.character = new Character(this, "Griff", 1);
             Components.Add(GameModel.instance.character);
 
-            // should be initialized AFTER character.
             Block[,] map = helper.generateMap(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
-            Terrain terrain = new Terrain(map, this);
-            Components.Add(terrain);
+            GameModel.instance.terrain = new Terrain(map, this);
+            Components.Add(GameModel.instance.terrain);
+
         }
 
         protected override void UnloadContent()
@@ -89,12 +94,15 @@ namespace XNA
 
             world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
 
+            GameModel.instance.camera2d.Update();
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+            //spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, GameModel.instance.camera2d.getTransformation());
             spriteBatch.Begin();
             base.Draw(gameTime);
             spriteBatch.End();

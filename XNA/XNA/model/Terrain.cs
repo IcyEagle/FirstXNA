@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 using XNA.model;
 
-namespace XNA
+namespace XNA.model
 {
     class Terrain : DrawableGameComponent
     {
@@ -27,7 +27,7 @@ namespace XNA
         };
 
         private Block[,] map;
-        private int[,] physicalMap;
+        private int[,] regionMap;
 
         // TEMP.
         List<Item> items = new List<Item>();
@@ -36,10 +36,10 @@ namespace XNA
         {
             this.map = map;
 
-            // init physical map.
-            physicalMap = new int[(int)Math.Ceiling((float)map.GetLowerBound(0) / BLOCK_PER_PHYSICAL_REGION), (int)Math.Ceiling((float)map.GetLowerBound(1) / BLOCK_PER_PHYSICAL_REGION)];
+            // init region map.
+            regionMap = new int[(int)Math.Ceiling((float)map.GetUpperBound(0) / BLOCK_PER_PHYSICAL_REGION), (int)Math.Ceiling((float)map.GetUpperBound(1) / BLOCK_PER_PHYSICAL_REGION)];
 
-            GameModel.instance.mouseInput.onClick += new MouseInput.onClickHandler(onClickHandler);
+            GameModel.instance.mouseInput.onClick += new MouseInput.onClickDelegate(onClickHandler);
 
             //buildPhysicsModel();
             init();
@@ -57,9 +57,6 @@ namespace XNA
                 if (destroyed)
                 {
                     map[(int)blockPosition.X, (int)blockPosition.Y] = null;
-
-                    // DEPRECATED!
-                    updatePhysicsAround((int)blockPosition.X, (int)blockPosition.Y);
                 }
             }
         }
@@ -105,33 +102,61 @@ namespace XNA
 
         private void updatePhysicalRegion(Vector2 position, PhysicalRegionState state)
         {
-            int fromX = (int) position.X * BLOCK_PER_PHYSICAL_REGION;
-            int toX = (int)position.X * (BLOCK_PER_PHYSICAL_REGION + 1);
-            int fromY = (int)position.Y * BLOCK_PER_PHYSICAL_REGION;
-            int toY = (int)position.Y * (BLOCK_PER_PHYSICAL_REGION + 1);
+            // current and all around regions reacted.
+            int fromX = (int)position.X - 1 >= 0 ? (int)position.X - 1 : 0;
+            int toX = (int)position.X + 1 < regionMap.GetUpperBound(0) ? (int)position.X + 1 : regionMap.GetUpperBound(0);
+            int fromY = (int)position.Y - 1 >= 0 ? (int)position.Y - 1 : 0;
+            int toY = (int)position.Y + 1 < regionMap.GetUpperBound(1) ? (int)position.Y + 1 : regionMap.GetUpperBound(1);
 
-            Console.WriteLine("Update region from " + fromX + " to " + toX + " and from " + fromY + " to " + toY);
+            for (int x = fromX; x <= toX; ++x)
+            {
+                for (int y = fromY; y <= toY; ++y)
+                {
+                    if (regionMap[x, y] == 0 && state == PhysicalRegionState.ENTER)
+                    {
+                        changeBlocksInRegion(new Vector2(x, y), state);
+                    }
+
+                    regionMap[x, y] += (int)state;
+
+                    if (regionMap[x, y] == 0)
+                    {
+                        changeBlocksInRegion(new Vector2(x, y), state);
+                    }
+
+                    // ASSERT.
+                    if (regionMap[x, y] < 0)
+                    {
+                        throw new Exception("Bad Physical map value: " + regionMap[x, y]);
+                    }
+                }
+            }
+        }
+
+        private void changeBlocksInRegion(Vector2 position, PhysicalRegionState state)
+        {
+            int fromX = (int)position.X * BLOCK_PER_PHYSICAL_REGION;
+            int toX = ((int)position.X + 1) * BLOCK_PER_PHYSICAL_REGION < map.GetUpperBound(0) ? ((int)position.X + 1) * BLOCK_PER_PHYSICAL_REGION : map.GetUpperBound(0) + 1;
+            int fromY = (int)position.Y * BLOCK_PER_PHYSICAL_REGION;
+            int toY = ((int)position.Y + 1) * BLOCK_PER_PHYSICAL_REGION < map.GetUpperBound(1) ? ((int)position.Y + 1) * BLOCK_PER_PHYSICAL_REGION : map.GetUpperBound(1) + 1;
+
+            //Console.WriteLine("Update blocks from " + fromX + " to " + toX + " and from " + fromY + " to " + toY);
 
             for (int x = fromX; x < toX; ++x)
             {
                 for (int y = fromY; y < toY; ++y)
                 {
-                    if (physicalMap[x, y] == 0 && state > 0)
+                    if (map[x, y] != null)
                     {
-                        map[x, y].enablePhysics();
-                    }
+                        if (state == PhysicalRegionState.ENTER)
+                        {
+                            map[x, y].enablePhysics();
+                        }
 
-                    physicalMap[x, y] += (int)state;
-
-                    if (physicalMap[x, y] == 0)
-                    {
-                        map[x, y].disablePhysics();
-                    }
-
-                    // ASSERT.
-                    if (physicalMap[x, y] < 0)
-                    {
-                        throw new Exception("Bad Physical map value: " + physicalMap[x, y]);
+                        if (state == PhysicalRegionState.LEAVE)
+                        {
+                            map[x, y].disablePhysics();
+                        }
                     }
                 }
             }
@@ -153,21 +178,6 @@ namespace XNA
             }
         }
 
-        protected void buildPhysicsModel()
-        {
-            for (int x = 0 ; x <= map.GetUpperBound(0) ; ++x)
-            {
-                for (int y = 0; y <= map.GetUpperBound(1) ; ++y)
-                {
-                    Block block = map[x, y];
-                    if (block != null && (!hasLeftNeighbor(x, y) || !hasRightNeighbor(x, y) || !hasUpNeighbor(x, y) || !hasDownNeighbor(x, y)))
-                    {
-                        block.enablePhysics();
-                    }
-                }
-            }
-        }
-
         protected void init()
         {
             foreach (Block block in map)
@@ -179,25 +189,12 @@ namespace XNA
             }
         }
 
-        // DEPRECATED!
-        protected void updatePhysicsAround(int x, int y)
+        public override void Update(GameTime gameTime)
         {
-            // erase cell.
-            map[x, y] = null;
-
-            // enable neighbors' physics.
-            // Where:
-            //   # - enabled physics,
-            //   % - disabled physics,
-            //   X - deleted element
-            // %%%%%%#  #%%%    %%%%%%#  #%%%    %%%%%%#  #%%%
-            // %%%%%%#  #%%% -> %%%%%%X  #%%% -> %%%%%#   #%%%
-            // %%%%%%%##%%%%    %%%%%%%##%%%%    %%%%%%###%%%%
-
-            if (hasLeftNeighbor(x, y)) { getLeftNeighbor(x, y).enablePhysics(); }
-            if (hasRightNeighbor(x, y)) { getRightNeighbor(x, y).enablePhysics(); }
-            if (hasUpNeighbor(x, y)) { getUpNeighbor(x, y).enablePhysics(); }
-            if (hasDownNeighbor(x, y)) { getDownNeighbor(x, y).enablePhysics(); }
+            foreach (Item item in items)
+            {
+                item.Update();
+            }
         }
 
         protected void onBlockDestroyHandler(Block block)

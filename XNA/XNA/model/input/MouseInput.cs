@@ -14,8 +14,8 @@ namespace XNA.model
 
         }
 
-        public delegate void onClickHandler(OnClickArgs args);
-        public event onClickHandler onClick;
+        public delegate void onClickDelegate(OnClickArgs args);
+        public event onClickDelegate onClick;
         public class OnClickArgs
         {
             public MouseState state;
@@ -24,7 +24,7 @@ namespace XNA.model
 
         public void Update()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && onClick != null)
             {
                 onClick.Invoke(new OnClickArgs(Mouse.GetState()));
             }
