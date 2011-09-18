@@ -40,6 +40,11 @@ namespace XNA.model
             int x = (int) args.state.X / BLOCK_SIZE;
             int y = (int) args.state.Y / BLOCK_SIZE;
 
+            if (x > map.GetUpperBound(0) || y > map.GetUpperBound(1) || x < map.GetLowerBound(0) || y < map.GetLowerBound(1))
+            {
+                return;
+            }
+
             Block block = map[x, y];
 
             // damage block.
