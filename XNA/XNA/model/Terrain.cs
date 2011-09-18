@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 using XNA.model;
 
-namespace XNA
+namespace XNA.model
 {
     class Terrain : DrawableGameComponent
     {
