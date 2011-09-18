@@ -22,12 +22,9 @@ namespace XNA
     {
 
         GraphicsDeviceManager graphics;
-        public SpriteBatch spriteBatch;
 
         public const int SCREEN_WIDTH = 1024;
         public const int SCREEN_HEIGHT = 768;
-
-        public World world;
 
         public Game1()
         {
@@ -44,13 +41,9 @@ namespace XNA
 
         protected override void Initialize()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            GameModel.Init(this);
-
-            world = new World(new Vector2(0, 50));
-
-            GameModel.Init(this);
+            GameModel.instance.game = this;
+            GameModel.instance.world = new World(new Vector2(0, 50));
+            GameModel.instance.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // initialize services.
             Services.AddService(typeof(TextureHelper), new TextureHelper(this));
@@ -62,7 +55,6 @@ namespace XNA
         protected override void LoadContent()
         {
             TerrainGenerator helper = (TerrainGenerator)Services.GetService(typeof(TerrainGenerator));
-
 
             //DEBUG
             TextureHelper textureHelper = (TextureHelper)Services.GetService(typeof(TextureHelper));
@@ -92,7 +84,7 @@ namespace XNA
             GameModel.instance.mouseInput.Update();
             GameModel.instance.keyboardInput.Update();
 
-            world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
+            GameModel.instance.world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
 
             GameModel.instance.camera2d.Update();
 
@@ -103,9 +95,9 @@ namespace XNA
         {
             GraphicsDevice.Clear(Color.Black);
             //spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, GameModel.instance.camera2d.getTransformation());
-            spriteBatch.Begin();
+            GameModel.instance.spriteBatch.Begin();
             base.Draw(gameTime);
-            spriteBatch.End();
+            GameModel.instance.spriteBatch.End();
         }
     }
 }

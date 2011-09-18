@@ -87,7 +87,7 @@ namespace XNA.model
 
         public override void Draw(GameTime gameTime)
         {
-            game.spriteBatch.Draw(texture, body.Position, null, Color.White, body.Rotation, new Vector2(width / 2f, height / 2f), 1f, SpriteEffects.None, 0f);
+            GameModel.instance.spriteBatch.Draw(texture, body.Position, null, Color.White, body.Rotation, new Vector2(width / 2f, height / 2f), 1f, SpriteEffects.None, 0f);
         }
 
         public override void Update(GameTime gameTime)

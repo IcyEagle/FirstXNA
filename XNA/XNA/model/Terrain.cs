@@ -168,13 +168,13 @@ namespace XNA.model
             {
                 if (block != null)
                 {
-                    block.Draw(((Game1)Game).spriteBatch);
+                    block.Draw(GameModel.instance.spriteBatch);
                 }
             }
 
             foreach (Item item in items)
             {
-                item.Draw(((Game1)Game).spriteBatch);
+                item.Draw(GameModel.instance.spriteBatch);
             }
         }
 

@@ -11,19 +11,12 @@ namespace XNA.model
 {
     class ItemManager
     {
-        private Game1 game;
-
         public enum ItemType {
             BLOCK_GENERIC
         }
 
-        public ItemManager(Game1 game)
-        {
-            this.game = game;
-        }
-
         public Item getItem(ItemType type) {
-            TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
+            TextureHelper helper = (TextureHelper)GameModel.instance.game.Services.GetService(typeof(TextureHelper));
 
             int width = 16;
             int height = 16;
