@@ -21,10 +21,11 @@ namespace XNA.model
         public Body createCharacterBody(Character character)
         {
             Body body = BodyFactory.CreateRectangle(world, character.width, character.height, 1f);
-            body.Position = new Vector2((int)(Game1.SCREEN_WIDTH / 2) + 25, 0);
+            body.FixedRotation = true;
+            body.Position = new Vector2((int)(Game1.SCREEN_WIDTH / 2), 0);
             body.BodyType = BodyType.Dynamic;
-            body.Restitution = .5f;
-            body.Friction = .5f;
+            body.Restitution = 0f;
+            body.Friction = 1f;
             return body;
         }
 
@@ -33,8 +34,8 @@ namespace XNA.model
             Body body = BodyFactory.CreateRectangle(world, block.width, block.height, 1f);
             body.Position = new Vector2(block.x + block.width / 2, block.y + block.height / 2);
             body.BodyType = BodyType.Static;
-            body.Restitution = .5f;
-            body.Friction = .5f;
+            body.Restitution = 0f;
+            body.Friction = 1f;
             return body;
         }
 

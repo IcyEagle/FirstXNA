@@ -40,7 +40,7 @@ namespace XNA.model
         public void Draw(SpriteBatch batch) {
             batch.Draw(this.texture, new Rectangle(x, y, width, height), Color.White);
         }
-
+        
         public void enablePhysics()
         {
             if (this.body == null)

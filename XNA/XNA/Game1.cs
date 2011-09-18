@@ -24,8 +24,8 @@ namespace XNA
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 
-        public const int SCREEN_WIDTH = 800;
-        public const int SCREEN_HEIGHT = 600;
+        public const int SCREEN_WIDTH = 1024;
+        public const int SCREEN_HEIGHT = 768;
 
         public World world;
 
@@ -48,7 +48,7 @@ namespace XNA
 
             GameModel.Init(this);
 
-            world = new World(new Vector2(0, 100));
+            world = new World(new Vector2(0, 50));
 
             GameModel.Init(this);
 
@@ -82,6 +82,7 @@ namespace XNA
                 this.Exit();
 
             GameModel.instance.mouseInput.Update();
+            GameModel.instance.keyboardInput.Update();
 
             world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
 

@@ -110,10 +110,10 @@ namespace XNA
             // %%%%%%#  #%%% -> %%%%%%X  #%%% -> %%%%%#   #%%%
             // %%%%%%%##%%%%    %%%%%%%##%%%%    %%%%%%###%%%%
 
-            if (hasLeftNeighbor(x, y)) { getLeftNeighbor(x, y).enablePhysics(); Game.Window.Title += "L"; }
-            if (hasRightNeighbor(x, y)) { getRightNeighbor(x, y).enablePhysics(); Game.Window.Title += "R"; }
-            if (hasUpNeighbor(x, y)) { getUpNeighbor(x, y).enablePhysics(); Game.Window.Title += "U"; }
-            if (hasDownNeighbor(x, y)) { getDownNeighbor(x, y).enablePhysics(); Game.Window.Title += "D"; }
+            if (hasLeftNeighbor(x, y)) { getLeftNeighbor(x, y).enablePhysics(); }
+            if (hasRightNeighbor(x, y)) { getRightNeighbor(x, y).enablePhysics(); }
+            if (hasUpNeighbor(x, y)) { getUpNeighbor(x, y).enablePhysics(); }
+            if (hasDownNeighbor(x, y)) { getDownNeighbor(x, y).enablePhysics(); }
         }
 
         protected void onBlockDestroyHandler(Block block)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using XNA.model;
+using XNA.model.input;
 
 namespace XNA
 {
@@ -16,6 +17,7 @@ namespace XNA
         public BodyManager bodyManager;
 
         public MouseInput mouseInput;
+        public KeyboardInput keyboardInput;
 
 
         public static void Init(Game1 game)
@@ -25,8 +27,10 @@ namespace XNA
 
         private GameModel(Game1 game)
         {
-            bodyManager = new BodyManager(game.world);
             mouseInput = new MouseInput();
+            keyboardInput = new KeyboardInput();
+            
+            bodyManager = new BodyManager(game.world);
             itemManager = new ItemManager(game);
             //...
         }
