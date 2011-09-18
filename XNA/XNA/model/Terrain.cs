@@ -49,12 +49,13 @@ namespace XNA.model
         {
             Vector2 coordinates = model.MouseInput.toAbsolute(new Vector2(args.state.X, args.state.Y));
             Vector2 blockPosition = calculateBlockPositionByCoordinate(coordinates);
-            Block block = map[(int)blockPosition.X, (int)blockPosition.Y];
-            if (x > map.GetUpperBound(0) || y > map.GetUpperBound(1) || x < map.GetLowerBound(0) || y < map.GetLowerBound(1))
+
+            if (blockPosition.X > map.GetUpperBound(0) || blockPosition.Y > map.GetUpperBound(1) || blockPosition.X < map.GetLowerBound(0) || blockPosition.Y < map.GetLowerBound(1))
             {
                 return;
             }
 
+            Block block = map[(int)blockPosition.X, (int)blockPosition.Y];
 
             // damage block.
             if (block != null)
