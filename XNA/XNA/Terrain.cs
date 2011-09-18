@@ -17,7 +17,7 @@ namespace XNA
 {
     class Terrain : DrawableGameComponent
     {
-        public const int BLOCK_SIZE = 100;
+        public static int BLOCK_SIZE = 16;
 
         Block[,] map;
 

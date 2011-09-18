@@ -19,6 +19,7 @@ namespace XNA
     class TerrainGenerator
     {
         private Game game;
+        public static int visibleBlockLayers = 20;
 
         public TerrainGenerator(Game game)
         {
@@ -51,7 +52,7 @@ namespace XNA
                 for (int j = 0; j < blockColumnSize; ++j)
                 {
                     // make choice.
-                    if ((j >= blockColumnSize - 3 && rand.Next() % 2 != 0) || ((i < 2 || i >= blockRowSize - 2) && rand.Next() % 2 != 0))
+                    if ((j >= blockColumnSize - visibleBlockLayers && rand.Next() % 2 != 0) || ((i < visibleBlockLayers || i >= blockRowSize - visibleBlockLayers) && rand.Next() % 2 != 0))
                     {
                         // random texture.
                         Texture2D texture = textures[rand.Next() % textures.Count];

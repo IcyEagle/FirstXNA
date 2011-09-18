@@ -31,8 +31,8 @@ namespace XNA.model
             this.game = game;
             this.name = name;
             this.level = level;
-            width = 100;
-            height = 200;
+            width = 32;
+            height = 48;
             create();
         }
 
@@ -49,14 +49,14 @@ namespace XNA.model
         {
             if (args.state.IsKeyDown(Keys.Left))
             {
-                if (body.LinearVelocity.X > -30)
+                if (body.LinearVelocity.X > -50)
                 {
                     body.LinearVelocity = new Vector2(-50, body.LinearVelocity.Y);
                 }
             }
             if (args.state.IsKeyDown(Keys.Right))
             {
-                if (body.LinearVelocity.X < 30)
+                if (body.LinearVelocity.X < 50)
                 {
                     body.LinearVelocity = new Vector2(50, body.LinearVelocity.Y);
                 }
@@ -65,7 +65,7 @@ namespace XNA.model
             {
                 if (body.LinearVelocity.Y > -2 && body.LinearVelocity.Y < 2)
                 {
-                    body.LinearVelocity = new Vector2(body.LinearVelocity.X, -150);
+                    body.LinearVelocity = new Vector2(body.LinearVelocity.X, -75);
                 }
             }
         }
