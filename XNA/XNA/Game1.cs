@@ -64,11 +64,13 @@ namespace XNA
             TerrainGenerator helper = (TerrainGenerator)Services.GetService(typeof(TerrainGenerator));
 
             // initialize components.
-            Block[,] map = helper.generateMap(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
-            Components.Add(new Terrain(map, this));
             GameModel.instance.character = new Character(this, "Griff", 1);
             Components.Add(GameModel.instance.character);
 
+            // should be initialized AFTER character.
+            Block[,] map = helper.generateMap(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
+            Terrain terrain = new Terrain(map, this);
+            Components.Add(terrain);
         }
 
         protected override void UnloadContent()

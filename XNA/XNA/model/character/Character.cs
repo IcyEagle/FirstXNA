@@ -17,10 +17,11 @@ namespace XNA.model
         public event onMoveHandler onMove;
         public class OnMoveArgs
         {
-            public Character character;
-            public OnMoveArgs(Character character)
+            public int x, y;
+            public OnMoveArgs(int x, int y)
             {
-                this.character = character;
+                this.x = x;
+                this.y = y;
             }
         }
 
@@ -36,6 +37,7 @@ namespace XNA.model
 
         public Body body;
         public Texture2D texture;
+        private PhysicalActiveObject physicalObject;
 
         private Bag bag;
 
@@ -47,6 +49,7 @@ namespace XNA.model
             this.width = 32;
             this.height = 48;
             this.bag = new Bag();
+            this.physicalObject = new PhysicalActiveObject();
             create();
         }
 
@@ -93,7 +96,8 @@ namespace XNA.model
         {
             if (body.LinearVelocity != Vector2.Zero && onMove != null)
             {
-                onMove.Invoke(new OnMoveArgs(this));
+                onMove.Invoke(new OnMoveArgs((int)body.Position.X, (int)body.Position.Y));
+                physicalObject.updatePosition(body.Position);
             }
         }
     }

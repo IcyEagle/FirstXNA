@@ -19,7 +19,15 @@ namespace XNA
     {
         public static int BLOCK_SIZE = 16;
 
-        Block[,] map;
+        const int BLOCK_PER_PHYSICAL_REGION = 4;
+
+        private enum PhysicalRegionState {
+            LEAVE = -1,
+            ENTER = 1
+        };
+
+        private Block[,] map;
+        private int[,] physicalMap;
 
         // TEMP.
         List<Item> items = new List<Item>();
@@ -28,28 +36,103 @@ namespace XNA
         {
             this.map = map;
 
+            // init physical map.
+            physicalMap = new int[(int)Math.Ceiling((float)map.GetLowerBound(0) / BLOCK_PER_PHYSICAL_REGION), (int)Math.Ceiling((float)map.GetLowerBound(1) / BLOCK_PER_PHYSICAL_REGION)];
+
             GameModel.instance.mouseInput.onClick += new MouseInput.onClickHandler(onClickHandler);
 
-            buildPhysicsModel();
+            //buildPhysicsModel();
             init();
         }
 
         public void onClickHandler(MouseInput.OnClickArgs args)
         {
-            // calculate block position.
-            int x = (int) args.state.X / BLOCK_SIZE;
-            int y = (int) args.state.Y / BLOCK_SIZE;
-
-            Block block = map[x, y];
+            Vector2 blockPosition = calculateBlockPositionByCoordinate(args.state.X, args.state.Y);
+            Block block = map[(int)blockPosition.X, (int)blockPosition.Y];
 
             // damage block.
-            if (map[x, y] != null)
+            if (block != null)
             {
                 bool destroyed = block.damage();
                 if (destroyed)
                 {
-                    map[x, y] = null;
-                    updatePhysicsAround(x, y);
+                    map[(int)blockPosition.X, (int)blockPosition.Y] = null;
+
+                    // DEPRECATED!
+                    updatePhysicsAround((int)blockPosition.X, (int)blockPosition.Y);
+                }
+            }
+        }
+
+        private Vector2 calculateBlockPositionByCoordinate(int x, int y)
+        {
+            return new Vector2(x / BLOCK_SIZE, y / BLOCK_SIZE);
+        }
+
+        private Vector2 calculateRegionByCoordinate(int x, int y)
+        {
+            return new Vector2(x / (BLOCK_SIZE * BLOCK_PER_PHYSICAL_REGION), y / (BLOCK_SIZE * BLOCK_PER_PHYSICAL_REGION));
+        }
+
+        public void movePhysicalObject(PhysicalActiveObject activeObject, Vector2 to)
+        {
+            Vector2 from = activeObject.position;
+            Vector2 regionFrom = calculateRegionByCoordinate((int)from.X, (int)from.Y);
+            Vector2 regionTo = calculateRegionByCoordinate((int)to.X, (int)to.Y);
+
+            if (regionFrom != regionTo)
+            {
+                leavePhysicalRegion(regionFrom);
+                enterPhysicalRegion(regionTo);
+            }
+        }
+
+        public void placePhysicalObject(Vector2 to)
+        {
+            Vector2 regionTo = calculateRegionByCoordinate((int)to.X, (int)to.Y);
+            updatePhysicalRegion(regionTo, PhysicalRegionState.ENTER);
+        }
+
+        private void leavePhysicalRegion(Vector2 position)
+        {
+            updatePhysicalRegion(position, PhysicalRegionState.LEAVE);
+        }
+
+        private void enterPhysicalRegion(Vector2 position)
+        {
+            updatePhysicalRegion(position, PhysicalRegionState.ENTER);
+        }
+
+        private void updatePhysicalRegion(Vector2 position, PhysicalRegionState state)
+        {
+            int fromX = (int) position.X * BLOCK_PER_PHYSICAL_REGION;
+            int toX = (int)position.X * (BLOCK_PER_PHYSICAL_REGION + 1);
+            int fromY = (int)position.Y * BLOCK_PER_PHYSICAL_REGION;
+            int toY = (int)position.Y * (BLOCK_PER_PHYSICAL_REGION + 1);
+
+            Console.WriteLine("Update region from " + fromX + " to " + toX + " and from " + fromY + " to " + toY);
+
+            for (int x = fromX; x < toX; ++x)
+            {
+                for (int y = fromY; y < toY; ++y)
+                {
+                    if (physicalMap[x, y] == 0 && state > 0)
+                    {
+                        map[x, y].enablePhysics();
+                    }
+
+                    physicalMap[x, y] += (int)state;
+
+                    if (physicalMap[x, y] == 0)
+                    {
+                        map[x, y].disablePhysics();
+                    }
+
+                    // ASSERT.
+                    if (physicalMap[x, y] < 0)
+                    {
+                        throw new Exception("Bad Physical map value: " + physicalMap[x, y]);
+                    }
                 }
             }
         }
@@ -96,6 +179,7 @@ namespace XNA
             }
         }
 
+        // DEPRECATED!
         protected void updatePhysicsAround(int x, int y)
         {
             // erase cell.

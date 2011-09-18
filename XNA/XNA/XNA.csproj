@@ -118,6 +118,7 @@
     <Compile Include="model\character\Character.cs" />
     <Compile Include="model\GameModel.cs" />
     <Compile Include="model\input\MouseInput.cs" />
+    <Compile Include="model\PhysicalActiveObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
