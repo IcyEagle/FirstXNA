@@ -28,7 +28,7 @@ namespace XNA
         {
             this.map = map;
 
-            GameModel.instance.mouseInput.onClick += new MouseInput.onClickHandler(onClickHandler);
+            GameModel.instance.mouseInput.onClick += new MouseInput.onClickDelegate(onClickHandler);
 
             buildPhysicsModel();
             init();

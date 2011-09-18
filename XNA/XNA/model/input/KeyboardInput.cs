@@ -9,8 +9,8 @@ namespace XNA.model.input
     class KeyboardInput
     {
 
-        public delegate void onPressedKeysHandler(OnPressedKeysArgs args);
-        public event onPressedKeysHandler onPressedKeys;
+        public delegate void onPressedKeysDelegate(OnPressedKeysArgs args);
+        public event onPressedKeysDelegate onPressedKeys;
         public class OnPressedKeysArgs
         {
             public KeyboardState state;
@@ -22,7 +22,7 @@ namespace XNA.model.input
         public void Update()
         {
             KeyboardState newState = Keyboard.GetState();
-            if (newState.GetPressedKeys().Length > 0)
+            if (newState.GetPressedKeys().Length > 0 && onPressedKeys != null)
             {
                 onPressedKeys.Invoke(new OnPressedKeysArgs(Keyboard.GetState()));
             }

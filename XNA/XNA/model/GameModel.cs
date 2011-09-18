@@ -12,7 +12,9 @@ namespace XNA
 
         public static GameModel instance;
 
+        public Camera2d camera2d;
         public Character character;
+        public Terrain terrain;
         public ItemManager itemManager;
         public BodyManager bodyManager;
 
@@ -30,6 +32,8 @@ namespace XNA
             mouseInput = new MouseInput();
             keyboardInput = new KeyboardInput();
             
+            camera2d = new Camera2d();
+
             bodyManager = new BodyManager(game.world);
             itemManager = new ItemManager(game);
             //...

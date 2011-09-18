@@ -110,6 +110,7 @@
     <Compile Include="Capability.cs" />
     <Compile Include="model\block\Block.cs" />
     <Compile Include="model\BodyManager.cs" />
+    <Compile Include="model\Camera2d.cs" />
     <Compile Include="model\character\Bag.cs" />
     <Compile Include="model\character\BagItem.cs" />
     <Compile Include="model\input\KeyboardInput.cs" />
