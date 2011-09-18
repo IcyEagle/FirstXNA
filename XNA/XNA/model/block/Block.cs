@@ -19,6 +19,9 @@ namespace XNA.model
 {
     class Block
     {
+        // DEBUG
+        public static Texture2D enabledTexture;
+
         public delegate void onDestroyHandler (Block block);
         public event onDestroyHandler onDestroy;
 
@@ -38,7 +41,10 @@ namespace XNA.model
         }
 
         public void Draw(SpriteBatch batch) {
-            batch.Draw(this.texture, new Rectangle(x, y, width, height), Color.White);
+            //batch.Draw(this.texture, new Rectangle(x, y, width, height), Color.White);
+
+            //DEBUG
+            batch.Draw(body != null ? Block.enabledTexture : this.texture, new Rectangle(x, y, width, height), Color.White);
         }
         
         public void enablePhysics()

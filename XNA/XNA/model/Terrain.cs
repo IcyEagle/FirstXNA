@@ -19,7 +19,15 @@ namespace XNA.model
     {
         public static int BLOCK_SIZE = 16;
 
-        Block[,] map;
+        const int BLOCK_PER_PHYSICAL_REGION = 4;
+
+        private enum PhysicalRegionState {
+            LEAVE = -1,
+            ENTER = 1
+        };
+
+        private Block[,] map;
+        private int[,] regionMap;
 
         // TEMP.
         List<Item> items = new List<Item>();
@@ -28,33 +36,133 @@ namespace XNA.model
         {
             this.map = map;
 
+            // init region map.
+            regionMap = new int[(int)Math.Ceiling((float)map.GetUpperBound(0) / BLOCK_PER_PHYSICAL_REGION), (int)Math.Ceiling((float)map.GetUpperBound(1) / BLOCK_PER_PHYSICAL_REGION)];
+
             GameModel.instance.mouseInput.onClick += new MouseInput.onClickDelegate(onClickHandler);
 
-            buildPhysicsModel();
+            //buildPhysicsModel();
             init();
         }
 
         public void onClickHandler(MouseInput.OnClickArgs args)
         {
-            // calculate block position.
-            int x = (int) args.state.X / BLOCK_SIZE;
-            int y = (int) args.state.Y / BLOCK_SIZE;
-
+            Vector2 blockPosition = calculateBlockPositionByCoordinate(args.state.X, args.state.Y);
+            Block block = map[(int)blockPosition.X, (int)blockPosition.Y];
             if (x > map.GetUpperBound(0) || y > map.GetUpperBound(1) || x < map.GetLowerBound(0) || y < map.GetLowerBound(1))
             {
                 return;
             }
 
-            Block block = map[x, y];
 
             // damage block.
-            if (map[x, y] != null)
+            if (block != null)
             {
                 bool destroyed = block.damage();
                 if (destroyed)
                 {
-                    map[x, y] = null;
-                    updatePhysicsAround(x, y);
+                    map[(int)blockPosition.X, (int)blockPosition.Y] = null;
+                }
+            }
+        }
+
+        private Vector2 calculateBlockPositionByCoordinate(int x, int y)
+        {
+            return new Vector2(x / BLOCK_SIZE, y / BLOCK_SIZE);
+        }
+
+        private Vector2 calculateRegionByCoordinate(int x, int y)
+        {
+            return new Vector2(x / (BLOCK_SIZE * BLOCK_PER_PHYSICAL_REGION), y / (BLOCK_SIZE * BLOCK_PER_PHYSICAL_REGION));
+        }
+
+        public void movePhysicalObject(PhysicalActiveObject activeObject, Vector2 to)
+        {
+            Vector2 from = activeObject.position;
+            Vector2 regionFrom = calculateRegionByCoordinate((int)from.X, (int)from.Y);
+            Vector2 regionTo = calculateRegionByCoordinate((int)to.X, (int)to.Y);
+
+            if (regionFrom != regionTo)
+            {
+                leavePhysicalRegion(regionFrom);
+                enterPhysicalRegion(regionTo);
+            }
+        }
+
+        public void placePhysicalObject(Vector2 to)
+        {
+            Vector2 regionTo = calculateRegionByCoordinate((int)to.X, (int)to.Y);
+            updatePhysicalRegion(regionTo, PhysicalRegionState.ENTER);
+        }
+
+        private void leavePhysicalRegion(Vector2 position)
+        {
+            updatePhysicalRegion(position, PhysicalRegionState.LEAVE);
+        }
+
+        private void enterPhysicalRegion(Vector2 position)
+        {
+            updatePhysicalRegion(position, PhysicalRegionState.ENTER);
+        }
+
+        private void updatePhysicalRegion(Vector2 position, PhysicalRegionState state)
+        {
+            // current and all around regions reacted.
+            int fromX = (int)position.X - 1 >= 0 ? (int)position.X - 1 : 0;
+            int toX = (int)position.X + 1 < regionMap.GetUpperBound(0) ? (int)position.X + 1 : regionMap.GetUpperBound(0);
+            int fromY = (int)position.Y - 1 >= 0 ? (int)position.Y - 1 : 0;
+            int toY = (int)position.Y + 1 < regionMap.GetUpperBound(1) ? (int)position.Y + 1 : regionMap.GetUpperBound(1);
+
+            for (int x = fromX; x <= toX; ++x)
+            {
+                for (int y = fromY; y <= toY; ++y)
+                {
+                    if (regionMap[x, y] == 0 && state == PhysicalRegionState.ENTER)
+                    {
+                        changeBlocksInRegion(new Vector2(x, y), state);
+                    }
+
+                    regionMap[x, y] += (int)state;
+
+                    if (regionMap[x, y] == 0)
+                    {
+                        changeBlocksInRegion(new Vector2(x, y), state);
+                    }
+
+                    // ASSERT.
+                    if (regionMap[x, y] < 0)
+                    {
+                        throw new Exception("Bad Physical map value: " + regionMap[x, y]);
+                    }
+                }
+            }
+        }
+
+        private void changeBlocksInRegion(Vector2 position, PhysicalRegionState state)
+        {
+            int fromX = (int)position.X * BLOCK_PER_PHYSICAL_REGION;
+            int toX = ((int)position.X + 1) * BLOCK_PER_PHYSICAL_REGION < map.GetUpperBound(0) ? ((int)position.X + 1) * BLOCK_PER_PHYSICAL_REGION : map.GetUpperBound(0) + 1;
+            int fromY = (int)position.Y * BLOCK_PER_PHYSICAL_REGION;
+            int toY = ((int)position.Y + 1) * BLOCK_PER_PHYSICAL_REGION < map.GetUpperBound(1) ? ((int)position.Y + 1) * BLOCK_PER_PHYSICAL_REGION : map.GetUpperBound(1) + 1;
+
+            //Console.WriteLine("Update blocks from " + fromX + " to " + toX + " and from " + fromY + " to " + toY);
+
+            for (int x = fromX; x < toX; ++x)
+            {
+                for (int y = fromY; y < toY; ++y)
+                {
+                    if (map[x, y] != null)
+                    {
+                        if (state == PhysicalRegionState.ENTER)
+                        {
+                            map[x, y].enablePhysics();
+                        }
+
+                        if (state == PhysicalRegionState.LEAVE)
+                        {
+                            map[x, y].disablePhysics();
+                        }
+                    }
                 }
             }
         }
@@ -65,28 +173,13 @@ namespace XNA.model
             {
                 if (block != null)
                 {
-                    block.Draw(((Game1)Game).spriteBatch);
+                    block.Draw(GameModel.instance.spriteBatch);
                 }
             }
 
             foreach (Item item in items)
             {
-                item.Draw(((Game1)Game).spriteBatch);
-            }
-        }
-
-        protected void buildPhysicsModel()
-        {
-            for (int x = 0 ; x <= map.GetUpperBound(0) ; ++x)
-            {
-                for (int y = 0; y <= map.GetUpperBound(1) ; ++y)
-                {
-                    Block block = map[x, y];
-                    if (block != null && (!hasLeftNeighbor(x, y) || !hasRightNeighbor(x, y) || !hasUpNeighbor(x, y) || !hasDownNeighbor(x, y)))
-                    {
-                        block.enablePhysics();
-                    }
-                }
+                item.Draw(GameModel.instance.spriteBatch);
             }
         }
 
@@ -101,24 +194,12 @@ namespace XNA.model
             }
         }
 
-        protected void updatePhysicsAround(int x, int y)
+        public override void Update(GameTime gameTime)
         {
-            // erase cell.
-            map[x, y] = null;
-
-            // enable neighbors' physics.
-            // Where:
-            //   # - enabled physics,
-            //   % - disabled physics,
-            //   X - deleted element
-            // %%%%%%#  #%%%    %%%%%%#  #%%%    %%%%%%#  #%%%
-            // %%%%%%#  #%%% -> %%%%%%X  #%%% -> %%%%%#   #%%%
-            // %%%%%%%##%%%%    %%%%%%%##%%%%    %%%%%%###%%%%
-
-            if (hasLeftNeighbor(x, y)) { getLeftNeighbor(x, y).enablePhysics(); }
-            if (hasRightNeighbor(x, y)) { getRightNeighbor(x, y).enablePhysics(); }
-            if (hasUpNeighbor(x, y)) { getUpNeighbor(x, y).enablePhysics(); }
-            if (hasDownNeighbor(x, y)) { getDownNeighbor(x, y).enablePhysics(); }
+            foreach (Item item in items)
+            {
+                item.Update();
+            }
         }
 
         protected void onBlockDestroyHandler(Block block)

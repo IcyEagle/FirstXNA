@@ -17,10 +17,11 @@ namespace XNA.model
         public event onMoveDelegate onMove;
         public class OnMoveArgs
         {
-            public Character character;
-            public OnMoveArgs(Character character)
+            public int x, y;
+            public OnMoveArgs(int x, int y)
             {
-                this.character = character;
+                this.x = x;
+                this.y = y;
             }
         }
 
@@ -34,6 +35,7 @@ namespace XNA.model
 
         public Body body;
         public Texture2D texture;
+        private PhysicalActiveObject physicalObject;
 
         private Bag bag;
 
@@ -45,6 +47,7 @@ namespace XNA.model
             this.width = 32 - 2;
             this.height = 48 - 2;
             this.bag = new Bag();
+            this.physicalObject = new PhysicalActiveObject();
             create();
         }
 
@@ -84,14 +87,15 @@ namespace XNA.model
 
         public override void Draw(GameTime gameTime)
         {
-            game.spriteBatch.Draw(texture, body.Position, null, Color.White, body.Rotation, new Vector2(width / 2f, height / 2f), 1f, SpriteEffects.None, 0f);
+            GameModel.instance.spriteBatch.Draw(texture, body.Position, null, Color.White, body.Rotation, new Vector2(width / 2f, height / 2f), 1f, SpriteEffects.None, 0f);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (body.LinearVelocity != Vector2.Zero && onMove != null)
+            if (body.LinearVelocity != Vector2.Zero)
             {
-                onMove.Invoke(new OnMoveArgs(this));
+                //onMove.Invoke(new OnMoveArgs((int)body.Position.X, (int)body.Position.Y));
+                physicalObject.updatePosition(body.Position);
             }
         }
     }

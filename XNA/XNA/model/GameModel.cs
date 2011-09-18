@@ -4,40 +4,25 @@ using System.Linq;
 using System.Text;
 using XNA.model;
 using XNA.model.input;
+using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace XNA
 {
     class GameModel
     {
+        public static GameModel instance = new GameModel();
 
-        public static GameModel instance;
-
-        public Camera2d camera2d;
+        public Game1 game;
+        public World world;
+        public SpriteBatch spriteBatch;
         public Character character;
         public Terrain terrain;
-        public ItemManager itemManager;
-        public BodyManager bodyManager;
+        public Camera2d camera2d = new Camera2d();
+        public ItemManager itemManager = new ItemManager();
+        public BodyManager bodyManager = new BodyManager();
 
-        public MouseInput mouseInput;
-        public KeyboardInput keyboardInput;
-
-
-        public static void Init(Game1 game)
-        {
-            instance = new GameModel(game);
-        }
-
-        private GameModel(Game1 game)
-        {
-            mouseInput = new MouseInput();
-            keyboardInput = new KeyboardInput();
-            
-            camera2d = new Camera2d();
-
-            bodyManager = new BodyManager(game.world);
-            itemManager = new ItemManager(game);
-            //...
-        }
-
+        public MouseInput mouseInput = new MouseInput();
+        public KeyboardInput keyboardInput = new KeyboardInput();
     }
 }

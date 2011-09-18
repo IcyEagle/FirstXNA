@@ -10,11 +10,23 @@ namespace XNA.model
 {
     class Item
     {
+        public delegate void onCharacterNearDelegate(OnCharacterNearArgs args);
+        public event onCharacterNearDelegate onCharacterNear;
+        public class OnCharacterNearArgs
+        {
+            public Character character;
+            public OnCharacterNearArgs(Character character)
+            {
+                this.character = character;
+            }
+        }
+
         public int width;
         public int height;
 
         private Texture2D texture;
         private Body body;
+        private PhysicalActiveObject physicalObject;
 
         public int x { get { return (int) body.Position.X; } }
         public int y { get { return (int) body.Position.Y; } }
@@ -25,6 +37,10 @@ namespace XNA.model
             this.width = width;
             this.height = height;
             this.body = body;
+
+            this.physicalObject = new PhysicalActiveObject();
+
+            onCharacterNear += new onCharacterNearDelegate(onCharacterNearHandler);
         }
 
         public Item(Texture2D texture, int width, int height, Body body, Vector2 position)
@@ -50,6 +66,16 @@ namespace XNA.model
         public void Draw(SpriteBatch batch)
         {
             batch.Draw(this.texture, new Rectangle(x, y, width, height), null, Color.White, body.Rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0f);
+        }
+
+        private void onCharacterNearHandler(OnCharacterNearArgs args)
+        {
+            System.Console.WriteLine("Character is NEAR!");
+        }
+
+        public void Update()
+        {
+            physicalObject.updatePosition(body.Position);
         }
     }
 }
