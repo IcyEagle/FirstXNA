@@ -67,6 +67,7 @@ namespace XNA
             Block[,] map = helper.generateMap(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
             Components.Add(new Terrain(map, this));
             GameModel.instance.character = new Character(this, "Griff", 1);
+            Components.Add(GameModel.instance.character);
 
         }
 
@@ -93,7 +94,6 @@ namespace XNA
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-            GameModel.instance.character.Draw();
             base.Draw(gameTime);
             spriteBatch.End();
         }

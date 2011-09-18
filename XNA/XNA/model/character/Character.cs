@@ -7,11 +7,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using XNA.model.input;
 using Microsoft.Xna.Framework.Input;
+using XNA.model.character;
 
 namespace XNA.model
 {
-    class Character
+    class Character : DrawableGameComponent
     {
+        public delegate void onMoveHandler(OnMoveArgs args);
+        public event onMoveHandler onMove;
+        public class OnMoveArgs
+        {
+            public Character character;
+            public OnMoveArgs(Character character)
+            {
+                this.character = character;
+            }
+        }
 
         private Game1 game;
 
@@ -26,13 +37,16 @@ namespace XNA.model
         public Body body;
         public Texture2D texture;
 
-        public Character(Game1 game, string name, int level)
+        private Bag bag;
+
+        public Character(Game1 game, string name, int level) : base(game)
         {
             this.game = game;
             this.name = name;
             this.level = level;
-            width = 32;
-            height = 48;
+            this.width = 32;
+            this.height = 48;
+            this.bag = new Bag();
             create();
         }
 
@@ -70,10 +84,17 @@ namespace XNA.model
             }
         }
 
-        public void Draw()
+        public override void Draw(GameTime gameTime)
         {
             game.spriteBatch.Draw(texture, body.Position, null, Color.White, body.Rotation, new Vector2(width / 2f, height / 2f), 1f, SpriteEffects.None, 0f);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            if (body.LinearVelocity != Vector2.Zero && onMove != null)
+            {
+                onMove.Invoke(new OnMoveArgs(this));
+            }
+        }
     }
 }
