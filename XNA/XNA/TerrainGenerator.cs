@@ -48,10 +48,10 @@ namespace XNA
             // feel only last 3 lines.
             for (int i = 0 ; i < blockRowSize ; ++i)
             {
-                for (int j = blockColumnSize - 3; j < blockColumnSize; ++j)
+                for (int j = 0; j < blockColumnSize; ++j)
                 {
                     // make choice.
-                    if (rand.Next() % 2 != 0)
+                    if ((j >= blockColumnSize - 3 && rand.Next() % 2 != 0) || ((i < 2 || i >= blockRowSize - 2) && rand.Next() % 2 != 0))
                     {
                         // random texture.
                         Texture2D texture = textures[rand.Next() % textures.Count];
