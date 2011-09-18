@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace XNA.model
 {
@@ -30,5 +31,15 @@ namespace XNA.model
             }
         }
 
+        public static Vector2 toAbsolute(Vector2 relative)
+        {
+            Vector2 absolute;
+            Matrix inverse;
+            Matrix matrix = GameModel.instance.camera2d.getTransformation();
+            Matrix.Invert(ref matrix, out inverse);
+            Vector2 pos = new Vector2(relative.X, relative.Y);
+            Vector2.Transform(ref pos, ref inverse, out absolute);
+            return absolute;
+        }
     }
 }

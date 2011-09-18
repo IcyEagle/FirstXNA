@@ -47,7 +47,8 @@ namespace XNA.model
 
         public void onClickHandler(MouseInput.OnClickArgs args)
         {
-            Vector2 blockPosition = calculateBlockPositionByCoordinate(args.state.X, args.state.Y);
+            Vector2 coordinates = model.MouseInput.toAbsolute(new Vector2(args.state.X, args.state.Y));
+            Vector2 blockPosition = calculateBlockPositionByCoordinate(coordinates);
             Block block = map[(int)blockPosition.X, (int)blockPosition.Y];
 
             // damage block.
@@ -61,9 +62,9 @@ namespace XNA.model
             }
         }
 
-        private Vector2 calculateBlockPositionByCoordinate(int x, int y)
+        private Vector2 calculateBlockPositionByCoordinate(Vector2 position)
         {
-            return new Vector2(x / BLOCK_SIZE, y / BLOCK_SIZE);
+            return new Vector2(position.X / BLOCK_SIZE, position.Y / BLOCK_SIZE);
         }
 
         private Vector2 calculateRegionByCoordinate(int x, int y)

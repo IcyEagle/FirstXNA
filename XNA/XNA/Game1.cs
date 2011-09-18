@@ -23,8 +23,8 @@ namespace XNA
 
         GraphicsDeviceManager graphics;
 
-        public const int SCREEN_WIDTH = 1024;
-        public const int SCREEN_HEIGHT = 768;
+        public const int SCREEN_WIDTH = 800;
+        public const int SCREEN_HEIGHT = 600;
 
         public Game1()
         {
@@ -94,8 +94,7 @@ namespace XNA
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            //spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, GameModel.instance.camera2d.getTransformation());
-            GameModel.instance.spriteBatch.Begin();
+            GameModel.instance.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, GameModel.instance.camera2d.getTransformation());
             base.Draw(gameTime);
             GameModel.instance.spriteBatch.End();
         }
