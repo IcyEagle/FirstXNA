@@ -6,6 +6,8 @@ using XNA.model;
 using XNA.model.input;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
+using XNA.model.grid;
+using XNA.model.physical;
 
 namespace XNA
 {
@@ -21,8 +23,16 @@ namespace XNA
         public Camera2d camera2d = new Camera2d();
         public ItemManager itemManager = new ItemManager();
         public BodyManager bodyManager = new BodyManager();
+        public Grid grid = new Grid();
 
         public MouseInput mouseInput = new MouseInput();
         public KeyboardInput keyboardInput = new KeyboardInput();
+
+        public PhysicalManager physicalManager;
+
+        public void init()
+        {
+            physicalManager = new PhysicalManager();
+        }
     }
 }

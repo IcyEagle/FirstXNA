@@ -41,6 +41,8 @@ namespace XNA
 
         protected override void Initialize()
         {
+            GameModel.instance.init();
+
             GameModel.instance.game = this;
             GameModel.instance.world = new World(new Vector2(0, 50));
             GameModel.instance.spriteBatch = new SpriteBatch(GraphicsDevice);

@@ -26,7 +26,7 @@ namespace XNA.model
             ENTER = 1
         };
 
-        private Block[,] map;
+        public Block[,] map;
         private int[,] regionMap;
 
         // TEMP.
@@ -41,7 +41,6 @@ namespace XNA.model
 
             GameModel.instance.mouseInput.onClick += new MouseInput.onClickDelegate(onClickHandler);
 
-            //buildPhysicsModel();
             init();
         }
 
@@ -146,8 +145,6 @@ namespace XNA.model
             int toX = ((int)position.X + 1) * BLOCK_PER_PHYSICAL_REGION < map.GetUpperBound(0) ? ((int)position.X + 1) * BLOCK_PER_PHYSICAL_REGION : map.GetUpperBound(0) + 1;
             int fromY = (int)position.Y * BLOCK_PER_PHYSICAL_REGION;
             int toY = ((int)position.Y + 1) * BLOCK_PER_PHYSICAL_REGION < map.GetUpperBound(1) ? ((int)position.Y + 1) * BLOCK_PER_PHYSICAL_REGION : map.GetUpperBound(1) + 1;
-
-            //Console.WriteLine("Update blocks from " + fromX + " to " + toX + " and from " + fromY + " to " + toY);
 
             for (int x = fromX; x < toX; ++x)
             {
