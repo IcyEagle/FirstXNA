@@ -66,21 +66,21 @@ namespace XNA.model
             {
                 if (body.LinearVelocity.X > -50)
                 {
-                    body.LinearVelocity = new Vector2(-50, body.LinearVelocity.Y);
+                    body.LinearVelocity += new Vector2(-4, 0);
                 }
             }
             if (args.state.IsKeyDown(Keys.Right))
             {
                 if (body.LinearVelocity.X < 50)
                 {
-                    body.LinearVelocity = new Vector2(50, body.LinearVelocity.Y);
+                    body.LinearVelocity += new Vector2(4, 0);
                 }
             }
             if (args.state.IsKeyDown(Keys.Space))
             {
                 if (body.LinearVelocity.Y > -2 && body.LinearVelocity.Y < 2)
                 {
-                    body.LinearVelocity = new Vector2(body.LinearVelocity.X, -75);
+                    body.LinearVelocity += new Vector2(0, -75);
                 }
             }
         }
