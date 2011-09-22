@@ -28,7 +28,7 @@ namespace XNA.model
             this.height = height;
             this.body = body;
 
-            this.moveable = new ActiveObject();
+            this.moveable = new ActiveObject(this);
         }
 
         public Item(Texture2D texture, int width, int height, Body body, Vector2 position)
@@ -49,6 +49,12 @@ namespace XNA.model
         {
             Random rand = new Random();
             body.LinearVelocity -= new Vector2(rand.Next(10, 30), rand.Next(30, 50));
+        }
+
+        public void approachTo(Vector2 anchor)
+        {
+            Vector2 diff = body.Position - anchor;
+            body.LinearVelocity -= new Vector2(Math.Sign(diff.X) * 100, Math.Sign(diff.Y) * 100);
         }
 
         public void Draw(SpriteBatch batch)

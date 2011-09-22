@@ -16,9 +16,14 @@ namespace XNA.model.grid
         // for Grid class as identifier.
         internal int objectID;
 
-        public ActiveObject()
+        // TEMP
+        public Object master;
+
+        public ActiveObject(Object master)
         {
             this.objectID = ++ActiveObject.objectCounter;
+
+            this.master = master;
         }
 
         public void UpdatePosition(Vector2 coordinates)

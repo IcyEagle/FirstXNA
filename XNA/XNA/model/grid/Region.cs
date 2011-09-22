@@ -8,7 +8,7 @@ namespace XNA.model.grid
     /**
      * A particle of grid.
      */
-    internal class Region
+    public class Region
     {
 
         public List<ActiveObject> members;

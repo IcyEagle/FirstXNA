@@ -33,7 +33,7 @@ namespace XNA.model
             this.width = 32 - 2;
             this.height = 48 - 2;
             this.bag = new Bag();
-            this.moveable = new ActiveObject();
+            this.moveable = new ActiveObject(this);
             create();
         }
 

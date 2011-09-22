@@ -18,7 +18,7 @@ namespace XNA.model.grid
         public delegate void onLeaveRegionDelegate(ActiveObject target, Vector2 source);
         public event onLeaveRegionDelegate onLeaveRegion;
 
-        internal Region[,] regions;
+        private Region[,] regions;
 
         // provides information about object position (into region).
         private Dictionary<ActiveObject, Vector2> objectMap;
@@ -41,6 +41,21 @@ namespace XNA.model.grid
                     this.regions[i, j] = new Region();
                 }
             }
+        }
+
+        public bool hasRegionByCoordinate(Vector2 region)
+        {
+            return validateRegion(region);
+        }
+
+        public Region getRegion(Vector2 position)
+        {
+            if ( ! validateRegion(position))
+            {
+                throw new Exception("Out of region range");
+            }
+
+            return regions[(int)position.X, (int)position.Y];
         }
 
         /**

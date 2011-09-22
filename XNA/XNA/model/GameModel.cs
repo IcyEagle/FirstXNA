@@ -8,6 +8,7 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
 using XNA.model.grid;
 using XNA.model.physical;
+using XNA.model.listener;
 
 namespace XNA
 {
@@ -30,9 +31,12 @@ namespace XNA
 
         public PhysicalManager physicalManager;
 
+        public CharacterListener characterListener;
+
         public void init()
         {
             physicalManager = new PhysicalManager();
+            characterListener = new CharacterListener();
         }
     }
 }
