@@ -114,13 +114,14 @@
     <Compile Include="model\character\Bag.cs" />
     <Compile Include="model\character\BagItem.cs" />
     <Compile Include="model\grid\Grid.cs" />
+    <Compile Include="model\grid\MoveableObject.cs" />
+    <Compile Include="model\grid\Region.cs" />
     <Compile Include="model\input\KeyboardInput.cs" />
     <Compile Include="model\item\Item.cs" />
     <Compile Include="model\item\ItemManager.cs" />
     <Compile Include="model\character\Character.cs" />
     <Compile Include="model\GameModel.cs" />
     <Compile Include="model\input\MouseInput.cs" />
-    <Compile Include="model\PhysicalActiveObject.cs" />
     <Compile Include="model\physical\PhysicalManager.cs" />
     <Compile Include="model\physical\PhysicalMap.cs" />
     <Compile Include="model\Terrain.cs" />

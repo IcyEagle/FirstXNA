@@ -12,14 +12,16 @@ namespace XNA.model.grid
         public static readonly int REGIONS_IN_ROW;
         public static readonly int REGIONS_IN_COLUMN;
 
-        public delegate void onChangeRegionDelegate(Object target, Vector2 source, Vector2 destination);
-        public event onChangeRegionDelegate onChangeRegion;
+        public delegate void onEnterRegionDelegate(ActiveObject target, Vector2 destination);
+        public event onEnterRegionDelegate onEnterRegion;
 
-        // region map.
+        public delegate void onLeaveRegionDelegate(ActiveObject target, Vector2 source);
+        public event onLeaveRegionDelegate onLeaveRegion;
+
         internal Region[,] regions;
 
-        // provides information about object position (region).
-        private Dictionary<int, Vector2> objectMap;
+        // provides information about object position (into region).
+        private Dictionary<ActiveObject, Vector2> objectMap;
 
         static Grid()
         {
@@ -30,67 +32,116 @@ namespace XNA.model.grid
         public Grid()
         {
             this.regions = new Region[REGIONS_IN_ROW, REGIONS_IN_COLUMN];
-            this.objectMap = new Dictionary<int, Vector2>();
+            this.objectMap = new Dictionary<ActiveObject, Vector2>();
+
+            for (int i = 0; i < REGIONS_IN_ROW; ++i)
+            {
+                for (int j = 0; j < REGIONS_IN_COLUMN; ++j)
+                {
+                    this.regions[i, j] = new Region();
+                }
+            }
         }
 
-        public void placeIn(MoveableObject target, Vector2 coordinates)
+        /**
+         * Update object position on grid.
+         */
+        public void moveTo(ActiveObject target, Vector2 coordinates)
         {
-            Vector2 sourceRegion = objectMap[target.objectID];
             Vector2 destinationRegion = determineRegion(coordinates);
 
-            if (sourceRegion != destinationRegion)
+            // assert.
+            if (!validateRegion(destinationRegion))
             {
-                onChangeRegion(target, sourceRegion, destinationRegion);
-
-                // switch region.
-                regions[(int)sourceRegion.X, (int)sourceRegion.Y].members.Remove(target);
-                regions[(int)destinationRegion.X, (int)destinationRegion.Y].members.Add(target);
-
-                // update object position.
-                objectMap[target.objectID] = destinationRegion;
+                return;
             }
 
+            if (isOnMap(target))
+            {
+                Vector2 sourceRegion = getCurrentRegion(target);
+                if (sourceRegion != destinationRegion)
+                {
+                    replace(target, sourceRegion, destinationRegion);
+                }
+            }
+            else
+            {
+                put(target, destinationRegion);
+            }
         }
 
+        /**
+         * Remove object from region map.
+         */
+        public void remove(ActiveObject target)
+        {
+            Vector2 sourceRegion = getCurrentRegion(target);
+            drop(target, sourceRegion);
+        }
+
+        /**
+         * Replace already existed object from one region to another.
+         */
+        private void replace(ActiveObject target, Vector2 source, Vector2 destination)
+        {
+            regions[(int)source.X, (int)source.Y].members.Remove(target);
+            regions[(int)destination.X, (int)destination.Y].members.Add(target);
+            objectMap[target] = destination;
+            onEnterRegion(target, destination);
+            onLeaveRegion(target, source);
+        }
+
+        /**
+         * Create new object on region map.
+         */
+        private void put(ActiveObject target, Vector2 destination)
+        {
+            regions[(int)destination.X, (int)destination.Y].members.Add(target);
+            objectMap.Add(target, destination);
+            onEnterRegion(target, destination);
+        }
+
+        /**
+         * Delete object from region map.
+         */
+        private void drop(ActiveObject target, Vector2 source)
+        {
+            regions[(int)source.X, (int)source.Y].members.Remove(target);
+            objectMap.Remove(target);
+            onLeaveRegion(target, source);
+        }
+
+        /**
+         * Calculates region position by world absolute coordinates.
+         */
         private Vector2 determineRegion(Vector2 coordinates)
         {
             return new Vector2((float)Math.Floor(coordinates.X / REGION_SIZE), (float)Math.Floor(coordinates.Y / REGION_SIZE));
         }
-    }
 
-    /**
-     * Each object which should be tracked in grid should be derived from this class.
-     */
-    public abstract class MoveableObject
-    {
-        private static int objectCounter = 0;
-
-        public Vector2 coordinates;
-
-        // for Grid class as identifier.
-        internal int objectID;
-
-        public MoveableObject()
+        /**
+         * This assert method.
+         * It shouldn't be used in production version.
+         */
+        private bool validateRegion(Vector2 region)
         {
-            this.objectID = ++MoveableObject.objectCounter;
+            return region.X >= 0 && region.X < REGIONS_IN_ROW && region.Y >= 0 && region.Y < REGIONS_IN_COLUMN;
         }
 
-        public void update()
+        /**
+         * Checks whether object already placed on map.
+         */
+        private bool isOnMap(ActiveObject target)
         {
-            GameModel.instance.grid.placeIn(this, coordinates);
+            return objectMap.ContainsKey(target);
         }
-    }
 
-    /**
-     * A particle of grid.
-     */
-    internal class Region {
-
-        public List<MoveableObject> members;
-
-        public Region()
+        /**
+         * Returns object current region.
+         */
+        private Vector2 getCurrentRegion(ActiveObject target)
         {
-            this.members = new List<MoveableObject>();
+            return objectMap[target];
         }
     }
 }
