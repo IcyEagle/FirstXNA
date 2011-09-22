@@ -34,6 +34,7 @@ namespace XNA.model
         public Body createPickableBody(int width, int height)
         {
             Body body = BodyFactory.CreateRectangle(GameModel.instance.world, width, height, 1f);
+            body.FixedRotation = true;
             body.BodyType = BodyType.Dynamic;
             body.Restitution = .5f;
             body.Friction = .5f;

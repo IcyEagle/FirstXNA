@@ -5,3 +5,4 @@ XNA/XNA/Capability.cs
 *.cache
 bin/
 obj/
+_ReSharper.XNA/
