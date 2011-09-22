@@ -22,22 +22,29 @@ namespace XNA.model.physical
         {
             this.physicalMap = new PhysicalMap();
 
-            GameModel.instance.grid.onChangeRegion += new Grid.onChangeRegionDelegate(onChangeRegionHandler);
+            GameModel.instance.grid.onEnterRegion += new Grid.onEnterRegionDelegate(onEnterRegionHandler);
+            GameModel.instance.grid.onLeaveRegion += new Grid.onLeaveRegionDelegate(onLeaveRegionHandler);
         }
 
-        private void onChangeRegionHandler(Object target, Vector2 source, Vector2 destination)
+        private void onEnterRegionHandler(ActiveObject target, Vector2 destination)
         {
-            // perhaps, it's not optimized algorithm.
-
-            // disable blocks.
-            Vector2 disableLeftTop = new Vector2((float)Math.Floor((source.X - 1) * BLOCKS_PER_REGION), (float)Math.Floor((source.Y - 1) * BLOCKS_PER_REGION));
-            Vector2 disableRightBottom = new Vector2((float)Math.Floor((source.X - 1) * BLOCKS_PER_REGION), (float)Math.Floor((source.Y + 1) * BLOCKS_PER_REGION));
-            physicalMap.changeRange(disableLeftTop, disableRightBottom, PhysicalMap.State.DECREASE);
+            float range = BLOCKS_PER_REGION;
 
             // enable blocks.
-            Vector2 enableLeftTop = new Vector2((float)Math.Floor((destination.X - 1) * BLOCKS_PER_REGION), (float)Math.Floor((destination.Y - 1) * BLOCKS_PER_REGION));
-            Vector2 enableRightBottom = new Vector2((float)Math.Floor((destination.X - 1) * BLOCKS_PER_REGION), (float)Math.Floor((destination.Y + 1) * BLOCKS_PER_REGION));
-            physicalMap.changeRange(enableLeftTop, enableRightBottom, PhysicalMap.State.INCREASE);
+            Vector2 leftTop = new Vector2((float)Math.Floor((destination.X - 1) * range), (float)Math.Floor((destination.Y - 1) * range));
+            Vector2 rightBottom = new Vector2((float)Math.Floor((destination.X + 2) * range), (float)Math.Floor((destination.Y + 2) * range));
+            physicalMap.changeRange(leftTop, rightBottom, PhysicalMap.State.INCREASE);
         }
+
+        private void onLeaveRegionHandler(ActiveObject target, Vector2 source)
+        {
+            float range = BLOCKS_PER_REGION;
+
+            // disable blocks.
+            Vector2 leftTop = new Vector2((float)Math.Floor((source.X - 1) * range), (float)Math.Floor((source.Y - 1) * range));
+            Vector2 rightBottom = new Vector2((float)Math.Floor((source.X + 2) * range), (float)Math.Floor((source.Y + 2) * range));
+            physicalMap.changeRange(leftTop, rightBottom, PhysicalMap.State.DECREASE);
+        }
+
     }
 }

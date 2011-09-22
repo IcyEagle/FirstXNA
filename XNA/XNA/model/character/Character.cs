@@ -8,25 +8,12 @@ using Microsoft.Xna.Framework;
 using XNA.model.input;
 using Microsoft.Xna.Framework.Input;
 using XNA.model.character;
+using XNA.model.grid;
 
 namespace XNA.model
 {
     class Character : DrawableGameComponent
     {
-        public delegate void onMoveDelegate(OnMoveArgs args);
-        public event onMoveDelegate onMove;
-        public class OnMoveArgs
-        {
-            public int x, y;
-            public OnMoveArgs(int x, int y)
-            {
-                this.x = x;
-                this.y = y;
-            }
-        }
-
-        private Game1 game;
-
         public string name;
         public int level;
 
@@ -35,26 +22,25 @@ namespace XNA.model
 
         public Body body;
         public Texture2D texture;
-        private PhysicalActiveObject physicalObject;
+        private ActiveObject moveable;
 
         private Bag bag;
 
-        public Character(Game1 game, string name, int level) : base(game)
+        public Character(string name, int level) : base(GameModel.instance.game)
         {
-            this.game = game;
             this.name = name;
             this.level = level;
             this.width = 32 - 2;
             this.height = 48 - 2;
             this.bag = new Bag();
-            this.physicalObject = new PhysicalActiveObject();
+            this.moveable = new ActiveObject();
             create();
         }
 
         private void create()
         {
             body = GameModel.instance.bodyManager.createCharacterBody(this);
-            TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
+            TextureHelper helper = (TextureHelper)GameModel.instance.game.Services.GetService(typeof(TextureHelper));
             texture = helper.generateSimpleTexture(width, height, Color.BlanchedAlmond);
 
             GameModel.instance.keyboardInput.onPressedKeys += new KeyboardInput.onPressedKeysDelegate(onPressedKeysHandler);
@@ -94,8 +80,7 @@ namespace XNA.model
         {
             if (body.LinearVelocity != Vector2.Zero)
             {
-                //onMove.Invoke(new OnMoveArgs((int)body.Position.X, (int)body.Position.Y));
-                physicalObject.updatePosition(body.Position);
+                moveable.UpdatePosition(body.Position);
             }
         }
     }

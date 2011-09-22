@@ -63,11 +63,11 @@ namespace XNA
             Block.enabledTexture = textureHelper.generateSimpleTexture(Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE, Color.White);
 
             // initialize components.
-            GameModel.instance.character = new Character(this, "Griff", 1);
+            GameModel.instance.character = new Character("Griff", 1);
             Components.Add(GameModel.instance.character);
 
             Block[,] map = helper.generateMap(SCREEN_WIDTH, SCREEN_HEIGHT, Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE);
-            GameModel.instance.terrain = new Terrain(map, this);
+            GameModel.instance.terrain = new Terrain(map);
             Components.Add(GameModel.instance.terrain);
 
         }
