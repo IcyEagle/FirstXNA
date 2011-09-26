@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using XNA.model;
+﻿using XNA.model;
+using XNA.model.character;
 using XNA.model.input;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,6 +18,8 @@ namespace XNA
         public SpriteBatch spriteBatch;
         public Character character;
         public Terrain terrain;
+        public ContentManager contentManager = new ContentManager();
+        public UpdateManager updateManager = new UpdateManager();
         public Camera2d camera2d = new Camera2d();
         public ItemManager itemManager = new ItemManager();
         public BodyManager bodyManager = new BodyManager();

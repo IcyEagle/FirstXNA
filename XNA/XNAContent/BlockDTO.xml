@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+	<Asset Type="GameLibrary.BlockDTO[]">
+		<Item>
+			<id>1</id>
+			<name>ground</name>
+      <type>ground</type>
+			<restitution>0</restitution>
+			<friction>1</friction>
+		</Item>
+		<Item>
+			<id>2</id>
+			<name>stone</name>
+      <type>stone</type>
+      <restitution>0</restitution>
+			<friction>1</friction>
+		</Item>
+	</Asset>
+</XnaContent>

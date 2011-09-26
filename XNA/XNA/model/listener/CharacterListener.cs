@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using XNA.model.character;
 using XNA.model.grid;
 using Microsoft.Xna.Framework;
+using XNA.model.item;
 
 namespace XNA.model.listener
 {

@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
-using XNA.model;
+using XNA.model.block;
+using XNA.model.item;
 
 namespace XNA.model
 {
@@ -58,7 +50,7 @@ namespace XNA.model
 
         private Vector2 calculateBlockPositionByCoordinate(Vector2 position)
         {
-            return new Vector2(position.X / BLOCK_SIZE, position.Y / BLOCK_SIZE);
+            return new Vector2((position.X + BLOCK_SIZE / 2) / BLOCK_SIZE, (position.Y + BLOCK_SIZE / 2) / BLOCK_SIZE);
         }
 
         public override void Draw(GameTime gameTime)
@@ -67,13 +59,13 @@ namespace XNA.model
             {
                 if (block != null)
                 {
-                    block.Draw(GameModel.instance.spriteBatch);
+                    block.Draw();
                 }
             }
 
             foreach (Item item in items)
             {
-                item.Draw(GameModel.instance.spriteBatch);
+                item.Draw();
             }
         }
 
@@ -100,10 +92,11 @@ namespace XNA.model
         {
             block.disablePhysics();
             Item item = GameModel.instance.itemManager.getItem(ItemManager.ItemType.BLOCK_GENERIC);
-            Random rand = new Random();
-            float offsetX = rand.Next(30, 170) / 100f;
-            float offsetY = rand.Next(30, 170) / 100f;
-            item.setPosition(block.x + block.width * offsetX / 2f, block.y + block.height * offsetY / 2f);
+            //Random rand = new Random();
+            //float offsetX = rand.Next(30, 170) / 100f;
+            //float offsetY = rand.Next(30, 170) / 100f;
+            //item.setPosition(block.x + block.width * offsetX / 2f, block.y + block.height * offsetY / 2f);
+            item.setPosition(block.getPosition());
             item.throwOut();
             items.Add(item);
         }

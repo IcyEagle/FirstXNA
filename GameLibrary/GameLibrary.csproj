@@ -1,38 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{EC27A49B-7D33-44E1-9143-03BCE7513C54}</ProjectGuid>
+    <ProjectGuid>{8259E8DD-D898-4C5B-B648-359DA67BD719}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XNA</RootNamespace>
-    <AssemblyName>XNA</AssemblyName>
+    <RootNamespace>GameLibrary</RootNamespace>
+    <AssemblyName>GameLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
-    <XnaCrossPlatformGroupID>3218cf85-af4c-47ac-8113-ca7a4ce2eb4a</XnaCrossPlatformGroupID>
-    <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <XnaCrossPlatformGroupID>ca7aaedc-00e2-4794-a406-60e5f3e8f6be</XnaCrossPlatformGroupID>
+    <XnaOutputType>Library</XnaOutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -97,9 +80,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Net">
@@ -107,85 +92,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Capability.cs" />
-    <Compile Include="model\base\DrawableObject.cs" />
-    <Compile Include="model\base\InteractiveObject.cs" />
-    <Compile Include="model\base\MoveableObject.cs" />
-    <Compile Include="model\base\PhysicalObject.cs" />
-    <Compile Include="model\block\Block.cs" />
-    <Compile Include="model\BodyManager.cs" />
-    <Compile Include="model\Camera2d.cs" />
-    <Compile Include="model\character\Bag.cs" />
-    <Compile Include="model\character\BagItem.cs" />
-    <Compile Include="model\ContentManager.cs" />
-    <Compile Include="model\grid\Grid.cs" />
-    <Compile Include="model\grid\ActiveObject.cs" />
-    <Compile Include="model\grid\Region.cs" />
-    <Compile Include="model\Initializer.cs" />
-    <Compile Include="model\input\KeyboardInput.cs" />
-    <Compile Include="model\item\Item.cs" />
-    <Compile Include="model\item\ItemManager.cs" />
-    <Compile Include="model\character\Character.cs" />
-    <Compile Include="model\GameModel.cs" />
-    <Compile Include="model\input\MouseInput.cs" />
-    <Compile Include="model\listener\CharacterListener.cs" />
-    <Compile Include="model\physical\PhysicalManager.cs" />
-    <Compile Include="model\physical\PhysicalMap.cs" />
-    <Compile Include="model\Terrain.cs" />
-    <Compile Include="model\UpdateManager.cs" />
+    <Compile Include="BlockDTO.cs" />
+    <Compile Include="CharacterDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
-    <Compile Include="TerrainGenerator.cs" />
-    <Compile Include="TextureHelper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Farseer Physics Engine 3.3 XNA\Farseer Physics XNA.csproj">
-      <Project>{0A850700-1ABB-4288-A391-6726B90EBEB9}</Project>
-      <Name>Farseer Physics XNA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\GameLibrary\GameLibrary.csproj">
-      <Project>{8259E8DD-D898-4C5B-B648-359DA67BD719}</Project>
-      <Name>GameLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XNAContent\XNAContent.contentproj">
-      <Project>{3774F0A3-9C62-40BB-B465-8816621EE8B0}</Project>
-      <Name>XNAContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Xna.Framework.4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using XNA.model.grid;
 
-namespace XNA.model
+namespace XNA.model.item
 {
-    class Item
+    class Item : ActiveObject
     {
-        public int width;
+        /*public int width;
         public int height;
 
         private Texture2D texture;
@@ -19,7 +16,7 @@ namespace XNA.model
         private ActiveObject moveable;
 
         public int x { get { return (int) body.Position.X; } }
-        public int y { get { return (int) body.Position.Y; } }
+        public int y { get { return (int) body.Position.Y; } }*/
 
         public Item(Texture2D texture, int width, int height, Body body)
         {
@@ -28,7 +25,7 @@ namespace XNA.model
             this.height = height;
             this.body = body;
 
-            this.moveable = new ActiveObject(this);
+            //this.moveable = new ActiveObject(this);
         }
 
         public Item(Texture2D texture, int width, int height, Body body, Vector2 position)
@@ -40,15 +37,16 @@ namespace XNA.model
             setPosition(position.X, position.Y);
         }
 
-        public void setPosition(float x, float y)
+        /*public void setPosition(float x, float y)
         {
             body.Position = new Vector2(x, y);
-        }
+        }*/
 
         public void throwOut()
         {
             Random rand = new Random();
-            body.LinearVelocity -= new Vector2(rand.Next(10, 30), rand.Next(30, 50));
+            //body.LinearVelocity -= new Vector2(rand.Next(10, 30), rand.Next(30, 50));
+            body.LinearVelocity = new Vector2(rand.Next(-50, 50), rand.Next(-75, -50));
         }
 
         public void approachTo(Vector2 anchor)
@@ -57,14 +55,14 @@ namespace XNA.model
             body.LinearVelocity -= new Vector2(Math.Sign(diff.X) * 100, Math.Sign(diff.Y) * 100);
         }
 
-        public void Draw(SpriteBatch batch)
+        /*public void Draw(SpriteBatch batch)
         {
             batch.Draw(this.texture, new Rectangle(x, y, width, height), null, Color.White, body.Rotation, new Vector2(width / 2, height / 2), SpriteEffects.None, 0f);
         }
 
         public void Update()
         {
-            moveable.UpdatePosition(body.Position);
-        }
+            //moveable.UpdatePosition(body.Position);
+        }*/
     }
 }

@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 
 using XNA.model;
+using XNA.model.block;
 
 namespace XNA
 {
@@ -26,23 +27,23 @@ namespace XNA
             this.game = game;
         }
 
-        public Block[,] generateMap(int width, int height, int blockWidth, int blockHeight)
+        public Block[,] generateMap(int width, int height)
         {
             
-            int blockRowSize = (int)Math.Ceiling((double)width / blockWidth);
-            int blockColumnSize = (int)Math.Ceiling((double)height / blockHeight);
+            int blockRowSize = (int)Math.Ceiling((double)width / Terrain.BLOCK_SIZE);
+            int blockColumnSize = (int)Math.Ceiling((double)height / Terrain.BLOCK_SIZE);
 
             Block[,] blocks = new Block[blockRowSize, blockColumnSize];
 
-            TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
+            //TextureHelper helper = (TextureHelper)game.Services.GetService(typeof(TextureHelper));
 
             // couple of available textures.
-            Collection<Texture2D> textures = new Collection<Texture2D>();
-            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.Brown));
-            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.SteelBlue));
+            /*Collection<Texture2D> textures = new Collection<Texture2D>();
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.DarkKhaki));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.Green));
             textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.Silver));
-            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.Gold));
-            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.LightGray));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.DarkGreen));
+            textures.Add(helper.generateSimpleTexture(blockWidth, blockHeight, Color.DarkGray));*/
 
             Random rand = new Random();
 
@@ -55,8 +56,8 @@ namespace XNA
                     if ((j >= blockColumnSize - visibleBlockLayers && rand.Next() % 2 != 0) || ((i < visibleBlockLayers || i >= blockRowSize - visibleBlockLayers) && rand.Next() % 2 != 0))
                     {
                         // random texture.
-                        Texture2D texture = textures[rand.Next() % textures.Count];
-                        blocks[i, j] = new Block(texture, new Rectangle(blockWidth * i, blockHeight * j, blockWidth, blockHeight));
+                        //Texture2D texture = textures[rand.Next() % textures.Count];
+                        blocks[i, j] = new Block(((int)(rand.Next(1, 3)) == 1) ? "ground" : "stone", Terrain.BLOCK_SIZE * i, Terrain.BLOCK_SIZE * j);
                     }
                 }
             }

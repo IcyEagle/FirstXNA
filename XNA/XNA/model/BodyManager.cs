@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
+using XNA.model.block;
+using XNA.model.character;
 
 namespace XNA.model
 {
@@ -18,26 +16,31 @@ namespace XNA.model
             body.BodyType = BodyType.Dynamic;
             body.Restitution = 0f;
             body.Friction = 1f;
+            body.CollisionCategories = Category.Cat2;
+            body.CollidesWith = Category.Cat1;
             return body;
         }
 
         public Body createBlockBody(Block block)
         {
             Body body = BodyFactory.CreateRectangle(GameModel.instance.world, block.width, block.height, 1f);
-            body.Position = new Vector2(block.x + block.width / 2, block.y + block.height / 2);
+            body.Position = block.getPosition();
             body.BodyType = BodyType.Static;
-            body.Restitution = 0f;
-            body.Friction = 1f;
+            body.Restitution = block.restitution;
+            body.Friction = block.friction;
+            body.CollisionCategories = Category.Cat1;
+            body.CollidesWith = Category.All;
             return body;
         }
 
         public Body createPickableBody(int width, int height)
         {
             Body body = BodyFactory.CreateRectangle(GameModel.instance.world, width, height, 1f);
-            body.FixedRotation = true;
             body.BodyType = BodyType.Dynamic;
             body.Restitution = .5f;
             body.Friction = .5f;
+            body.CollisionCategories = Category.Cat3;
+            body.CollidesWith = Category.Cat1;
             return body;
         }
 

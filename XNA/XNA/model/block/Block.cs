@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using GameLibrary;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using XNA.model.@base;
 
-using FarseerPhysics;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
-using FarseerPhysics.Collision;
-
-namespace XNA.model
+namespace XNA.model.block
 {
-    class Block
+    public class Block : PhysicalObject
     {
         // DEBUG
         public static Texture2D enabledTexture;
@@ -25,33 +13,39 @@ namespace XNA.model
         public delegate void onDestroyHandler (Block block);
         public event onDestroyHandler onDestroy;
 
-        private Texture2D texture;
-        public int width;
+        private Texture2D textureTest;
+        /*public int width;
         public int height;
         public int x;
         public int y;
-        private Body body;
+        private Body body;*/
 
-        public Block(Texture2D texture, Rectangle rectangle) {
-            this.texture = texture;
-            this.width = rectangle.Width;
-            this.height = rectangle.Height;
-            this.x = rectangle.X;
-            this.y = rectangle.Y;
+        public Block(string type, int x, int y)
+        {
+            BlockDTO blockDto = GameModel.instance.contentManager.getBlockDTOByType(type);
+            textureTest = GameModel.instance.contentManager.getBlockTextureByName(blockDto.type);
+            texture = textureTest;
+            restitution = blockDto.restitution;
+            friction = blockDto.friction;
+            width = Terrain.BLOCK_SIZE;
+            height = Terrain.BLOCK_SIZE;
+            this.x = x;
+            this.y = y;
         }
 
-        public void Draw(SpriteBatch batch) {
+        /*public void Draw(SpriteBatch batch) {
             //batch.Draw(this.texture, new Rectangle(x, y, width, height), Color.White);
 
             //DEBUG
             batch.Draw(body != null ? Block.enabledTexture : this.texture, new Rectangle(x, y, width, height), Color.White);
-        }
+        }*/
         
         public void enablePhysics()
         {
             if (this.body == null)
             {
                 this.body = GameModel.instance.bodyManager.createBlockBody(this);
+                texture = enabledTexture;//add
             }
         }
 
@@ -61,6 +55,7 @@ namespace XNA.model
             {
                 GameModel.instance.bodyManager.removeBody(body);
                 body = null;
+                texture = textureTest;//add
             }
         }
 
