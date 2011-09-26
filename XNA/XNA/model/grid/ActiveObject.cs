@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using XNA.model.@base;
 
 namespace XNA.model.grid
@@ -14,25 +13,15 @@ namespace XNA.model.grid
         // for Grid class as identifier.
         internal int objectID;
 
-        // TEMP
-        public Object master;
-
-        public ActiveObject(/*Object master*/)
+        public ActiveObject()
         {
-            this.objectID = ++ActiveObject.objectCounter;
-            master = this;
-            //this.master = master;
+            objectID = ++objectCounter;
         }
 
         public override void Update()
         {
-            GameModel.instance.grid.moveTo(this, new Vector2(x, y));
+            GameModel.instance.grid.moveTo(this, new Vector2(_x, _y));
             base.Update();
         }
-
-        /*public void UpdatePosition(Vector2 coordinates)
-        {
-            GameModel.instance.grid.moveTo(this, coordinates);
-        }*/
     }
 }

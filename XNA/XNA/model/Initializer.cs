@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,8 +15,8 @@ namespace XNA.model
             GameModel.instance.spriteBatch = new SpriteBatch(GameModel.instance.game.GraphicsDevice);
 
             // initialize services.
-            GameModel.instance.game.Services.AddService(typeof(TextureHelper), new TextureHelper(GameModel.instance.game));
-            GameModel.instance.game.Services.AddService(typeof(TerrainGenerator), new TerrainGenerator(GameModel.instance.game));
+            GameModel.instance.game.Services.AddService(typeof(TextureHelper), new TextureHelper());
+            GameModel.instance.game.Services.AddService(typeof(TerrainGenerator), new TerrainGenerator());
         }
 
     }

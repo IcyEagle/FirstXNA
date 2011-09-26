@@ -3,6 +3,7 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using XNA.model.block;
 using XNA.model.character;
+using XNA.model.item;
 
 namespace XNA.model
 {
@@ -10,7 +11,7 @@ namespace XNA.model
     {
         public Body createCharacterBody(Character character)
         {
-            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, character.width, character.height, 1f);
+            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, character.Width, character.Height, 1f);
             body.FixedRotation = true;
             body.Position = new Vector2((int)(Game1.SCREEN_WIDTH / 2), 0);
             body.BodyType = BodyType.Dynamic;
@@ -23,19 +24,19 @@ namespace XNA.model
 
         public Body createBlockBody(Block block)
         {
-            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, block.width, block.height, 1f);
-            body.Position = block.getPosition();
+            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, block.Width, block.Height, 1f);
+            body.Position = block.Position;
             body.BodyType = BodyType.Static;
-            body.Restitution = block.restitution;
-            body.Friction = block.friction;
+            body.Restitution = block.Restitution;
+            body.Friction = block.Friction;
             body.CollisionCategories = Category.Cat1;
             body.CollidesWith = Category.All;
             return body;
         }
 
-        public Body createPickableBody(int width, int height)
+        public Body createPickableBody(Item item)
         {
-            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, width, height, 1f);
+            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, item.Width, item.Height, 1f);
             body.BodyType = BodyType.Dynamic;
             body.Restitution = .5f;
             body.Friction = .5f;

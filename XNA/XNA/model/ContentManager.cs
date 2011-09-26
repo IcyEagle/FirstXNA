@@ -3,7 +3,6 @@ using GameLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using XNA.model.block;
-using XNA.model.character;
 
 namespace XNA.model
 {
@@ -21,9 +20,7 @@ namespace XNA.model
 
         public void init()
         {
-
-            var characterDTO = GameModel.instance.game.Content.Load<CharacterDTO>("CharacterDTO");
-            GameModel.instance.character = new Character(characterDTO.name, characterDTO.level);
+            GameModel.instance.character =  GameModel.instance.genericFactory.CreateCharacter(Game1.SCREEN_WIDTH / 2, 0);
             GameModel.instance.updateManager.addObjectForUpdate(GameModel.instance.character);
 
             var blocksDTO = GameModel.instance.game.Content.Load<BlockDTO[]>("BlockDTO");
@@ -36,7 +33,7 @@ namespace XNA.model
 
             //DEBUG
             var textureHelper = (TextureHelper)GameModel.instance.game.Services.GetService(typeof(TextureHelper));
-            Block.enabledTexture = textureHelper.generateSimpleTexture(Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE, Color.White);
+            Block.physicsTexture = textureHelper.generateSimpleTexture(Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE, Color.White);
 
             var map = helper.generateMap(Game1.SCREEN_WIDTH, Game1.SCREEN_HEIGHT);
             GameModel.instance.terrain = new Terrain(map);

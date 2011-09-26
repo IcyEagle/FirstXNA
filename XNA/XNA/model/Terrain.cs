@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using XNA.model.block;
@@ -91,13 +90,14 @@ namespace XNA.model
         protected void onBlockDestroyHandler(Block block)
         {
             block.disablePhysics();
-            Item item = GameModel.instance.itemManager.getItem(ItemManager.ItemType.BLOCK_GENERIC);
+            //Item item = GameModel.instance.itemManager.getItem(ItemManager.ItemType.BLOCK_GENERIC);
+            Item item = GameModel.instance.genericFactory.CreateItem(block.Position.X, block.Position.Y);
             //Random rand = new Random();
             //float offsetX = rand.Next(30, 170) / 100f;
             //float offsetY = rand.Next(30, 170) / 100f;
             //item.setPosition(block.x + block.width * offsetX / 2f, block.y + block.height * offsetY / 2f);
-            item.setPosition(block.getPosition());
-            item.throwOut();
+            //item.Position = block.Position;
+            item.ThrowOut();
             items.Add(item);
         }
     }

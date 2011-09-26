@@ -2,11 +2,5 @@
 {
     public class InteractiveObject : MoveableObject
     {
-        
-        public InteractiveObject()
-        {
-            
-        }
-
     }
 }

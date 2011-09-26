@@ -118,6 +118,7 @@
     <Compile Include="model\character\Bag.cs" />
     <Compile Include="model\character\BagItem.cs" />
     <Compile Include="model\ContentManager.cs" />
+    <Compile Include="model\GenericFactory.cs" />
     <Compile Include="model\grid\Grid.cs" />
     <Compile Include="model\grid\ActiveObject.cs" />
     <Compile Include="model\grid\Region.cs" />

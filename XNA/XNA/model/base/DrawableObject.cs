@@ -6,20 +6,13 @@ namespace XNA.model.@base
     public class DrawableObject
     {
 
-        public Texture2D texture;
+        public Texture2D Texture;
+        public int Width;
+        public int Height;
 
-        protected float x;
-        protected float y;
-        public float rotation;
-        public int width;
-        public int height;
-
-        protected bool bodyNeedPosition;
-
-        public DrawableObject()
-        {
-            
-        }
+        protected float _x;
+        protected float _y;
+        public float Rotation;
 
         public virtual void Update()
         {
@@ -28,34 +21,23 @@ namespace XNA.model.@base
 
         public virtual void Draw()
         {
-            GameModel.instance.spriteBatch.Draw(texture, new Vector2(x, y), null, Color.White, rotation, new Vector2(width / 2f, height / 2f), 1f, SpriteEffects.None, 0f);
+            GameModel.instance.spriteBatch.Draw(Texture, new Vector2(_x, _y), null, Color.White, Rotation, new Vector2(Width / 2f, Height / 2f), 1f, SpriteEffects.None, 0f);
         }
 
-        public void setPosition(float x, float y)
+        public virtual Vector2 Position
         {
-            this.x = x;
-            this.y = y;
-            bodyNeedPosition = true;
+            get { return new Vector2(_x, _y); }
+            set { _x = value.X; _y = value.Y; }
         }
 
-        public void setPosition(Vector2 position)
+        public float X
         {
-            setPosition(position.X, position.Y);
+            get { return _x; }
         }
 
-        public Vector2 getPosition()
+        public float Y
         {
-            return new Vector2(x, y);
-        }
-
-        public float getPosX()
-        {
-            return x;
-        }
-
-        public float getPosY()
-        {
-            return y;
+            get { return _y; }
         }
 	}
 }

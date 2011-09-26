@@ -6,45 +6,36 @@ namespace XNA.model.@base
     public class PhysicalObject : InteractiveObject
     {
 
-        public Body body;
+        public Body Body;
 
         private float _restitution;
         private float _friction;
 
-        public PhysicalObject()
-        {
-            
-        }
-
         public override void Update()
         {
-            if (body != null)
+            if (Body != null)
             {
-                if (bodyNeedPosition)
-                {
-                    body.Position = new Vector2(x, y);
-                    bodyNeedPosition = false;
-                }
-                else
-                {
-                    x = body.Position.X;
-                    y = body.Position.Y;
-                }
-                rotation = body.Rotation;
+                Position = Body.Position;
+                Rotation = Body.Rotation;
             }
             base.Update();
         }
 
-        public float restitution
+        public override Vector2 Position
         {
-            get { return _restitution; }
-            set { _restitution = value; if (body != null) body.Restitution = _restitution; }
+            set { base.Position = value; if (Body != null) Body.Position = value; }
         }
 
-        public float friction
+        public float Restitution
+        {
+            get { return _restitution; }
+            set { _restitution = value; if (Body != null) Body.Restitution = _restitution; }
+        }
+
+        public float Friction
         {
             get { return _friction; }
-            set { _friction = value; if (body != null) body.Friction = _friction; }
+            set { _friction = value; if (Body != null) Body.Friction = _friction; }
         }
 
     }

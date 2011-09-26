@@ -1,5 +1,4 @@
-﻿using System;
-using XNA.model.character;
+﻿using XNA.model.character;
 using XNA.model.grid;
 using Microsoft.Xna.Framework;
 using XNA.model.item;
@@ -15,9 +14,9 @@ namespace XNA.model.listener
 
         private void onEnterRegionHandler(ActiveObject target, Vector2 destination)
         {
-            if (target.master is Character)
+            if (target is Character)
             {
-                Character character = (Character)target.master;
+                var character = target as Character;
                 for (int x = (int)destination.X - 1; x < (int)destination.X + 2; ++x)
                 {
                     for (int y = (int)destination.Y - 1; y < (int)destination.Y + 2; ++y)
@@ -27,11 +26,10 @@ namespace XNA.model.listener
 
                             foreach (ActiveObject member in region.members)
                             {
-                                if (member.master is Item)
+                                if (member is Item)
                                 {
-                                    Console.Write("AO");
-                                    Item item = (Item)member.master;
-                                    item.approachTo(character.body.Position);
+                                    var item = member as Item;
+                                    item.ApproachTo(character.Body.Position);
                                 }
                             }
                         }

@@ -1,6 +1,4 @@
-﻿using GameLibrary;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using XNA.model.@base;
 
 namespace XNA.model.block
@@ -8,54 +6,35 @@ namespace XNA.model.block
     public class Block : PhysicalObject
     {
         // DEBUG
-        public static Texture2D enabledTexture;
+        public static Texture2D physicsTexture;
 
         public delegate void onDestroyHandler (Block block);
         public event onDestroyHandler onDestroy;
 
-        private Texture2D textureTest;
-        /*public int width;
-        public int height;
-        public int x;
-        public int y;
-        private Body body;*/
+        // DEBUG
+        private Texture2D _classicTexture;
 
-        public Block(string type, int x, int y)
-        {
-            BlockDTO blockDto = GameModel.instance.contentManager.getBlockDTOByType(type);
-            textureTest = GameModel.instance.contentManager.getBlockTextureByName(blockDto.type);
-            texture = textureTest;
-            restitution = blockDto.restitution;
-            friction = blockDto.friction;
-            width = Terrain.BLOCK_SIZE;
-            height = Terrain.BLOCK_SIZE;
-            this.x = x;
-            this.y = y;
-        }
-
-        /*public void Draw(SpriteBatch batch) {
-            //batch.Draw(this.texture, new Rectangle(x, y, width, height), Color.White);
-
-            //DEBUG
-            batch.Draw(body != null ? Block.enabledTexture : this.texture, new Rectangle(x, y, width, height), Color.White);
-        }*/
-        
         public void enablePhysics()
         {
-            if (this.body == null)
+            if (this.Body == null)
             {
-                this.body = GameModel.instance.bodyManager.createBlockBody(this);
-                texture = enabledTexture;//add
+                this.Body = GameModel.instance.bodyManager.createBlockBody(this);
+
+                // DEBUG
+                _classicTexture = Texture;
+                Texture = physicsTexture;
             }
         }
 
         public void disablePhysics()
         {
-            if (body != null)
+            if (Body != null)
             {
-                GameModel.instance.bodyManager.removeBody(body);
-                body = null;
-                texture = textureTest;//add
+                GameModel.instance.bodyManager.removeBody(Body);
+                Body = null;
+
+                // DEBUG
+                Texture = _classicTexture;//add
             }
         }
 

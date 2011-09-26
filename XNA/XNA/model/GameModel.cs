@@ -24,6 +24,7 @@ namespace XNA
         public ItemManager itemManager = new ItemManager();
         public BodyManager bodyManager = new BodyManager();
         public Grid grid = new Grid();
+        public GenericFactory genericFactory = new GenericFactory();
 
         public MouseInput mouseInput = new MouseInput();
         public KeyboardInput keyboardInput = new KeyboardInput();
