@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using XNA.model.@base;
+using XNA.model.behavior;
 
 namespace XNA.model.grid
 {
@@ -8,18 +10,19 @@ namespace XNA.model.grid
      */
     public class ActiveObject : PhysicalObject
     {
-        // TODO Should be replaced into base class.
-        public delegate void onMoveDelegate(ActiveObject target, Vector2 coordinates);
-        public event onMoveDelegate onMove;
+        public delegate void OnMoveDelegate(ActiveObject target, Vector2 coordinates);
+        public event OnMoveDelegate OnMove;
 
-        private static int objectCounter = 0;
+        private static int _objectCounter = 0;
 
         // for Grid class as identifier.
-        internal int objectID;
+        internal int ObjectID;
+
+        private ICollection<IBehavior> _behaviors = new List<IBehavior>();
 
         public ActiveObject()
         {
-            objectID = ++objectCounter;
+            ObjectID = ++_objectCounter;
         }
 
         public override void Update()
@@ -27,10 +30,20 @@ namespace XNA.model.grid
             GameModel.Instance.Grid.moveTo(this, new Vector2(X, Y));
             base.Update();
 
-            if (onMove != null)
-            {
-                onMove.Invoke(this, Position);
-            }
+            // fire event.
+            if (OnMove != null) {OnMove.Invoke(this, Position);}
         }
+
+        public void AddBehavior(IBehavior behavior)
+        {
+            _behaviors.Add(behavior);  
+        }
+
+        public void RemoveBehavior(IBehavior behavior)
+        {
+            _behaviors.Remove(behavior);
+        }
+
+        public ICollection<IBehavior> Behaviors { get { return _behaviors; } }
     }
 }

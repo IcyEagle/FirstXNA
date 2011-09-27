@@ -7,35 +7,5 @@ namespace XNA.model.listener
 {
     class CharacterListener
     {
-        public CharacterListener()
-        {
-            GameModel.Instance.Grid.onEnterRegion += new Grid.onEnterRegionDelegate(onEnterRegionHandler);
-        }
-
-        private void onEnterRegionHandler(ActiveObject target, Vector2 destination)
-        {
-            if (target is Character)
-            {
-                var character = target as Character;
-                for (int x = (int)destination.X - 1; x < (int)destination.X + 2; ++x)
-                {
-                    for (int y = (int)destination.Y - 1; y < (int)destination.Y + 2; ++y)
-                    {
-                        if (GameModel.Instance.Grid.hasRegionByCoordinate(new Vector2(x, y))) {
-                            Region region = GameModel.Instance.Grid.getRegion(new Vector2(x, y));
-
-                            foreach (var member in region.members)
-                            {
-                                if (member is Item)
-                                {
-                                    var item = member as Item;
-                                    item.ApproachTo(character.Body.Position);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }

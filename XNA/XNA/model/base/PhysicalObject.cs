@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using System;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 
 namespace XNA.model.@base
@@ -36,6 +37,18 @@ namespace XNA.model.@base
         {
             get { return _friction; }
             set { _friction = value; if (Body != null) Body.Friction = _friction; }
+        }
+
+                public void ThrowOut()
+        {
+            var rand = new Random();
+            Body.LinearVelocity = new Vector2(rand.Next(-50, 50), rand.Next(-75, -50));
+        }
+
+        public void ApproachTo(Vector2 anchor, float force)
+        {
+            Vector2 diff = Body.Position - anchor;
+            Body.LinearVelocity -= new Vector2(Math.Sign(diff.X) * force, Math.Sign(diff.Y) * force);
         }
 
     }

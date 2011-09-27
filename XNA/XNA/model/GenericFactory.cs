@@ -1,5 +1,6 @@
 ﻿using GameLibrary;
 using Microsoft.Xna.Framework;
+using XNA.model.behavior;
 using XNA.model.block;
 using XNA.model.character;
 using XNA.model.item;
@@ -63,6 +64,11 @@ namespace XNA.model
 
             instance.Body = GameModel.Instance.BodyManager.createPickableBody(instance);
             instance.Position = new Vector2(x, y);
+
+            // behaviors.
+            instance.AddBehavior(new Sticky(instance, 100, 100));
+            instance.AddBehavior(new Pickup(instance, 20));
+
             return instance;
         }
     }
