@@ -32,11 +32,13 @@ namespace XNA
         public PhysicalManager physicalManager;
 
         public CharacterListener characterListener;
+        public ItemListener itemListener;
 
         public void init()
         {
             physicalManager = new PhysicalManager();
             characterListener = new CharacterListener();
+            itemListener = new ItemListener();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace XNA.model.listener
                         if (GameModel.instance.grid.hasRegionByCoordinate(new Vector2(x, y))) {
                             Region region = GameModel.instance.grid.getRegion(new Vector2(x, y));
 
-                            foreach (ActiveObject member in region.members)
+                            foreach (var member in region.members)
                             {
                                 if (member is Item)
                                 {

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using XNA.model.@base;
@@ -8,11 +9,11 @@ namespace XNA.model
     class UpdateManager
     {
 
-        private ArrayList drawableObjects;
+        private List<DrawableObject> drawableObjects;
 
         public UpdateManager()
         {
-            drawableObjects = new ArrayList();
+            drawableObjects = new List<DrawableObject>();
         }
 
         public void Update(GameTime gameTime)
@@ -23,7 +24,7 @@ namespace XNA.model
             GameModel.instance.mouseInput.Update();
             GameModel.instance.keyboardInput.Update();
 
-            foreach (DrawableObject drawableObject in drawableObjects)
+            foreach (DrawableObject drawableObject in drawableObjects.ToArray())
             {
                 drawableObject.Update();
             }

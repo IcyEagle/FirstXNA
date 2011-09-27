@@ -130,6 +130,7 @@
     <Compile Include="model\GameModel.cs" />
     <Compile Include="model\input\MouseInput.cs" />
     <Compile Include="model\listener\CharacterListener.cs" />
+    <Compile Include="model\listener\ItemListener.cs" />
     <Compile Include="model\physical\PhysicalManager.cs" />
     <Compile Include="model\physical\PhysicalMap.cs" />
     <Compile Include="model\Terrain.cs" />

@@ -8,6 +8,10 @@ namespace XNA.model.grid
      */
     public class ActiveObject : PhysicalObject
     {
+        // TODO Should be replaced into base class.
+        public delegate void onMoveDelegate(ActiveObject target, Vector2 coordinates);
+        public event onMoveDelegate onMove;
+
         private static int objectCounter = 0;
 
         // for Grid class as identifier.
@@ -22,6 +26,11 @@ namespace XNA.model.grid
         {
             GameModel.instance.grid.moveTo(this, new Vector2(_x, _y));
             base.Update();
+
+            if (onMove != null)
+            {
+                onMove.Invoke(this, Position);
+            }
         }
     }
 }
