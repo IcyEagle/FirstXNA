@@ -11,7 +11,7 @@ namespace XNA.model
     {
         public Body createCharacterBody(Character character)
         {
-            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, character.Width, character.Height, 1f);
+            Body body = BodyFactory.CreateRectangle(GameModel.Instance.World, character.Width, character.Height, 1f);
             body.FixedRotation = true;
             body.Position = new Vector2((int)(Game1.SCREEN_WIDTH / 2), 0);
             body.BodyType = BodyType.Dynamic;
@@ -24,7 +24,7 @@ namespace XNA.model
 
         public Body createBlockBody(Block block)
         {
-            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, block.Width, block.Height, 1f);
+            Body body = BodyFactory.CreateRectangle(GameModel.Instance.World, block.Width, block.Height, 1f);
             body.Position = block.Position;
             body.BodyType = BodyType.Static;
             body.Restitution = block.Restitution;
@@ -36,7 +36,7 @@ namespace XNA.model
 
         public Body createPickableBody(Item item)
         {
-            Body body = BodyFactory.CreateRectangle(GameModel.instance.world, item.Width, item.Height, 1f);
+            Body body = BodyFactory.CreateRectangle(GameModel.Instance.World, item.Width, item.Height, 1f);
             body.BodyType = BodyType.Dynamic;
             body.Restitution = .5f;
             body.Friction = .5f;
@@ -47,7 +47,7 @@ namespace XNA.model
 
         public void removeBody(Body body)
         {
-            GameModel.instance.world.RemoveBody(body);
+            GameModel.Instance.World.RemoveBody(body);
         }
     }
 }

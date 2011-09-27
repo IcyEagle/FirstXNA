@@ -9,14 +9,13 @@ namespace XNA.model
 
         public static void init()
         {
-            GameModel.instance.init();
+            GameModel.Instance.Init();
 
-            GameModel.instance.world = new World(new Vector2(0, 50));
-            GameModel.instance.spriteBatch = new SpriteBatch(GameModel.instance.game.GraphicsDevice);
+            GameModel.Instance.World = new World(new Vector2(0, 50));
+            GameModel.Instance.SpriteBatch = new SpriteBatch(GameModel.Instance.Game.GraphicsDevice);
 
             // initialize services.
-            GameModel.instance.game.Services.AddService(typeof(TextureHelper), new TextureHelper());
-            GameModel.instance.game.Services.AddService(typeof(TerrainGenerator), new TerrainGenerator());
+            GameModel.Instance.Game.Services.AddService(typeof(TerrainGenerator), new TerrainGenerator());
         }
 
     }

@@ -74,7 +74,7 @@ namespace XNA.model.physical
          */
         private bool blockExists(int x, int y)
         {
-            return GameModel.instance.terrain.map[x, y] != null;
+            return GameModel.Instance.Terrain.map[x, y] != null;
         }
 
         /**
@@ -82,7 +82,7 @@ namespace XNA.model.physical
          */
         private Block getBlock(int x, int y)
         {
-            return GameModel.instance.terrain.map[x, y];
+            return GameModel.Instance.Terrain.map[x, y];
         }
 
         /**

@@ -18,7 +18,7 @@ namespace XNA.model.block
         {
             if (this.Body == null)
             {
-                this.Body = GameModel.instance.bodyManager.createBlockBody(this);
+                this.Body = GameModel.Instance.BodyManager.createBlockBody(this);
 
                 // DEBUG
                 _classicTexture = Texture;
@@ -30,7 +30,7 @@ namespace XNA.model.block
         {
             if (Body != null)
             {
-                GameModel.instance.bodyManager.removeBody(Body);
+                GameModel.Instance.BodyManager.removeBody(Body);
                 Body = null;
 
                 // DEBUG

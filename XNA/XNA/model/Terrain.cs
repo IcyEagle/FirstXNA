@@ -15,11 +15,11 @@ namespace XNA.model
         // TEMP.
         public List<Item> items = new List<Item>();
 
-        public Terrain(Block[,] map) : base(GameModel.instance.game)
+        public Terrain(Block[,] map) : base(GameModel.Instance.Game)
         {
             this.map = map;
 
-            GameModel.instance.mouseInput.onClick += new MouseInput.onClickDelegate(onClickHandler);
+            GameModel.Instance.MouseInput.onClick += new MouseInput.onClickDelegate(onClickHandler);
 
             init();
         }
@@ -82,9 +82,9 @@ namespace XNA.model
         protected void onBlockDestroyHandler(Block block)
         {
             block.disablePhysics();
-            Item item = GameModel.instance.genericFactory.CreateItem(block.Position.X, block.Position.Y);
+            Item item = GameModel.Instance.GenericFactory.CreateItem(block.Position.X, block.Position.Y);
             item.ThrowOut();
-            GameModel.instance.updateManager.addObjectForUpdate(item);
+            GameModel.Instance.UpdateManager.addObjectForUpdate(item);
             items.Add(item);
         }
     }

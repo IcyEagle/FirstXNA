@@ -27,7 +27,7 @@ namespace XNA
                     if ((j >= blockColumnSize - visibleBlockLayers && rand.Next() % 2 != 0) || ((i < visibleBlockLayers || i >= blockRowSize - visibleBlockLayers) && rand.Next() % 2 != 0))
                     {
                         // random texture.
-                        blocks[i, j] = GameModel.instance.genericFactory.CreateBlock(((int)(rand.Next(1, 3)) == 1) ? "ground" : "stone", Terrain.BLOCK_SIZE * i, Terrain.BLOCK_SIZE * j);
+                        blocks[i, j] = GameModel.Instance.GenericFactory.CreateBlock(((int)(rand.Next(1, 3)) == 1) ? "ground" : "stone", Terrain.BLOCK_SIZE * i, Terrain.BLOCK_SIZE * j);
                     }
                 }
             }

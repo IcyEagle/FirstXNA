@@ -10,9 +10,9 @@ namespace XNA.model.@base
         public int Width;
         public int Height;
 
-        protected float _x;
-        protected float _y;
-        public float Rotation;
+        private float _x;
+        private float _y;
+        private float _rotation;
 
         public virtual void Update()
         {
@@ -21,7 +21,7 @@ namespace XNA.model.@base
 
         public virtual void Draw()
         {
-            GameModel.instance.spriteBatch.Draw(Texture, new Vector2(_x, _y), null, Color.White, Rotation, new Vector2(Width / 2f, Height / 2f), 1f, SpriteEffects.None, 0f);
+            GameModel.Instance.SpriteBatch.Draw(Texture, new Vector2(_x, _y), null, Color.White, _rotation, new Vector2(Width / 2f, Height / 2f), 1f, SpriteEffects.None, 0f);
         }
 
         public virtual Vector2 Position
@@ -38,6 +38,12 @@ namespace XNA.model.@base
         public float Y
         {
             get { return _y; }
+        }
+
+        public float Rotation
+        {
+            get { return _rotation; }
+            set { _rotation = value; }
         }
 	}
 }

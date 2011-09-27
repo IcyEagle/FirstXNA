@@ -20,24 +20,23 @@ namespace XNA.model
 
         public void init()
         {
-            GameModel.instance.character =  GameModel.instance.genericFactory.CreateCharacter(Game1.SCREEN_WIDTH / 2, 0);
-            GameModel.instance.updateManager.addObjectForUpdate(GameModel.instance.character);
+            GameModel.Instance.Character =  GameModel.Instance.GenericFactory.CreateCharacter(Game1.SCREEN_WIDTH / 2, 0);
+            GameModel.Instance.UpdateManager.addObjectForUpdate(GameModel.Instance.Character);
 
-            var blocksDTO = GameModel.instance.game.Content.Load<BlockDTO[]>("BlockDTO");
+            var blocksDTO = GameModel.Instance.Game.Content.Load<BlockDTO[]>("BlockDTO");
             foreach (var blockDto in blocksDTO)
             {
                 blocksDTOByType[blockDto.type] = blockDto;
             }
             
-            var helper = (TerrainGenerator)GameModel.instance.game.Services.GetService(typeof(TerrainGenerator));
+            var helper = (TerrainGenerator)GameModel.Instance.Game.Services.GetService(typeof(TerrainGenerator));
 
             //DEBUG
-            var textureHelper = (TextureHelper)GameModel.instance.game.Services.GetService(typeof(TextureHelper));
-            Block.physicsTexture = textureHelper.generateSimpleTexture(Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE, Color.White);
+            Block.physicsTexture = GameModel.Instance.TextureHelper.GenerateSimpleTexture(Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE, Color.White);
 
             var map = helper.generateMap(Game1.SCREEN_WIDTH, Game1.SCREEN_HEIGHT);
-            GameModel.instance.terrain = new Terrain(map);
-            GameModel.instance.game.Components.Add(GameModel.instance.terrain);
+            GameModel.Instance.Terrain = new Terrain(map);
+            GameModel.Instance.Game.Components.Add(GameModel.Instance.Terrain);
 
         }
 
@@ -56,7 +55,7 @@ namespace XNA.model
             Texture2D texture;
             if (!texturesByName.ContainsKey(textureName))
             {
-                texture = GameModel.instance.game.Content.Load<Texture2D>(textureName);
+                texture = GameModel.Instance.Game.Content.Load<Texture2D>(textureName);
                 texturesByName[textureName] = texture;
             }
             else

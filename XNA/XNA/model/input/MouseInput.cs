@@ -35,7 +35,7 @@ namespace XNA.model
         {
             Vector2 absolute;
             Matrix inverse;
-            Matrix matrix = GameModel.instance.camera2d.getTransformation();
+            Matrix matrix = GameModel.Instance.Camera2D.getTransformation();
             Matrix.Invert(ref matrix, out inverse);
             Vector2 pos = new Vector2(relative.X, relative.Y);
             Vector2.Transform(ref pos, ref inverse, out absolute);

@@ -24,7 +24,7 @@ namespace XNA.model.grid
 
         public override void Update()
         {
-            GameModel.instance.grid.moveTo(this, new Vector2(_x, _y));
+            GameModel.Instance.Grid.moveTo(this, new Vector2(X, Y));
             base.Update();
 
             if (onMove != null)

@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using XNA.model.input;
 using Microsoft.Xna.Framework.Input;
 using XNA.model.grid;
@@ -19,9 +17,9 @@ namespace XNA.model.character
         {
             this.name = name;
             this.level = level;
-            //this.bag = new Bag();
+            //bag = new Bag();
 
-            GameModel.instance.keyboardInput.onPressedKeys += new KeyboardInput.onPressedKeysDelegate(onPressedKeysHandler);
+            GameModel.Instance.KeyboardInput.onPressedKeys += new KeyboardInput.onPressedKeysDelegate(onPressedKeysHandler);
         }
 
         private void onPressedKeysHandler(KeyboardInput.OnPressedKeysArgs args)

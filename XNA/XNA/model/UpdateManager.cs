@@ -19,19 +19,19 @@ namespace XNA.model
         public void Update(GameTime gameTime)
         {
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) GameModel.instance.game.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) GameModel.Instance.Game.Exit();
 
-            GameModel.instance.mouseInput.Update();
-            GameModel.instance.keyboardInput.Update();
+            GameModel.Instance.MouseInput.Update();
+            GameModel.Instance.KeyboardInput.Update();
 
             foreach (DrawableObject drawableObject in drawableObjects.ToArray())
             {
                 drawableObject.Update();
             }
 
-            GameModel.instance.world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
+            GameModel.Instance.World.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
 
-            GameModel.instance.camera2d.Update();
+            GameModel.Instance.Camera2D.Update();
 
         }
 

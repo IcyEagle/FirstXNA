@@ -139,7 +139,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="TerrainGenerator.cs" />
-    <Compile Include="TextureHelper.cs" />
+    <Compile Include="model\TextureHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

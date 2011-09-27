@@ -10,8 +10,8 @@ namespace XNA.model
     {
         public Block CreateBlock(string type, int x, int y)
         {
-            var data = GameModel.instance.contentManager.getBlockDTOByType(type);
-            var texture = GameModel.instance.contentManager.getBlockTextureByName(data.type);
+            var data = GameModel.Instance.ContentManager.getBlockDTOByType(type);
+            var texture = GameModel.Instance.ContentManager.getBlockTextureByName(data.type);
 
             var instance = new Block
                                {
@@ -28,13 +28,12 @@ namespace XNA.model
 
         public Character CreateCharacter(float x, float y)
         {
-            var data = GameModel.instance.game.Content.Load<CharacterDTO>("CharacterDTO");
+            var data = GameModel.Instance.Game.Content.Load<CharacterDTO>("CharacterDTO");
 
             // generate texture.
-            var helper = (TextureHelper)GameModel.instance.game.Services.GetService(typeof(TextureHelper));
             const int width = 32 - 2;
             const int height = 48 - 2;
-            var texture = helper.generateSimpleTexture(width, height, Color.BlanchedAlmond);
+            var texture = GameModel.Instance.TextureHelper.GenerateSimpleTexture(width, height, Color.BlanchedAlmond);
 
             var instance = new Character(data.name, data.level)
                                {
@@ -43,7 +42,7 @@ namespace XNA.model
                                    Height = height
                                };
 
-            instance.Body = GameModel.instance.bodyManager.createCharacterBody(instance);
+            instance.Body = GameModel.Instance.BodyManager.createCharacterBody(instance);
             instance.Position = new Vector2(x, y);
             return instance;
         }
@@ -51,10 +50,9 @@ namespace XNA.model
         public Item CreateItem(float x, float y)
         {
             // generate texture.
-            var helper = (TextureHelper)GameModel.instance.game.Services.GetService(typeof(TextureHelper));
             const int width = 16;
             const int height = 16;
-            var texture = helper.generateSimpleTexture(16, 16, Color.Magenta);
+            var texture = GameModel.Instance.TextureHelper.GenerateSimpleTexture(16, 16, Color.Magenta);
 
             var instance = new Item
                            {
@@ -63,7 +61,7 @@ namespace XNA.model
                                Height = height,
                            };
 
-            instance.Body = GameModel.instance.bodyManager.createPickableBody(instance);
+            instance.Body = GameModel.Instance.BodyManager.createPickableBody(instance);
             instance.Position = new Vector2(x, y);
             return instance;
         }

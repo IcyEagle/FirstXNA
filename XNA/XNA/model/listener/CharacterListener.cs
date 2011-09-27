@@ -9,7 +9,7 @@ namespace XNA.model.listener
     {
         public CharacterListener()
         {
-            GameModel.instance.grid.onEnterRegion += new Grid.onEnterRegionDelegate(onEnterRegionHandler);
+            GameModel.Instance.Grid.onEnterRegion += new Grid.onEnterRegionDelegate(onEnterRegionHandler);
         }
 
         private void onEnterRegionHandler(ActiveObject target, Vector2 destination)
@@ -21,8 +21,8 @@ namespace XNA.model.listener
                 {
                     for (int y = (int)destination.Y - 1; y < (int)destination.Y + 2; ++y)
                     {
-                        if (GameModel.instance.grid.hasRegionByCoordinate(new Vector2(x, y))) {
-                            Region region = GameModel.instance.grid.getRegion(new Vector2(x, y));
+                        if (GameModel.Instance.Grid.hasRegionByCoordinate(new Vector2(x, y))) {
+                            Region region = GameModel.Instance.Grid.getRegion(new Vector2(x, y));
 
                             foreach (var member in region.members)
                             {

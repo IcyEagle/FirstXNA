@@ -87,7 +87,7 @@ namespace XNA.model
             }
             else
             {
-                Pos = new Vector2(GameModel.instance.character.Body.Position.X + Game1.SCREEN_WIDTH / 2, GameModel.instance.character.Body.Position.Y + Game1.SCREEN_HEIGHT / 2);
+                Pos = new Vector2(GameModel.Instance.Character.Body.Position.X + Game1.SCREEN_WIDTH / 2, GameModel.Instance.Character.Body.Position.Y + Game1.SCREEN_HEIGHT / 2);
             }
         }
 

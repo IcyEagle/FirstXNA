@@ -9,8 +9,8 @@ namespace XNA.model.listener
     {
         public ItemListener()
         {
-            GameModel.instance.grid.onEnterRegion += onEnterRegionHandler;
-            GameModel.instance.grid.onLeaveRegion += onLeaveRegionHandler;
+            GameModel.Instance.Grid.onEnterRegion += onEnterRegionHandler;
+            GameModel.Instance.Grid.onLeaveRegion += onLeaveRegionHandler;
         }
 
         private void onEnterRegionHandler(ActiveObject target, Vector2 destination)
@@ -22,9 +22,9 @@ namespace XNA.model.listener
                 {
                     for (int y = (int)destination.Y - 1; y < (int)destination.Y + 2; ++y)
                     {
-                        if (GameModel.instance.grid.hasRegionByCoordinate(new Vector2(x, y)))
+                        if (GameModel.Instance.Grid.hasRegionByCoordinate(new Vector2(x, y)))
                         {
-                            Region region = GameModel.instance.grid.getRegion(new Vector2(x, y));
+                            Region region = GameModel.Instance.Grid.getRegion(new Vector2(x, y));
 
                             foreach (var member in region.members)
                             {
@@ -49,9 +49,9 @@ namespace XNA.model.listener
                 {
                     for (int y = (int)source.Y - 1; y < (int)source.Y + 2; ++y)
                     {
-                        if (GameModel.instance.grid.hasRegionByCoordinate(new Vector2(x, y)))
+                        if (GameModel.Instance.Grid.hasRegionByCoordinate(new Vector2(x, y)))
                         {
-                            Region region = GameModel.instance.grid.getRegion(new Vector2(x, y));
+                            Region region = GameModel.Instance.Grid.getRegion(new Vector2(x, y));
 
                             foreach (var member in region.members)
                             {
@@ -69,11 +69,11 @@ namespace XNA.model.listener
 
         private void onMoveHandler(ActiveObject target, Vector2 coordinates)
         {
-            Vector2 diff = coordinates - GameModel.instance.character.Position;
+            Vector2 diff = coordinates - GameModel.Instance.Character.Position;
             if (diff.Length() < 20)
             {
-                GameModel.instance.updateManager.removeObjectForUpdate(target);
-                GameModel.instance.terrain.items.Remove(target as Item);
+                GameModel.Instance.UpdateManager.removeObjectForUpdate(target);
+                GameModel.Instance.Terrain.items.Remove(target as Item);
             }
         }
     }

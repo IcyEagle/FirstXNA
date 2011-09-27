@@ -4,7 +4,7 @@ using XNA.model;
 
 namespace XNA
 {
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
 
         GraphicsDeviceManager graphics;
@@ -27,7 +27,7 @@ namespace XNA
 
         protected override void Initialize()
         {
-            GameModel.instance.game = this;
+            GameModel.Instance.Game = this;
 
             Initializer.init();
 
@@ -37,7 +37,7 @@ namespace XNA
         protected override void LoadContent()
         {
 
-            GameModel.instance.contentManager.init();
+            GameModel.Instance.ContentManager.init();
 
         }
 
@@ -48,17 +48,17 @@ namespace XNA
 
         protected override void Update(GameTime gameTime)
         {
-            GameModel.instance.updateManager.Update(gameTime);
+            GameModel.Instance.UpdateManager.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            GameModel.instance.spriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, GameModel.instance.camera2d.getTransformation());
-            GameModel.instance.character.Draw();
+            GameModel.Instance.SpriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, GameModel.Instance.Camera2D.getTransformation());
+            GameModel.Instance.Character.Draw();
             base.Draw(gameTime);
-            GameModel.instance.spriteBatch.End();
+            GameModel.Instance.SpriteBatch.End();
         }
     }
 }

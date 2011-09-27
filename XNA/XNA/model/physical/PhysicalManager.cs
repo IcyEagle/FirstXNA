@@ -19,8 +19,8 @@ namespace XNA.model.physical
         {
             this.physicalMap = new PhysicalMap();
 
-            GameModel.instance.grid.onEnterRegion += new Grid.onEnterRegionDelegate(onEnterRegionHandler);
-            GameModel.instance.grid.onLeaveRegion += new Grid.onLeaveRegionDelegate(onLeaveRegionHandler);
+            GameModel.Instance.Grid.onEnterRegion += new Grid.onEnterRegionDelegate(onEnterRegionHandler);
+            GameModel.Instance.Grid.onLeaveRegion += new Grid.onLeaveRegionDelegate(onLeaveRegionHandler);
         }
 
         private void onEnterRegionHandler(ActiveObject target, Vector2 destination)
