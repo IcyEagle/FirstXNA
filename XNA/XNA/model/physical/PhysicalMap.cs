@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using XNA.model.block;
 
@@ -9,10 +6,10 @@ namespace XNA.model.physical
 {
     class PhysicalMap
     {
-        private int[,] map;
+        private readonly int[,] _map;
 
-        internal static readonly int BLOCKS_IN_ROW;
-        internal static readonly int BLOCKS_IN_COLUMN;
+        internal static readonly int BlocksInRow;
+        internal static readonly int BlocksInColumn;
 
         internal enum State {
             INCREASE = 1,
@@ -21,35 +18,40 @@ namespace XNA.model.physical
 
         static PhysicalMap()
         {
-            BLOCKS_IN_ROW = (int)Math.Ceiling((float)Game1.SCREEN_WIDTH / Terrain.BLOCK_SIZE);
-            BLOCKS_IN_COLUMN = (int)Math.Ceiling((float)Game1.SCREEN_HEIGHT / Terrain.BLOCK_SIZE);
+            BlocksInRow = (int)Math.Ceiling((float)Game1.SCREEN_WIDTH / Terrain.BLOCK_SIZE);
+            BlocksInColumn = (int)Math.Ceiling((float)Game1.SCREEN_HEIGHT / Terrain.BLOCK_SIZE);
         }
 
         internal PhysicalMap()
         {
-            this.map = new int[BLOCKS_IN_ROW, BLOCKS_IN_COLUMN];
+            _map = new int[BlocksInRow, BlocksInColumn];
         }
 
         /**
          * Change blocks state in a specified range.
          */
-        public void changeRange(Vector2 leftTop, Vector2 rightBottom, State state)
+        public void ChangeRange(Point leftTop, Point rightBottom, State state)
         {
             fixRanges(ref leftTop, ref rightBottom);
 
-            for (int x = (int)leftTop.X; x < (int)rightBottom.X; ++x)
+            for (var x = leftTop.X; x < rightBottom.X; ++x)
             {
-                for (int y = (int)leftTop.Y; y < (int)rightBottom.Y; ++y)
+                for (var y = leftTop.Y; y < rightBottom.Y; ++y)
                 {
-                    map[x, y] += (int)state;
+                    _map[x, y] += (int)state;
+
+                    if (_map[x, y] < 0)
+                    {
+                        var s = 2 + 1;
+                    }
 
                     if (blockExists(x, y))
                     {
-                        if (readyToDeactivate(x, y, state))
+                        if (ReadyToDeactivate(x, y, state))
                         {
                             getBlock(x, y).disablePhysics();
                         }
-                        else if (readyToActivate(x, y, state))
+                        else if (ReadyToActivate(x, y, state))
                         {
                             getBlock(x, y).enablePhysics();
                         }
@@ -61,12 +63,12 @@ namespace XNA.model.physical
         /**
          * Checks and fixes physical boundaries.
          */
-        private void fixRanges(ref Vector2 leftTop, ref Vector2 rightBottom)
+        private void fixRanges(ref Point leftTop, ref Point rightBottom)
         {
             if (leftTop.X < 0) leftTop.X = 0;
             if (leftTop.Y < 0) leftTop.Y = 0;
-            if (rightBottom.X > BLOCKS_IN_ROW) rightBottom.X = BLOCKS_IN_ROW;
-            if (rightBottom.Y > BLOCKS_IN_COLUMN) rightBottom.Y = BLOCKS_IN_COLUMN;
+            if (rightBottom.X > BlocksInRow) rightBottom.X = BlocksInRow;
+            if (rightBottom.Y > BlocksInColumn) rightBottom.Y = BlocksInColumn;
         }
 
         /**
@@ -88,17 +90,17 @@ namespace XNA.model.physical
         /**
          * Check whether block physics should be activated.
          */
-        private bool readyToActivate(int x, int y, State state)
+        private bool ReadyToActivate(int x, int y, State state)
         {
-            return state == State.INCREASE && map[x, y] == 1;
+            return state == State.INCREASE && _map[x, y] == 1;
         }
 
         /**
          * Check whether block physics should be diactivated.
          */
-        private bool readyToDeactivate(int x, int y, State state)
+        private bool ReadyToDeactivate(int x, int y, State state)
         {
-            return state == State.DECREASE && map[x, y] == 0;
+            return state == State.DECREASE && _map[x, y] == 0;
         }
     }
 }

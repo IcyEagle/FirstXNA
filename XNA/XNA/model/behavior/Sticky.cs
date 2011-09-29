@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using XNA.model.@base;
+using XNA.model.character;
 using XNA.model.grid;
 
 namespace XNA.model.behavior
 {
-    class Sticky : IBehavior, IActive
+    class Sticky : Behavior, IActive
     {
         private readonly PhysicalObject _master;
         private readonly float _distance;
@@ -25,6 +26,22 @@ namespace XNA.model.behavior
             {
                 _master.ApproachTo(target.Position, _force);
             }
+        }
+
+        public override void Disable()
+        {
+            GameModel.Instance.Character.OnMove -= OnActive;
+            base.Disable();
+        }
+
+        public override void Enable(ActiveObject caller)
+        {
+            if (caller is Character)
+            {
+                GameModel.Instance.Character.OnMove += OnActive;
+            }
+
+            base.Enable(caller);
         }
     }
 }
