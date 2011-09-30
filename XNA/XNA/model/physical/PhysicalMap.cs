@@ -40,11 +40,6 @@ namespace XNA.model.physical
                 {
                     _map[x, y] += (int)state;
 
-                    if (_map[x, y] < 0)
-                    {
-                        var s = 2 + 1;
-                    }
-
                     if (blockExists(x, y))
                     {
                         if (ReadyToDeactivate(x, y, state))
