@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using XNA.model.behavior;
 using XNA.model.input;
 using Microsoft.Xna.Framework.Input;
 using XNA.model.grid;
@@ -7,7 +8,6 @@ namespace XNA.model.character
 {
     public class Character : ActiveObject
     {
-
         public string name;
         public int level;
 
@@ -19,9 +19,20 @@ namespace XNA.model.character
             this.level = level;
             //bag = new Bag();
 
-            GameModel.Instance.KeyboardInput.onPressedKeys += new KeyboardInput.onPressedKeysDelegate(onPressedKeysHandler);
+            GameModel.Instance.KeyboardInput.onPressedKeys += onPressedKeysHandler;
         }
 
+        public override void Activate(ActiveObject caller)
+        {
+            caller.Activate(this);
+        }
+
+        public override void Deactivate(ActiveObject caller)
+        {
+            caller.Deactivate(this);
+        }
+
+        // DEBUG
         private void onPressedKeysHandler(KeyboardInput.OnPressedKeysArgs args)
         {
             if (args.state.IsKeyDown(Keys.Left))

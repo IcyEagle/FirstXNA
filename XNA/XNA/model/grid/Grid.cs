@@ -6,155 +6,158 @@ namespace XNA.model.grid
 {
     public class Grid
     {
-        public const int REGION_SIZE = 64; // pixels
-        public static readonly int REGIONS_IN_ROW;
-        public static readonly int REGIONS_IN_COLUMN;
+        public const int RegionSize = 64; // pixels
+        public static readonly int RegionsInRow;
+        public static readonly int RegionsInColumn;
 
-        public delegate void onEnterRegionDelegate(ActiveObject target, Vector2 destination);
-        public event onEnterRegionDelegate onEnterRegion;
+        // Deprecated.
+        public delegate void OnEnterRegionDelegate(ActiveObject target, Point destination);
+        public event OnEnterRegionDelegate OnEnterRegion;
 
-        public delegate void onLeaveRegionDelegate(ActiveObject target, Vector2 source);
-        public event onLeaveRegionDelegate onLeaveRegion;
+        // Deprecated.
+        public delegate void OnLeaveRegionDelegate(ActiveObject target, Point source);
+        public event OnLeaveRegionDelegate OnLeaveRegion;
 
-        private Region[,] regions;
+        public delegate void OnChangeRegionDelegate(ActiveObject target, Point source, Point destination);
+        public event OnChangeRegionDelegate OnChangeRegion;
+
+        private readonly Region[,] _regions;
 
         // provides information about object position (into region).
-        private Dictionary<ActiveObject, Vector2> objectMap;
+        private readonly Dictionary<ActiveObject, Point> _objectMap = new Dictionary<ActiveObject, Point>();
 
         static Grid()
         {
-            REGIONS_IN_ROW = (int)Math.Ceiling((double)Game1.ScreenWidth / REGION_SIZE);
-            REGIONS_IN_COLUMN = (int)Math.Ceiling((double)Game1.ScreenHeight / REGION_SIZE);
+            RegionsInRow = (int)Math.Ceiling((double)Game1.ScreenWidth / RegionSize);
+            RegionsInColumn = (int)Math.Ceiling((double)Game1.ScreenHeight / RegionSize);
         }
 
         public Grid()
         {
-            this.regions = new Region[REGIONS_IN_ROW, REGIONS_IN_COLUMN];
-            this.objectMap = new Dictionary<ActiveObject, Vector2>();
+            _regions = new Region[RegionsInRow, RegionsInColumn];
 
-            for (int i = 0; i < REGIONS_IN_ROW; ++i)
+            for (int i = 0; i < RegionsInRow; ++i)
             {
-                for (int j = 0; j < REGIONS_IN_COLUMN; ++j)
+                for (int j = 0; j < RegionsInColumn; ++j)
                 {
-                    this.regions[i, j] = new Region();
+                    _regions[i, j] = new Region();
                 }
             }
         }
 
-        public bool hasRegionByCoordinate(Vector2 region)
+        public bool HasRegionByCoordinate(Point region)
         {
-            return validateRegion(region);
+            return ValidateRegion(region);
         }
 
-        public Region getRegion(Vector2 position)
+        public Region GetRegion(Point position)
         {
-            if ( ! validateRegion(position))
+            if ( ! ValidateRegion(position))
             {
                 throw new Exception("Out of region range");
             }
 
-            return regions[(int)position.X, (int)position.Y];
+            return _regions[position.X, position.Y];
         }
 
         /**
          * Update object position on grid.
          */
-        public void moveTo(ActiveObject target, Vector2 coordinates)
+        public void MoveTo(ActiveObject target, Vector2 coordinates)
         {
-            Vector2 destinationRegion = determineRegion(coordinates);
+            Point destinationRegion = DetermineRegion(coordinates);
 
             // assert.
-            if (!validateRegion(destinationRegion))
+            if (!ValidateRegion(destinationRegion))
             {
                 return;
             }
 
-            if (isOnMap(target))
+            if (IsOnMap(target))
             {
-                Vector2 sourceRegion = getCurrentRegion(target);
+                Point sourceRegion = GetCurrentRegion(target);
                 if (sourceRegion != destinationRegion)
                 {
-                    replace(target, sourceRegion, destinationRegion);
+                    Replace(target, sourceRegion, destinationRegion);
                 }
             }
             else
             {
-                put(target, destinationRegion);
+                Put(target, destinationRegion);
             }
         }
 
         /**
          * Remove object from region map.
          */
-        public void remove(ActiveObject target)
+        public void Remove(ActiveObject target)
         {
-            Vector2 sourceRegion = getCurrentRegion(target);
-            drop(target, sourceRegion);
+            Point sourceRegion = GetCurrentRegion(target);
+            Drop(target, sourceRegion);
         }
 
         /**
          * Replace already existed object from one region to another.
          */
-        private void replace(ActiveObject target, Vector2 source, Vector2 destination)
+        private void Replace(ActiveObject target, Point source, Point destination)
         {
-            regions[(int)source.X, (int)source.Y].members.Remove(target);
-            regions[(int)destination.X, (int)destination.Y].members.Add(target);
-            objectMap[target] = destination;
-            onEnterRegion(target, destination);
-            onLeaveRegion(target, source);
+            _regions[source.X, source.Y].RemoveMember(target);
+            _regions[destination.X, destination.Y].AddMember(target);
+            _objectMap[target] = destination;
+            OnChangeRegion(target, source, destination);
         }
 
         /**
          * Create new object on region map.
          */
-        private void put(ActiveObject target, Vector2 destination)
+        private void Put(ActiveObject target, Point destination)
         {
-            regions[(int)destination.X, (int)destination.Y].members.Add(target);
-            objectMap.Add(target, destination);
-            onEnterRegion(target, destination);
+            _regions[destination.X, destination.Y].AddMember(target);
+            _objectMap.Add(target, destination);
+            OnEnterRegion(target, destination);
         }
 
         /**
          * Delete object from region map.
          */
-        private void drop(ActiveObject target, Vector2 source)
+        private void Drop(ActiveObject target, Point source)
         {
-            regions[(int)source.X, (int)source.Y].members.Remove(target);
-            objectMap.Remove(target);
-            onLeaveRegion(target, source);
+            _regions[source.X, source.Y].RemoveMember(target);
+            _objectMap.Remove(target);
+            OnLeaveRegion(target, source);
         }
 
         /**
          * Calculates region position by world absolute coordinates.
          */
-        private Vector2 determineRegion(Vector2 coordinates)
+        private Point DetermineRegion(Vector2 coordinates)
         {
-            return new Vector2((float)Math.Floor(coordinates.X / REGION_SIZE), (float)Math.Floor(coordinates.Y / REGION_SIZE));
+            return new Point((int)Math.Floor(coordinates.X / RegionSize), (int)Math.Floor(coordinates.Y / RegionSize));
         }
 
         /**
          * This assert method.
          * It shouldn't be used in production version.
          */
-        private bool validateRegion(Vector2 region)
+        private bool ValidateRegion(Point region)
         {
-            return region.X >= 0 && region.X < REGIONS_IN_ROW && region.Y >= 0 && region.Y < REGIONS_IN_COLUMN;
+            return region.X >= 0 && region.X < RegionsInRow && region.Y >= 0 && region.Y < RegionsInColumn;
         }
 
         /**
          * Checks whether object already placed on map.
          */
-        private bool isOnMap(ActiveObject target)
+        private bool IsOnMap(ActiveObject target)
         {
-            return objectMap.ContainsKey(target);
+            return _objectMap.ContainsKey(target);
         }
 
         /**
          * Returns object current region.
          */
-        private Vector2 getCurrentRegion(ActiveObject target)
+        private Point GetCurrentRegion(ActiveObject target)
         {
-            return objectMap[target];
+            return _objectMap[target];
         }
     }
 }

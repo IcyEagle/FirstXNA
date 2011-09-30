@@ -2,74 +2,65 @@
   <RecentFiles>
     <RecentFiles>
       <File id="0A850700-1ABB-4288-A391-6726B90EBEB9/d:Factories/f:BodyFactory.cs" caret="3165" fromTop="9" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:physical/f:PhysicalManager.cs" caret="105" fromTop="6" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:item/f:ItemManager.cs" caret="54" fromTop="4" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:character/f:Character.cs" caret="406" fromTop="14" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:block/f:Block.cs" caret="0" fromTop="0" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GenericFactory.cs" caret="11" fromTop="0" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:BodyManager.cs" caret="20" fromTop="0" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:ContentManager.cs" caret="150" fromTop="4" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/f:TerrainGenerator.cs" caret="57" fromTop="3" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:UpdateManager.cs" caret="693" fromTop="17" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:base/f:DrawableObject.cs" caret="439" fromTop="21" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:base/f:MoveableObject.cs" caret="110" fromTop="4" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:base/f:InteractiveObject.cs" caret="70" fromTop="2" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:base/f:PhysicalObject.cs" caret="133" fromTop="5" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Terrain.cs" caret="2390" fromTop="12" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/f:Game1.cs" caret="310" fromTop="5" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GameModel.cs" caret="1311" fromTop="29" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:ActiveObject.cs" caret="798" fromTop="23" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:item/f:Item.cs" caret="194" fromTop="8" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:CharacterListener.cs" caret="439" fromTop="15" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:Grid.cs" caret="460" fromTop="14" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/f:TextureHelper.cs" caret="30" fromTop="0" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Initializer.cs" caret="554" fromTop="16" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="2331" fromTop="11" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:IBehavior.cs" caret="146" fromTop="7" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:base/f:PhysicalObject.cs" caret="169" fromTop="7" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Terrain.cs" caret="2629" fromTop="18" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:IActive.cs" caret="228" fromTop="11" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Sticky.cs" caret="792" fromTop="27" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GenericFactory.cs" caret="12" fromTop="0" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:item/f:Item.cs" caret="79" fromTop="4" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:physical/f:PhysicalManager.cs" caret="1714" fromTop="16" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:Grid.cs" caret="2713" fromTop="20" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:physical/f:PhysicalMap.cs" caret="1465" fromTop="15" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Pickup.cs" caret="749" fromTop="26" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:ActiveObject.cs" caret="1422" fromTop="23" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:CharacterListener.cs" caret="0" fromTop="0" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="3297" fromTop="8" />
     </RecentFiles>
     <RecentEdits>
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Initializer.cs" caret="561" fromTop="16" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/f:TextureHelper.cs" caret="289" fromTop="16" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/f:TextureHelper.cs" caret="30" fromTop="0" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/f:TerrainGenerator.cs" caret="15" fromTop="1" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:CharacterListener.cs" caret="1277" fromTop="23" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:CharacterListener.cs" caret="241" fromTop="10" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="0" fromTop="0" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="363" fromTop="10" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="1341" fromTop="12" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="1493" fromTop="26" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:item/f:Item.cs" caret="212" fromTop="10" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:ActiveObject.cs" caret="356" fromTop="11" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:ActiveObject.cs" caret="919" fromTop="21" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="2416" fromTop="21" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GameModel.cs" caret="930" fromTop="18" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GameModel.cs" caret="644" fromTop="18" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GameModel.cs" caret="1182" fromTop="24" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GameModel.cs" caret="1395" fromTop="30" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="475" fromTop="17" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="1597" fromTop="12" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Terrain.cs" caret="303" fromTop="15" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="2983" fromTop="24" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Terrain.cs" caret="2028" fromTop="20" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Terrain.cs" caret="2634" fromTop="24" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:Terrain.cs" caret="2322" fromTop="11" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:UpdateManager.cs" caret="1263" fromTop="30" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:UpdateManager.cs" caret="232" fromTop="4" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:UpdateManager.cs" caret="370" fromTop="8" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:UpdateManager.cs" caret="654" fromTop="17" />
-      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="2699" fromTop="19" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:CharacterListener.cs" caret="177" fromTop="30" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="4131" fromTop="9" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Sticky.cs" caret="706" fromTop="26" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Sticky.cs" caret="214" fromTop="9" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Sticky.cs" caret="587" fromTop="22" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Sticky.cs" caret="308" fromTop="11" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Pickup.cs" caret="0" fromTop="0" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Pickup.cs" caret="772" fromTop="24" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/f:GenericFactory.cs" caret="2678" fromTop="27" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:CharacterListener.cs" caret="177" fromTop="0" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="2250" fromTop="28" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="502" fromTop="7" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="4128" fromTop="23" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="2415" fromTop="27" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="4129" fromTop="17" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="1256" fromTop="18" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="1467" fromTop="22" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="1765" fromTop="21" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="1976" fromTop="25" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="3092" fromTop="19" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="3634" fromTop="25" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="3845" fromTop="29" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:ActiveObject.cs" caret="860" fromTop="13" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Pickup.cs" caret="325" fromTop="12" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Pickup.cs" caret="755" fromTop="24" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:ActiveObject.cs" caret="1455" fromTop="0" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:ActiveObject.cs" caret="1705" fromTop="7" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:grid/f:Grid.cs" caret="3945" fromTop="15" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:behavior/f:Pickup.cs" caret="558" fromTop="21" />
+      <File id="EC27A49B-7D33-44E1-9143-03BCE7513C54/d:model/d:listener/f:ItemListener.cs" caret="3339" fromTop="11" />
     </RecentEdits>
   </RecentFiles>
   <CompletionStatisticsManager>
     <ItemStatistics item="CSharpCodeCompletionContext">
-      <Item value="public" priority="383" />
+      <Item value="public" priority="607" />
       <Item value="int" priority="383" />
       <Item value="ObjectData`0" priority="159" />
-      <Item value="float" priority="223" />
+      <Item value="float" priority="383" />
       <Item value="this" priority="223" />
       <Item value="x" priority="378" />
       <Item value="y" priority="191" />
-      <Item value="protected" priority="63" />
-      <Item value="void" priority="63" />
+      <Item value="protected" priority="95" />
+      <Item value="void" priority="255" />
       <Item value="data" priority="319" />
       <Item value="value" priority="95" />
       <Item value="base" priority="255" />
@@ -78,7 +69,7 @@
       <Item value="Position" priority="95" />
       <Item value="body" priority="64" />
       <Item value="Vector2" priority="115" />
-      <Item value="static" priority="31" />
+      <Item value="static" priority="63" />
       <Item value="item" priority="159" />
       <Item value="Texture2D`0" priority="31" />
       <Item value="texture2" priority="32" />
@@ -87,8 +78,8 @@
       <Item value="height" priority="122" />
       <Item value="restitution" priority="63" />
       <Item value="friction" priority="63" />
-      <Item value="return" priority="191" />
-      <Item value="new" priority="287" />
+      <Item value="return" priority="223" />
+      <Item value="new" priority="351" />
       <Item value="Block" priority="57" />
       <Item value="GenericFactory`0" priority="58" />
       <Item value="GenericFactory" priority="61" />
@@ -103,22 +94,48 @@
       <Item value="TextureHelper`0" priority="31" />
       <Item value="block" priority="63" />
       <Item value="Block`0" priority="31" />
-      <Item value="instance" priority="383" />
+      <Item value="instance" priority="447" />
       <Item value="Terrain`0" priority="31" />
-      <Item value="character" priority="31" />
+      <Item value="character" priority="63" />
       <Item value="as" priority="95" />
-      <Item value="private" priority="63" />
+      <Item value="private" priority="223" />
       <Item value="onMoveHandler`0" priority="32" />
-      <Item value="if" priority="63" />
-      <Item value="coordinates" priority="63" />
-      <Item value="Vector2`0" priority="31" />
-      <Item value="target" priority="63" />
+      <Item value="if" priority="223" />
+      <Item value="coordinates" priority="127" />
+      <Item value="Vector2`0" priority="63" />
+      <Item value="target" priority="415" />
       <Item value="System" priority="63" />
-      <Item value="Console`0" priority="26" />
+      <Item value="Console`0" priority="122" />
       <Item value="Body" priority="31" />
       <Item value="ItemListener`0" priority="31" />
       <Item value="ItemListener" priority="61" />
       <Item value="ArrayList`0" priority="31" />
+      <Item value="interface" priority="30" />
+      <Item value="IActive`0" priority="63" />
+      <Item value="Object`0" priority="63" />
+      <Item value="Sticky`0" priority="31" />
+      <Item value="_master" priority="122" />
+      <Item value="master" priority="31" />
+      <Item value="diff" priority="31" />
+      <Item value="_distance" priority="63" />
+      <Item value="distance" priority="31" />
+      <Item value="readonly" priority="31" />
+      <Item value="_force" priority="63" />
+      <Item value="force" priority="31" />
+      <Item value="List&lt;IBehavior&gt;" priority="28" />
+      <Item value="ICollection" priority="31" />
+      <Item value="IBehavior`0" priority="63" />
+      <Item value="_behaviors" priority="127" />
+      <Item value="behavior" priority="123" />
+      <Item value="Behaviors" priority="32" />
+      <Item value="foreach" priority="31" />
+      <Item value="is" priority="95" />
+      <Item value="Sticky" priority="57" />
+      <Item value="Pickup" priority="29" />
+      <Item value="member" priority="223" />
+      <Item value="else" priority="31" />
+      <Item value="Character`0" priority="31" />
+      <Item value="ActiveObject`0" priority="31" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:XNA.model.base.DrawableObject">
       <Item value="x" priority="53" />
@@ -138,7 +155,7 @@
     <ItemStatistics item="Qualified:Microsoft.Xna.Framework.Vector2">
       <Item value="X" priority="80" />
       <Item value="Y" priority="26" />
-      <Item value="Length`0" priority="26" />
+      <Item value="Length`0" priority="107" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:XNA.model.base.InteractiveObject">
       <Item value="Position" priority="53" />
@@ -185,6 +202,7 @@
       <Item value="body" priority="26" />
       <Item value="Position" priority="54" />
       <Item value="onMove" priority="26" />
+      <Item value="AddBehavior`0" priority="26" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:XNA.model.BodyManager">
       <Item value="createPickableBody`0" priority="26" />
@@ -207,7 +225,7 @@
       <Item value="addObjectForUpdate`0" priority="26" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Console">
-      <Item value="WriteLine`0" priority="26" />
+      <Item value="WriteLine`0" priority="134" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:XNA.model.grid.ActiveObject+onMoveDelegate">
       <Item value="Invoke`0" priority="26" />
@@ -221,6 +239,27 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Collections.ArrayList">
       <Item value="Clone`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:XNA.model.base.MoveableObject">
+      <Item value="Position" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:XNA.model.grid.ActiveObject">
+      <Item value="ApproachTo`0" priority="27" />
+      <Item value="Position" priority="26" />
+      <Item value="Behaviors" priority="22" />
+      <Item value="OnMove" priority="53" />
+      <Item value="destroy`0" priority="27" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.ICollection`1">
+      <Item value="Add`0" priority="26" />
+      <Item value="Remove`0" priority="26" />
+      <Item value="Clear`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:XNA.model.behavior.IActive">
+      <Item value="OnActive`0" priority="23" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:XNA.model.grid.Grid">
+      <Item value="remove`0" priority="50" />
     </ItemStatistics>
   </CompletionStatisticsManager>
   <NAntValidationSettings>
@@ -238,6 +277,7 @@
     <string />
     <integer />
     <boolean>
+      <setting name="livetemplates.csharp.usevar">False</setting>
       <setting name="SolutionAnalysisEnabled">False</setting>
     </boolean>
   </SettingsComponent>

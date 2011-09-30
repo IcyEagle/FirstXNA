@@ -114,7 +114,7 @@
     <Compile Include="model\base\MoveableObject.cs" />
     <Compile Include="model\base\PhysicalObject.cs" />
     <Compile Include="model\behavior\IActive.cs" />
-    <Compile Include="model\behavior\IBehavior.cs" />
+    <Compile Include="model\behavior\Behavior.cs" />
     <Compile Include="model\behavior\Pickup.cs" />
     <Compile Include="model\behavior\Sticky.cs" />
     <Compile Include="model\block\Block.cs" />
