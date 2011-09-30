@@ -7,18 +7,18 @@ namespace XNA
     public class Game1 : Game
     {
 
-        GraphicsDeviceManager graphics;
+        readonly GraphicsDeviceManager _graphics;
 
-        public const int SCREEN_WIDTH = 1024;
-        public const int SCREEN_HEIGHT = 768;
+        public const int ScreenWidth = 1024;
+        public const int ScreenHeight = 768;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
-            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+            _graphics.PreferredBackBufferWidth = ScreenWidth;
+            _graphics.PreferredBackBufferHeight = ScreenHeight;
             
             IsMouseVisible = true;
 

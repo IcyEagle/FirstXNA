@@ -7,8 +7,8 @@ namespace XNA.model.@base
     {
 
         public Texture2D Texture;
-        public int Width;
-        public int Height;
+        private float _width;
+        private float _height;
 
         private float _x;
         private float _y;
@@ -21,29 +21,41 @@ namespace XNA.model.@base
 
         public virtual void Draw()
         {
-            GameModel.Instance.SpriteBatch.Draw(Texture, new Vector2(_x, _y), null, Color.White, _rotation, new Vector2(Width / 2f, Height / 2f), 1f, SpriteEffects.None, 0f);
+            GameModel.Instance.SpriteBatch.Draw(Texture, new Vector2(ConvertUnits.ToDisplayUnits(_x), ConvertUnits.ToDisplayUnits(_y)), null, Color.White, _rotation, new Vector2(ConvertUnits.ToDisplayUnits(_width) / 2f, ConvertUnits.ToDisplayUnits(_height) / 2f), 1f, SpriteEffects.None, 0f);
         }
 
         public virtual Vector2 Position
         {
-            get { return new Vector2(_x, _y); }
-            set { _x = value.X; _y = value.Y; }
+            get { return ConvertUnits.ToDisplayUnits(new Vector2(_x, _y)); }
+            set { _x = ConvertUnits.ToSimUnits(value.X); _y = ConvertUnits.ToSimUnits(value.Y); }
         }
 
         public float X
         {
-            get { return _x; }
+            get { return ConvertUnits.ToDisplayUnits(_x); }
         }
 
         public float Y
         {
-            get { return _y; }
+            get { return ConvertUnits.ToDisplayUnits(_y); }
         }
 
         public float Rotation
         {
             get { return _rotation; }
             set { _rotation = value; }
+        }
+
+        public float Width
+        {
+            get { return ConvertUnits.ToDisplayUnits(_width); }
+            set { _width = ConvertUnits.ToSimUnits(value); }
+        }
+
+        public float Height
+        {
+            get { return ConvertUnits.ToDisplayUnits(_height); }
+            set { _height = ConvertUnits.ToSimUnits(value); }
         }
 	}
 }

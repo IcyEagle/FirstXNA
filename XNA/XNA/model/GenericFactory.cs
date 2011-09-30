@@ -43,7 +43,7 @@ namespace XNA.model
                                    Height = height
                                };
 
-            instance.Body = GameModel.Instance.BodyManager.createCharacterBody(instance);
+            instance.Body = GameModel.Instance.BodyManager.CreateCharacterBody(instance);
             instance.Position = new Vector2(x, y);
             return instance;
         }
@@ -62,12 +62,12 @@ namespace XNA.model
                                Height = height,
                            };
 
-            instance.Body = GameModel.Instance.BodyManager.createPickableBody(instance);
+            instance.Body = GameModel.Instance.BodyManager.CreatePickableBody(instance);
             instance.Position = new Vector2(x, y);
 
             // behaviors.
-            instance.AddBehavior(new Sticky(instance, 100, 100));
-            instance.AddBehavior(new Pickup(instance, 20));
+            instance.AddBehavior(new Sticky(instance, 64, 1));
+            instance.AddBehavior(new Pickup(instance, 30));
 
             return instance;
         }

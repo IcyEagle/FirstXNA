@@ -6,13 +6,13 @@ namespace XNA.model.physical
 {
     class PhysicalManager
     {
-        private static readonly float BLOCKS_PER_REGION;
+        private static readonly float BlocksPerRegion = (float) Grid.REGION_SIZE / Terrain.BLOCK_SIZE;
 
         private PhysicalMap physicalMap;
 
         static PhysicalManager()
         {
-            BLOCKS_PER_REGION = (float)Grid.REGION_SIZE / Terrain.BLOCK_SIZE;
+            
         }
 
         public PhysicalManager()
@@ -25,7 +25,7 @@ namespace XNA.model.physical
 
         private void onEnterRegionHandler(ActiveObject target, Vector2 destination)
         {
-            float range = BLOCKS_PER_REGION;
+            float range = BlocksPerRegion;
 
             // enable blocks.
             Vector2 leftTop = new Vector2((float)Math.Floor((destination.X - 1) * range), (float)Math.Floor((destination.Y - 1) * range));
@@ -35,7 +35,7 @@ namespace XNA.model.physical
 
         private void onLeaveRegionHandler(ActiveObject target, Vector2 source)
         {
-            float range = BLOCKS_PER_REGION;
+            float range = BlocksPerRegion;
 
             // disable blocks.
             Vector2 leftTop = new Vector2((float)Math.Floor((source.X - 1) * range), (float)Math.Floor((source.Y - 1) * range));

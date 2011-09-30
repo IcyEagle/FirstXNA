@@ -23,8 +23,8 @@ namespace XNA.model.grid
 
         static Grid()
         {
-            REGIONS_IN_ROW = (int)Math.Ceiling((double)Game1.SCREEN_WIDTH / REGION_SIZE);
-            REGIONS_IN_COLUMN = (int)Math.Ceiling((double)Game1.SCREEN_HEIGHT / REGION_SIZE);
+            REGIONS_IN_ROW = (int)Math.Ceiling((double)Game1.ScreenWidth / REGION_SIZE);
+            REGIONS_IN_COLUMN = (int)Math.Ceiling((double)Game1.ScreenHeight / REGION_SIZE);
         }
 
         public Grid()

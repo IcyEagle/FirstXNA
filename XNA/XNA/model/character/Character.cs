@@ -26,23 +26,23 @@ namespace XNA.model.character
         {
             if (args.state.IsKeyDown(Keys.Left))
             {
-                if (Body.LinearVelocity.X > -50)
+                if (Body.LinearVelocity.X > -10)
                 {
-                    Body.LinearVelocity += new Vector2(-4, 0);
+                    Body.LinearVelocity += new Vector2(-1, 0);
                 }
             }
             if (args.state.IsKeyDown(Keys.Right))
             {
-                if (Body.LinearVelocity.X < 50)
+                if (Body.LinearVelocity.X < 10)
                 {
-                    Body.LinearVelocity += new Vector2(4, 0);
+                    Body.LinearVelocity += new Vector2(1, 0);
                 }
             }
             if (args.state.IsKeyDown(Keys.Space))
             {
                 if (Body.LinearVelocity.Y > -2 && Body.LinearVelocity.Y < 2)
                 {
-                    Body.LinearVelocity += new Vector2(0, -75);
+                    Body.LinearVelocity += new Vector2(0, -15);
                 }
             }
         }

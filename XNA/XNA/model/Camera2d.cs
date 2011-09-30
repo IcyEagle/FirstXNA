@@ -53,7 +53,7 @@ namespace XNA.model
             transform = Matrix.CreateTranslation(new Vector3(-pos.X, -pos.Y, 0)) *
                                                      Matrix.CreateRotationZ(Rotation) *
                                                      Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
-                                                     Matrix.CreateTranslation(new Vector3(Game1.SCREEN_WIDTH, Game1.SCREEN_HEIGHT, 0));
+                                                     Matrix.CreateTranslation(new Vector3(Game1.ScreenWidth, Game1.ScreenHeight, 0));
             return transform;
         }
 
@@ -87,7 +87,7 @@ namespace XNA.model
             }
             else
             {
-                Pos = new Vector2(GameModel.Instance.Character.Body.Position.X + Game1.SCREEN_WIDTH / 2, GameModel.Instance.Character.Body.Position.Y + Game1.SCREEN_HEIGHT / 2);
+                Pos = new Vector2(GameModel.Instance.Character.Position.X + Game1.ScreenWidth / 2, GameModel.Instance.Character.Position.Y + Game1.ScreenHeight / 2);
             }
         }
 

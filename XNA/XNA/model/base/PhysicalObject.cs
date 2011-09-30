@@ -16,7 +16,7 @@ namespace XNA.model.@base
         {
             if (Body != null)
             {
-                Position = Body.Position;
+                Position = ConvertUnits.ToDisplayUnits(Body.Position);
                 Rotation = Body.Rotation;
             }
             base.Update();
@@ -24,7 +24,7 @@ namespace XNA.model.@base
 
         public override Vector2 Position
         {
-            set { base.Position = value; if (Body != null) Body.Position = value; }
+            set { base.Position = value; if (Body != null) Body.Position = ConvertUnits.ToSimUnits(value); }
         }
 
         public float Restitution
@@ -42,12 +42,12 @@ namespace XNA.model.@base
                 public void ThrowOut()
         {
             var rand = new Random();
-            Body.LinearVelocity = new Vector2(rand.Next(-50, 50), rand.Next(-75, -50));
+            Body.LinearVelocity = new Vector2(rand.Next(-5, 5), rand.Next(-7, -5));
         }
 
         public void ApproachTo(Vector2 anchor, float force)
         {
-            Vector2 diff = Body.Position - anchor;
+            Vector2 diff = Body.Position - ConvertUnits.ToSimUnits(anchor);
             Body.LinearVelocity -= new Vector2(Math.Sign(diff.X) * force, Math.Sign(diff.Y) * force);
         }
 

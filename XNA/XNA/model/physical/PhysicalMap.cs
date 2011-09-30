@@ -21,8 +21,8 @@ namespace XNA.model.physical
 
         static PhysicalMap()
         {
-            BLOCKS_IN_ROW = (int)Math.Ceiling((float)Game1.SCREEN_WIDTH / Terrain.BLOCK_SIZE);
-            BLOCKS_IN_COLUMN = (int)Math.Ceiling((float)Game1.SCREEN_HEIGHT / Terrain.BLOCK_SIZE);
+            BLOCKS_IN_ROW = (int)Math.Ceiling((float)Game1.ScreenWidth / Terrain.BLOCK_SIZE);
+            BLOCKS_IN_COLUMN = (int)Math.Ceiling((float)Game1.ScreenHeight / Terrain.BLOCK_SIZE);
         }
 
         internal PhysicalMap()

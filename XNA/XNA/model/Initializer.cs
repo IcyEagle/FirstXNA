@@ -11,7 +11,7 @@ namespace XNA.model
         {
             GameModel.Instance.Init();
 
-            GameModel.Instance.World = new World(new Vector2(0, 50));
+            GameModel.Instance.World = new World(new Vector2(0, 20));
             GameModel.Instance.SpriteBatch = new SpriteBatch(GameModel.Instance.Game.GraphicsDevice);
 
             // initialize services.
