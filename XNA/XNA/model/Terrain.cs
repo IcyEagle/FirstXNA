@@ -26,15 +26,15 @@ namespace XNA.model
 
         public void onClickHandler(MouseInput.OnClickArgs args)
         {
-            Vector2 coordinates = model.MouseInput.toAbsolute(new Vector2(args.state.X, args.state.Y));
-            Vector2 blockPosition = calculateBlockPositionByCoordinate(coordinates);
+            Vector2 coordinates = MouseInput.toAbsolute(new Vector2(args.state.X, args.state.Y));
+            Point blockPosition = calculateBlockPositionByCoordinate(coordinates);
 
-            if (blockPosition.X < 0 || blockPosition.Y < 0 || blockPosition.X > map.GetUpperBound(1) || blockPosition.Y > map.GetUpperBound(1))
+            if (blockPosition.X < 0 || blockPosition.Y < 0 || blockPosition.X >= map.GetLength(0) || blockPosition.Y >= map.GetLength(1))
             {
                 return;
             }
 
-            Block block = map[(int)blockPosition.X, (int)blockPosition.Y];
+            Block block = map[blockPosition.X, blockPosition.Y];
 
             // damage block.
             if (block != null)
@@ -42,14 +42,15 @@ namespace XNA.model
                 bool destroyed = block.damage();
                 if (destroyed)
                 {
-                    map[(int)blockPosition.X, (int)blockPosition.Y] = null;
+                    map[blockPosition.X, blockPosition.Y] = null;
                 }
             }
         }
 
-        private Vector2 calculateBlockPositionByCoordinate(Vector2 position)
+        private Point calculateBlockPositionByCoordinate(Vector2 position)
         {
-            return new Vector2((position.X + BLOCK_SIZE / 2) / BLOCK_SIZE, (position.Y + BLOCK_SIZE / 2) / BLOCK_SIZE);
+            //return new Point((int)((position.X + BLOCK_SIZE / 2) / BLOCK_SIZE), (int)((position.Y + BLOCK_SIZE / 2) / BLOCK_SIZE));
+            return new Point((int)((position.X + BLOCK_SIZE / 2) / BLOCK_SIZE), (int)(position.Y / BLOCK_SIZE) + 1);
         }
 
         protected void init()
