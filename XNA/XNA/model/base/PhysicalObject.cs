@@ -17,7 +17,7 @@ namespace XNA.model.@base
         {
             if (Body != null && Body.BodyType != BodyType.Static)
             {
-                GameModel.Instance.Game.Window.Title = Body.LinearVelocity.Y.ToString();
+                GameModel.Instance.Game.Window.Title = Body.Position.X.ToString() + " " + Body.Position.Y.ToString() + " " + Body.LinearVelocity.Y.ToString();
                 Position = ConvertUnits.ToDisplayUnits(Body.Position);
                 Rotation = Body.Rotation;
             }

@@ -19,7 +19,7 @@ namespace XNA.model
             body.SleepingAllowed = false;
             body.Position = ConvertUnits.ToSimUnits(new Vector2(Game1.ScreenWidth / 2, 0));
             body.BodyType = BodyType.Dynamic;
-            body.Restitution = 0;
+            body.Restitution = 0.05f;
             body.Friction = 0f;
             body.CollisionCategories = Category.Cat2;
             body.CollidesWith = Category.Cat1;

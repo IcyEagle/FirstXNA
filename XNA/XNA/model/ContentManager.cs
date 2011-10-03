@@ -33,7 +33,7 @@ namespace XNA.model
             var helper = (TerrainGenerator)GameModel.Instance.Game.Services.GetService(typeof(TerrainGenerator));
 
             //DEBUG
-            Block.physicsTexture = GameModel.Instance.TextureHelper.GenerateSimpleTexture(Terrain.BLOCK_SIZE, Terrain.BLOCK_SIZE, Color.White);
+            Block.physicsTexture = GameModel.Instance.TextureHelper.GenerateSimpleTexture(Terrain.BlockSize, Terrain.BlockSize, Color.White);
 
             var map = helper.generateMap(Game1.ScreenWidth, Game1.ScreenHeight);
             GameModel.Instance.Terrain = new Terrain(map);

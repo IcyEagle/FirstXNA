@@ -18,8 +18,8 @@ namespace XNA.model.physical
 
         static PhysicalMap()
         {
-            BlocksInRow = (int)Math.Ceiling((float)Game1.ScreenWidth / Terrain.BLOCK_SIZE);
-            BlocksInColumn = (int)Math.Ceiling((float)Game1.ScreenHeight / Terrain.BLOCK_SIZE);
+            BlocksInRow = (int)Math.Ceiling((float)Game1.ScreenWidth / Terrain.BlockSize);
+            BlocksInColumn = (int)Math.Ceiling((float)Game1.ScreenHeight / Terrain.BlockSize);
         }
 
         internal PhysicalMap()
@@ -71,7 +71,7 @@ namespace XNA.model.physical
          */
         private bool blockExists(int x, int y)
         {
-            return GameModel.Instance.Terrain.map[x, y] != null;
+            return GameModel.Instance.Terrain.Map[x, y] != null;
         }
 
         /**
@@ -79,7 +79,7 @@ namespace XNA.model.physical
          */
         private Block getBlock(int x, int y)
         {
-            return GameModel.Instance.Terrain.map[x, y];
+            return GameModel.Instance.Terrain.Map[x, y];
         }
 
         /**

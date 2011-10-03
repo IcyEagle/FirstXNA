@@ -17,14 +17,35 @@ namespace XNA.model
             var instance = new Block
                                {
                                    Texture = texture,
-                                   Width = Terrain.BLOCK_SIZE,
-                                   Height = Terrain.BLOCK_SIZE,
+                                   Width = Terrain.BlockSize,
+                                   Height = Terrain.BlockSize,
                                    DrawLayerType = DrawManager.DrawLayerType.StaticBlock,
                                    Restitution = data.restitution,
                                    Friction = data.friction
                                };
 
             instance.Position = new Vector2(x, y);
+            GameModel.Instance.DrawManager.AddObjectForDraw(instance);
+            return instance;
+        }
+
+        public Block CreateTestBlock(string type, int x, int y)
+        {
+            //var data = GameModel.Instance.ContentManager.getBlockDTOByType(type);
+            var texture = GameModel.Instance.TextureHelper.GenerateSimpleTexture(100, 10, Color.YellowGreen);
+
+            var instance = new Block
+            {
+                Texture = texture,
+                Width = 100,
+                Height = 10,
+                DrawLayerType = DrawManager.DrawLayerType.StaticBlock,
+                Restitution = 0,
+                Friction = 0
+            };
+
+            instance.Position = new Vector2(x, y);
+            instance.Body = GameModel.Instance.BodyManager.CreateBlockBody(instance);
             GameModel.Instance.DrawManager.AddObjectForDraw(instance);
             return instance;
         }

@@ -2,39 +2,40 @@
 
 using Microsoft.Xna.Framework;
 using XNA.model.block;
+using XNA.model.input;
 using XNA.model.item;
 
 namespace XNA.model
 {
     class Terrain
     {
-        public static int BLOCK_SIZE = 16;
+        public static int BlockSize = 16;
 
-        public Block[,] map;
+        public Block[,] Map;
 
         // TEMP.
-        public List<Item> items = new List<Item>();
+        public List<Item> Items = new List<Item>();
 
         public Terrain(Block[,] map)
         {
-            this.map = map;
+            Map = map;
 
-            GameModel.Instance.MouseInput.onClick += new MouseInput.onClickDelegate(onClickHandler);
+            GameModel.Instance.MouseInput.OnClick += onClickHandler;
 
-            init();
+            Init();
         }
 
         public void onClickHandler(MouseInput.OnClickArgs args)
         {
-            Vector2 coordinates = MouseInput.toAbsolute(new Vector2(args.state.X, args.state.Y));
+            Vector2 coordinates = MouseInput.ToAbsolute(new Vector2(args.State.X, args.State.Y));
             Point blockPosition = calculateBlockPositionByCoordinate(coordinates);
 
-            if (blockPosition.X < 0 || blockPosition.Y < 0 || blockPosition.X >= map.GetLength(0) || blockPosition.Y >= map.GetLength(1))
+            if (blockPosition.X < 0 || blockPosition.Y < 0 || blockPosition.X >= Map.GetLength(0) || blockPosition.Y >= Map.GetLength(1))
             {
                 return;
             }
 
-            Block block = map[blockPosition.X, blockPosition.Y];
+            Block block = Map[blockPosition.X, blockPosition.Y];
 
             // damage block.
             if (block != null)
@@ -42,24 +43,23 @@ namespace XNA.model
                 bool destroyed = block.damage();
                 if (destroyed)
                 {
-                    map[blockPosition.X, blockPosition.Y] = null;
+                    Map[blockPosition.X, blockPosition.Y] = null;
                 }
             }
         }
 
         private Point calculateBlockPositionByCoordinate(Vector2 position)
         {
-            //return new Point((int)((position.X + BLOCK_SIZE / 2) / BLOCK_SIZE), (int)((position.Y + BLOCK_SIZE / 2) / BLOCK_SIZE));
-            return new Point((int)((position.X + BLOCK_SIZE / 2) / BLOCK_SIZE), (int)(position.Y / BLOCK_SIZE) + 1);
+            return new Point((int)((position.X + BlockSize / 2) / BlockSize), (int)((position.Y + BlockSize / 2) / BlockSize));
         }
 
-        protected void init()
+        protected void Init()
         {
-            foreach (Block block in map)
+            foreach (Block block in Map)
             {
                 if (block != null)
                 {
-                    block.onDestroy += new Block.onDestroyHandler(onBlockDestroyHandler);
+                    block.onDestroy += onBlockDestroyHandler;
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace XNA.model
             GameModel.Instance.DrawManager.RemoveObjectForDraw(block);
             Item item = GameModel.Instance.GenericFactory.CreateItem(block.Position.X, block.Position.Y);
             item.ThrowOut();
-            items.Add(item);
+            Items.Add(item);
         }
     }
 }

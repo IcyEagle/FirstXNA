@@ -8,7 +8,7 @@ namespace XNA.model.physical
     class PhysicalManager
     {
 
-        private static readonly float BlocksPerRegion = (float) Grid.RegionSize / Terrain.BLOCK_SIZE;
+        private static readonly float BlocksPerRegion = (float) Grid.RegionSize / Terrain.BlockSize;
 
         private readonly PhysicalMap _physicalMap = new PhysicalMap();
 

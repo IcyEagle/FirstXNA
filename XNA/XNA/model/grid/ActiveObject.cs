@@ -65,7 +65,7 @@ namespace XNA.model.grid
             Deactivate(this);
             GameModel.Instance.UpdateManager.RemoveObjectForUpdate(this);
             GameModel.Instance.DrawManager.RemoveObjectForDraw(this);
-            GameModel.Instance.Terrain.items.Remove(this as Item);
+            GameModel.Instance.Terrain.Items.Remove(this as Item);
             GameModel.Instance.Grid.Remove(this);
         }
     }

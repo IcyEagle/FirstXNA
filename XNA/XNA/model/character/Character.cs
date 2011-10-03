@@ -16,6 +16,8 @@ namespace XNA.model.character
             Level = level;
             //bag = new Bag();
             _moves = new CharacterMoves(this);
+
+            GameModel.Instance.GenericFactory.CreateTestBlock("ground", 800, 700);
         }
 
         public override void Activate(ActiveObject caller)

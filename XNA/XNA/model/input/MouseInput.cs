@@ -1,43 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-namespace XNA.model
+namespace XNA.model.input
 {
     class MouseInput
     {
 
-        public MouseInput()
-        {
-
-        }
-
-        public delegate void onClickDelegate(OnClickArgs args);
-        public event onClickDelegate onClick;
+        public delegate void OnClickDelegate(OnClickArgs args);
+        public event OnClickDelegate OnClick;
         public class OnClickArgs
         {
-            public MouseState state;
-            public OnClickArgs(MouseState state) { this.state = state; } 
+            public MouseState State;
+            public OnClickArgs(MouseState state) { State = state; } 
         }
 
         public void Update()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && onClick != null)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && OnClick != null)
             {
-                onClick.Invoke(new OnClickArgs(Mouse.GetState()));
+                OnClick.Invoke(new OnClickArgs(Mouse.GetState()));
             }
         }
 
-        public static Vector2 toAbsolute(Vector2 relative)
+        public static Vector2 ToAbsolute(Vector2 relative)
         {
             Vector2 absolute;
             Matrix inverse;
             Matrix matrix = GameModel.Instance.Camera2D.getTransformation();
             Matrix.Invert(ref matrix, out inverse);
-            Vector2 pos = new Vector2(relative.X, relative.Y);
+            var pos = new Vector2(relative.X, relative.Y);
             Vector2.Transform(ref pos, ref inverse, out absolute);
             return absolute;
         }

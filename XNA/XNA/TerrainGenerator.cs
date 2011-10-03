@@ -11,8 +11,8 @@ namespace XNA
         public Block[,] generateMap(int width, int height)
         {
             
-            var blockRowSize = (int)Math.Ceiling((double)width / Terrain.BLOCK_SIZE);
-            var blockColumnSize = (int)Math.Ceiling((double)height / Terrain.BLOCK_SIZE);
+            var blockRowSize = (int)Math.Ceiling((double)width / Terrain.BlockSize);
+            var blockColumnSize = (int)Math.Ceiling((double)height / Terrain.BlockSize);
 
             var blocks = new Block[blockRowSize, blockColumnSize];
 
@@ -27,7 +27,7 @@ namespace XNA
                     if ((j >= blockColumnSize - visibleBlockLayers && rand.Next() % 2 != 0) || ((i < visibleBlockLayers || i >= blockRowSize - visibleBlockLayers) && rand.Next() % 2 != 0))
                     {
                         // random texture.
-                        blocks[i, j] = GameModel.Instance.GenericFactory.CreateBlock(((int)(rand.Next(1, 3)) == 1) ? "ground" : "stone", Terrain.BLOCK_SIZE * i, Terrain.BLOCK_SIZE * j);
+                        blocks[i, j] = GameModel.Instance.GenericFactory.CreateBlock(((int)(rand.Next(1, 3)) == 1) ? "ground" : "stone", Terrain.BlockSize * i, Terrain.BlockSize * j);
                     }
                 }
             }
