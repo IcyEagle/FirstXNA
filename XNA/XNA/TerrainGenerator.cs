@@ -6,7 +6,7 @@ namespace XNA
 {
     class TerrainGenerator
     {
-        public static int visibleBlockLayers = 20;
+        public static int visibleBlockLayers = 2;
 
         public Block[,] generateMap(int width, int height)
         {

@@ -6,6 +6,8 @@ namespace XNA.model.@base
     public class DrawableObject
     {
 
+        public DrawManager.DrawLayerType DrawLayerType;
+
         public Texture2D Texture;
         private float _width;
         private float _height;
@@ -21,7 +23,7 @@ namespace XNA.model.@base
 
         public virtual void Draw()
         {
-            GameModel.Instance.SpriteBatch.Draw(Texture, new Vector2(ConvertUnits.ToDisplayUnits(_x), ConvertUnits.ToDisplayUnits(_y)), null, Color.White, _rotation, new Vector2(ConvertUnits.ToDisplayUnits(_width) / 2f, ConvertUnits.ToDisplayUnits(_height) / 2f), 1f, SpriteEffects.None, 0f);
+            GameModel.Instance.SpriteBatch.Draw(Texture, new Vector2(ConvertUnits.ToDisplayUnits(_x), ConvertUnits.ToDisplayUnits(_y)), null, Color.White, _rotation, new Vector2(ConvertUnits.ToDisplayUnits(_width) / 2f, ConvertUnits.ToDisplayUnits(_height) / 2f), 1f, SpriteEffects.None, GetDepth());
         }
 
         public virtual Vector2 Position
@@ -56,6 +58,11 @@ namespace XNA.model.@base
         {
             get { return ConvertUnits.ToDisplayUnits(_height); }
             set { _height = ConvertUnits.ToSimUnits(value); }
+        }
+
+        private float GetDepth()
+        {
+            return (float)DrawLayerType / 10;
         }
 	}
 }

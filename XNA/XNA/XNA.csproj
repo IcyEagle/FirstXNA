@@ -122,7 +122,9 @@
     <Compile Include="model\Camera2d.cs" />
     <Compile Include="model\character\Bag.cs" />
     <Compile Include="model\character\BagItem.cs" />
+    <Compile Include="model\character\CharacterMoves.cs" />
     <Compile Include="model\ContentManager.cs" />
+    <Compile Include="model\DrawManager.cs" />
     <Compile Include="model\GenericFactory.cs" />
     <Compile Include="model\grid\Grid.cs" />
     <Compile Include="model\grid\ActiveObject.cs" />

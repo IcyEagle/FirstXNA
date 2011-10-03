@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using XNA.model.@base;
@@ -9,11 +8,11 @@ namespace XNA.model
     class UpdateManager
     {
 
-        private List<DrawableObject> drawableObjects;
+        private readonly List<DrawableObject> _drawableObjects;
 
         public UpdateManager()
         {
-            drawableObjects = new List<DrawableObject>();
+            _drawableObjects = new List<DrawableObject>();
         }
 
         public void Update(GameTime gameTime)
@@ -24,25 +23,25 @@ namespace XNA.model
             GameModel.Instance.MouseInput.Update();
             GameModel.Instance.KeyboardInput.Update();
 
-            foreach (DrawableObject drawableObject in drawableObjects.ToArray())
+            foreach (DrawableObject drawableObject in _drawableObjects.ToArray())
             {
                 drawableObject.Update();
             }
 
-            GameModel.Instance.World.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
+            GameModel.Instance.World.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * .001f);
 
             GameModel.Instance.Camera2D.Update();
 
         }
 
-        public void addObjectForUpdate(DrawableObject drawableObject)
+        public void AddObjectForUpdate(DrawableObject drawableObject)
         {
-            drawableObjects.Add(drawableObject);
+            _drawableObjects.Add(drawableObject);
         }
 
-        public void removeObjectForUpdate(DrawableObject drawableObject)
+        public void RemoveObjectForUpdate(DrawableObject drawableObject)
         {
-            drawableObjects.Remove(drawableObject);
+            _drawableObjects.Remove(drawableObject);
         }
 
     }

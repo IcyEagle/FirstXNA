@@ -21,7 +21,8 @@ namespace XNA.model
         public void init()
         {
             GameModel.Instance.Character =  GameModel.Instance.GenericFactory.CreateCharacter(Game1.ScreenWidth / 2, 0);
-            GameModel.Instance.UpdateManager.addObjectForUpdate(GameModel.Instance.Character);
+            GameModel.Instance.UpdateManager.AddObjectForUpdate(GameModel.Instance.Character);
+            GameModel.Instance.DrawManager.AddObjectForDraw(GameModel.Instance.Character);
 
             var blocksDTO = GameModel.Instance.Game.Content.Load<BlockDTO[]>("BlockDTO");
             foreach (var blockDto in blocksDTO)
@@ -36,7 +37,6 @@ namespace XNA.model
 
             var map = helper.generateMap(Game1.ScreenWidth, Game1.ScreenHeight);
             GameModel.Instance.Terrain = new Terrain(map);
-            GameModel.Instance.Game.Components.Add(GameModel.Instance.Terrain);
 
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using XNA.model.@base;
 using XNA.model.behavior;
@@ -15,14 +14,14 @@ namespace XNA.model.grid
         public delegate void OnMoveDelegate(ActiveObject target, Vector2 coordinates);
         public event OnMoveDelegate OnMove;
 
-        private static int _objectCounter = 0;
+        private static int _objectCounter;
 
         // for Grid class as identifier.
         internal int ObjectID;
 
-        protected ICollection<Behavior> _behaviors = new List<Behavior>();
+        protected ICollection<Behavior> Behaviors = new List<Behavior>();
 
-        public ActiveObject()
+        protected ActiveObject()
         {
             ObjectID = ++_objectCounter;
         }
@@ -38,12 +37,12 @@ namespace XNA.model.grid
 
         public void AddBehavior(Behavior behavior)
         {
-            _behaviors.Add(behavior);
+            Behaviors.Add(behavior);
         }
 
         public void RemoveBehavior(Behavior behavior)
         {
-            _behaviors.Remove(behavior);
+            Behaviors.Remove(behavior);
         }
 
         public abstract void Activate(ActiveObject caller);
@@ -53,7 +52,8 @@ namespace XNA.model.grid
         public void Destroy()
         {
             Deactivate(this);
-            GameModel.Instance.UpdateManager.removeObjectForUpdate(this);
+            GameModel.Instance.UpdateManager.RemoveObjectForUpdate(this);
+            GameModel.Instance.DrawManager.RemoveObjectForDraw(this);
             GameModel.Instance.Terrain.items.Remove(this as Item);
             GameModel.Instance.Grid.Remove(this);
         }

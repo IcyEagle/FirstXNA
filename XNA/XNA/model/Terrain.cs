@@ -6,7 +6,7 @@ using XNA.model.item;
 
 namespace XNA.model
 {
-    class Terrain : DrawableGameComponent
+    class Terrain
     {
         public static int BLOCK_SIZE = 16;
 
@@ -15,7 +15,7 @@ namespace XNA.model
         // TEMP.
         public List<Item> items = new List<Item>();
 
-        public Terrain(Block[,] map) : base(GameModel.Instance.Game)
+        public Terrain(Block[,] map)
         {
             this.map = map;
 
@@ -52,22 +52,6 @@ namespace XNA.model
             return new Vector2((position.X + BLOCK_SIZE / 2) / BLOCK_SIZE, (position.Y + BLOCK_SIZE / 2) / BLOCK_SIZE);
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            foreach (Block block in map)
-            {
-                if (block != null)
-                {
-                    block.Draw();
-                }
-            }
-
-            foreach (Item item in items)
-            {
-                item.Draw();
-            }
-        }
-
         protected void init()
         {
             foreach (Block block in map)
@@ -82,9 +66,9 @@ namespace XNA.model
         protected void onBlockDestroyHandler(Block block)
         {
             block.disablePhysics();
+            GameModel.Instance.DrawManager.RemoveObjectForDraw(block);
             Item item = GameModel.Instance.GenericFactory.CreateItem(block.Position.X, block.Position.Y);
             item.ThrowOut();
-            GameModel.Instance.UpdateManager.addObjectForUpdate(item);
             items.Add(item);
         }
     }

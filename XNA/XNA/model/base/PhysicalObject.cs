@@ -1,6 +1,7 @@
 ﻿using System;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using XNA.model.character;
 
 namespace XNA.model.@base
 {
@@ -14,8 +15,9 @@ namespace XNA.model.@base
 
         public override void Update()
         {
-            if (Body != null)
+            if (Body != null && Body.BodyType != BodyType.Static)
             {
+                GameModel.Instance.Game.Window.Title = Body.LinearVelocity.Y.ToString();
                 Position = ConvertUnits.ToDisplayUnits(Body.Position);
                 Rotation = Body.Rotation;
             }

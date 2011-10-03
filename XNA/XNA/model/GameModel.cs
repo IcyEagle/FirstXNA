@@ -19,6 +19,7 @@ namespace XNA.model
         public Terrain Terrain;
         public ContentManager ContentManager = new ContentManager();
         public UpdateManager UpdateManager = new UpdateManager();
+        public DrawManager DrawManager = new DrawManager();
         public Camera2d Camera2D = new Camera2d();
         public ItemManager ItemManager = new ItemManager();
         public BodyManager BodyManager = new BodyManager();

@@ -56,7 +56,7 @@ namespace XNA
         {
             GraphicsDevice.Clear(Color.Black);
             GameModel.Instance.SpriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, GameModel.Instance.Camera2D.getTransformation());
-            GameModel.Instance.Character.Draw();
+            GameModel.Instance.DrawManager.Draw();
             base.Draw(gameTime);
             GameModel.Instance.SpriteBatch.End();
         }

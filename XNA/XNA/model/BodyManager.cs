@@ -19,35 +19,33 @@ namespace XNA.model
             body.SleepingAllowed = false;
             body.Position = ConvertUnits.ToSimUnits(new Vector2(Game1.ScreenWidth / 2, 0));
             body.BodyType = BodyType.Dynamic;
-            body.Restitution = 0f;
-            body.Friction = 1f;
+            body.Restitution = 0;
+            body.Friction = 0f;
             body.CollisionCategories = Category.Cat2;
             body.CollidesWith = Category.Cat1;
             return body;
 
-            //Body body = BodyFactory.CreateBody(GameModel.Instance.World, ConvertUnits.ToSimUnits(new Vector2(Game1.ScreenWidth / 2, 0)));
-            /*Vertices rectangleVertices1 = PolygonTools.CreateRectangle(ConvertUnits.ToSimUnits(character.Width) / 2, ConvertUnits.ToSimUnits(character.Height) / 2);
-            Vertices rectangleVertices2 = PolygonTools.CreateRectangle(ConvertUnits.ToSimUnits(character.Width) / 2, ConvertUnits.ToSimUnits(character.Height) / 2);
-            PolygonShape rectangleShape1 = new PolygonShape(rectangleVertices1, 1f);
-            rectangleVertices1.Translate(new Vector2(-2f, 0));
-            PolygonShape rectangleShape2 = new PolygonShape(rectangleVertices2, 1f);
-            rectangleVertices2.Translate(new Vector2(2f, 0));
-            List<Vertices> verticles = new List<Vertices>(2);
-            verticles.Add(rectangleVertices1);
-            verticles.Add(rectangleVertices2);
-            
-            Body body = BodyFactory.CreateBody(GameModel.Instance.World);
-            
-            body.CreateFixture(rectangleShape1);
-            body.CreateFixture(rectangleShape2);
+            /*Body body = BodyFactory.CreateBody(GameModel.Instance.World, ConvertUnits.ToSimUnits(new Vector2(Game1.ScreenWidth / 2, 0)));
+
+            var topFixture = FixtureFactory.AttachRectangle(ConvertUnits.ToSimUnits(18), ConvertUnits.ToSimUnits(2), 1f, new Vector2(0, ConvertUnits.ToSimUnits(-19)), body);
+            topFixture.Friction = 0f;
+
+            var bottomFixture = FixtureFactory.AttachRectangle(ConvertUnits.ToSimUnits(18), ConvertUnits.ToSimUnits(2), 1f, new Vector2(0, ConvertUnits.ToSimUnits(19)), body);
+            bottomFixture.Friction = .5f;
+
+            var leftFixture = FixtureFactory.AttachRectangle(ConvertUnits.ToSimUnits(1), ConvertUnits.ToSimUnits(38), 1f, new Vector2(ConvertUnits.ToSimUnits(-9.5), 0), body);
+            leftFixture.Friction = 0;
+
+            var rightFixture = FixtureFactory.AttachRectangle(ConvertUnits.ToSimUnits(1), ConvertUnits.ToSimUnits(38), 1f, new Vector2(ConvertUnits.ToSimUnits(9.5), 0), body);
+            rightFixture.Friction = 0;
 
             body.FixedRotation = true;
             body.SleepingAllowed = false;
+            body.Restitution = 0.05f;
             body.BodyType = BodyType.Dynamic;
-            body.Restitution = 0f;
-            body.Friction = 1f;
             body.CollisionCategories = Category.Cat2;
             body.CollidesWith = Category.Cat1;
+
             return body;*/
         }
 
@@ -56,8 +54,8 @@ namespace XNA.model
             Body body = BodyFactory.CreateRectangle(GameModel.Instance.World, ConvertUnits.ToSimUnits(block.Width), ConvertUnits.ToSimUnits(block.Height), 1f);
             body.Position = ConvertUnits.ToSimUnits(block.Position);
             body.BodyType = BodyType.Static;
-            body.Restitution = block.Restitution;
-            body.Friction = block.Friction;
+            body.Restitution = 0;//block.Restitution;
+            body.Friction = 0;//block.Friction;
             body.CollisionCategories = Category.Cat1;
             body.CollidesWith = Category.All;
             return body;
