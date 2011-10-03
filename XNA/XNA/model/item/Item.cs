@@ -1,4 +1,6 @@
-﻿using XNA.model.behavior;
+﻿using System;
+using XNA.model.behavior;
+using XNA.model.character;
 using XNA.model.grid;
 
 namespace XNA.model.item
@@ -8,22 +10,28 @@ namespace XNA.model.item
 
         public override void Activate(ActiveObject caller)
         {
-            foreach (Behavior behavior in Behaviors)
+            if (caller == this || caller is Character)
             {
-                if (!behavior.Enabled)
+                foreach (Behavior behavior in Behaviors)
                 {
-                    behavior.Enable(caller);
+                    if (!behavior.Enabled)
+                    {
+                        behavior.Enable(caller);
+                    }
                 }
             }
         }
 
         public override void Deactivate(ActiveObject caller)
         {
-            foreach (Behavior behavior in Behaviors)
+            if (caller == this || caller is Character)
             {
-                if (behavior.Enabled)
+                foreach (Behavior behavior in Behaviors)
                 {
-                    behavior.Disable();
+                    if (behavior.Enabled)
+                    {
+                        behavior.Disable();
+                    }
                 }
             }
         }

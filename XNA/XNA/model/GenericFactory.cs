@@ -1,5 +1,6 @@
 ﻿using GameLibrary;
 using Microsoft.Xna.Framework;
+using XNA.model.behavior;
 using XNA.model.block;
 using XNA.model.character;
 using XNA.model.item;
@@ -69,8 +70,8 @@ namespace XNA.model
             instance.Position = new Vector2(x, y);
 
             // behaviors.
-            //instance.AddBehavior(new Sticky(instance, 64, 1));
-            //instance.AddBehavior(new Pickup(instance, 30));
+            instance.AddBehavior(new Sticky(instance, 64, 1));
+            instance.AddBehavior(new Pickup(instance, 30));
 
             GameModel.Instance.UpdateManager.AddObjectForUpdate(instance);
             GameModel.Instance.DrawManager.AddObjectForDraw(instance);

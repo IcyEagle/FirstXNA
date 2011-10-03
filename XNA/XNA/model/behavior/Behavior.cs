@@ -13,7 +13,7 @@ namespace XNA.model.behavior
         public bool Enabled
         {
             get { return _enabled; }
-            protected set { _enabled = value; }
+            //protected set { _enabled = value; }
         }
 
         public virtual void Disable()

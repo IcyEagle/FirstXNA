@@ -10,11 +10,9 @@ namespace XNA.model.grid
         public static readonly int RegionsInRow;
         public static readonly int RegionsInColumn;
 
-        // Deprecated.
         public delegate void OnEnterRegionDelegate(ActiveObject target, Point destination);
         public event OnEnterRegionDelegate OnEnterRegion;
 
-        // Deprecated.
         public delegate void OnLeaveRegionDelegate(ActiveObject target, Point source);
         public event OnLeaveRegionDelegate OnLeaveRegion;
 
@@ -65,6 +63,7 @@ namespace XNA.model.grid
          */
         public void MoveTo(ActiveObject target, Vector2 coordinates)
         {
+
             Point destinationRegion = DetermineRegion(coordinates);
 
             // assert.

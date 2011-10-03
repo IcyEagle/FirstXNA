@@ -25,7 +25,7 @@ namespace XNA.model.character
 
         public override void Deactivate(ActiveObject caller)
         {
-            caller.Deactivate(this);
+            //caller.Deactivate(this);
         }
         
     }

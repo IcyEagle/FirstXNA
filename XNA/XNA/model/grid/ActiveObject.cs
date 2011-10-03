@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using XNA.model.@base;
 using XNA.model.behavior;
@@ -12,12 +13,15 @@ namespace XNA.model.grid
     abstract public class ActiveObject : PhysicalObject
     {
         public delegate void OnMoveDelegate(ActiveObject target, Vector2 coordinates);
+
         public event OnMoveDelegate OnMove;
 
         private static int _objectCounter;
 
         // for Grid class as identifier.
         internal int ObjectID;
+
+        private bool _alive = true;
 
         protected ICollection<Behavior> Behaviors = new List<Behavior>();
 
@@ -28,11 +32,17 @@ namespace XNA.model.grid
 
         public override void Update()
         {
-            GameModel.Instance.Grid.MoveTo(this, new Vector2(X, Y));
-            base.Update();
+            if (_alive)
+            {
+                GameModel.Instance.Grid.MoveTo(this, new Vector2(X, Y));
+                base.Update();
 
-            // fire event.
-            if (OnMove != null) {OnMove.Invoke(this, Position);}
+                // fire event.
+                if (OnMove != null)
+                {
+                    OnMove.Invoke(this, Position);
+                }
+            }
         }
 
         public void AddBehavior(Behavior behavior)
@@ -51,6 +61,7 @@ namespace XNA.model.grid
 
         public void Destroy()
         {
+            _alive = false;
             Deactivate(this);
             GameModel.Instance.UpdateManager.RemoveObjectForUpdate(this);
             GameModel.Instance.DrawManager.RemoveObjectForDraw(this);
